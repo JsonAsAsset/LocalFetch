@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
+Console.Title = "Local Fetch";
+
 // Create Builder and services
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
