@@ -9,11 +9,9 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <AssemblyName>LocalFetch</AssemblyName>
         <OutputType>Exe</OutputType>
-        <ApplicationIcon>Icon256.ico</ApplicationIcon>
         <Authors>Tector</Authors>
         <Description>Local Fetch</Description>
         <PackageProjectUrl>https://github.com/GMatrixGames/JsonAsAsset</PackageProjectUrl>
-        <PackageIcon>Icon256.png</PackageIcon>
         <RepositoryUrl>https://github.com/GMatrixGames/JsonAsAsset</RepositoryUrl>
         <SignAssembly>False</SignAssembly>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -57,5 +55,4 @@
         <PackageReference Include="RestSharp.Newtonsoft.Json" Version="1.5.1" />
         <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="110.2.0" />
     </ItemGroup>
-    
 </Project>
