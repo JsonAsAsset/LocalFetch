@@ -11,8 +11,8 @@
         <OutputType>Exe</OutputType>
         <Authors>Tector</Authors>
         <Description>Local Fetch</Description>
-        <PackageProjectUrl>https://github.com/GMatrixGames/JsonAsAsset</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/GMatrixGames/JsonAsAsset</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/JsonAsAsset/JsonAsAsset</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/JsonAsAsset/JsonAsAsset</RepositoryUrl>
         <SignAssembly>False</SignAssembly>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <RuntimeIdentifier>win-x64</RuntimeIdentifier>
