@@ -95,11 +95,11 @@ public class FetchContext
 
     public async Task Initialize()
     {
-        WriteLog("CORE", ConsoleColor.Green, "Initializing FetchContext, and provider..");
+        WriteLog("CORE", ConsoleColor.Cyan, "Initializing FetchContext, and provider..");
 
         // Find config folder
         string config_folder = System.AppDomain.CurrentDomain.BaseDirectory.SubstringBeforeLast("\\Plugins\\") + "\\Config\\";
-        WriteLog("Provider", ConsoleColor.Red, $"Found config folder: {config_folder.SubstringBeforeLast("\\")}");
+        WriteLog("UserSettings", ConsoleColor.Blue, $"Found config folder: {config_folder.SubstringBeforeLast("\\")}");
 
         // DefaultEditorPerProjectUserSettings
         ConfigIni config = GetEditorConfig();

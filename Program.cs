@@ -6,6 +6,11 @@ Console.Title = "Local Fetch";
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.SetMinimumLevel(LogLevel.Information);
+builder.Logging.AddFilter("Microsoft.Hosting.Lifetime", LogLevel.None);
+
 // Create DB LocalFetch
 services.AddSingleton<FetchContext>();
 services.AddDbContext<DbContext>(opt => opt.UseInMemoryDatabase("LocalFetch"));
@@ -36,7 +41,7 @@ var globals = app.Services.GetRequiredService<FetchContext>();
 await globals.Initialize();
 
 // Log creation of provider
-globals.WriteLog("CORE", ConsoleColor.Green, "Initialized provider successfully");
+globals.WriteLog("CORE", ConsoleColor.Cyan, "Initialized provider successfully");
 
 if (!app.Environment.IsDevelopment())
 {
@@ -52,7 +57,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 // Completed :]
-globals.WriteLog("CORE", ConsoleColor.Green, "Running API...");
-globals.WriteLog("CREDITS", ConsoleColor.DarkRed, "Developed by Tector and GMatrix. Thank you for using our software!");
+globals.WriteLog("CORE", ConsoleColor.Cyan, "Running API...");
+globals.WriteLog("INFO", ConsoleColor.Yellow, "Don't close this window unless you are done using JsonAsAsset, it will not work without it.");
+globals.WriteLog("CREDITS", ConsoleColor.Blue, "Developed by Tector and GMatrix. Thank you for using our software!");
 
 app.Run();
