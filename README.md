@@ -11,4 +11,4 @@
 <br> In Unreal Engine 5.2 and above, editor only data has been introduced to Unreal Engine. Optional segments are unreliable in CUE4Parse, CUE5Parse may have this fixed.
 
 **Contributors**:
-<br> [Tector](https://github.com/Tectors), [GMatrix](https://github.com/GMatrixGames)
+<br> [Tector](https://github.com/Tectors), and [GMatrix](https://github.com/GMatrixGames)
