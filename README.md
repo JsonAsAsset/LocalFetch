@@ -12,3 +12,6 @@
 
 **Contributors**:
 <br> [Tector](https://github.com/Tectors), and [GMatrix](https://github.com/GMatrixGames)
+
+**Build**:
+Open a console in this directory, and run `dotnet build`.
