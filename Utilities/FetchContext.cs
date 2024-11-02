@@ -77,14 +77,11 @@ public class FetchContext
         ArchiveDirectory = GetPathProperty(config, "ArchiveDirectory");
         UnrealVersion = (EGame)Enum.Parse(typeof(EGame), GetStringProperty(config, "UnrealVersion"), true);
         ArchiveKey = GetStringProperty(config, "ArchiveKey");
-        bHideConsole = GetBoolProperty(config, "bHideConsole");
 
         [DllImport("kernel32.dll")]
         static extern IntPtr GetConsoleWindow();
         [DllImport("user32.dll")]
         static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
-        ShowWindow(GetConsoleWindow(), bHideConsole ? 0 : 5);
 
         if (MappingFilePath != "") WriteLog("UserSettings", ConsoleColor.Blue, $"Mappings: {MappingFilePath.SubstringBeforeLast("\\")}");
         WriteLog("UserSettings", ConsoleColor.Blue, $"Archive Directory: {ArchiveDirectory.SubstringBeforeLast("\\")}");
