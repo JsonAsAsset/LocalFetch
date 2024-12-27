@@ -8,14 +8,17 @@
      xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
      xmlns:adonisControls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
      xmlns:adonisExtensions="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
+     Width="869" Height="711" WindowStartupLocation="CenterScreen"
      Title="Local Fetch"
-     Width="869"
-     Height="711"
+     ShrinkTitleBarWhenMaximized="False"
+     TitleBarBackground="#2B2D30"
+     TitleBarForeground="#ffffff"
+     WindowButtonHighlightBrush="#45484d"
      Background="#2B2D30">
      
      <adonisControls:AdonisWindow.Style>
           <Style TargetType="adonisControls:AdonisWindow" >
-               <Setter Property="Title" Value="Local Fetch" />
+               <Setter Property="Title" Value="Local Fetch"/>
           </Style>
      </adonisControls:AdonisWindow.Style>
      
