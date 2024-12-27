@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows;
 using AdonisUI.Controls;
 using LocalFetch.Services;
 using LocalFetch.ViewModels;
+
 
 namespace LocalFetch
 {
@@ -31,7 +33,7 @@ namespace LocalFetch
             
             Task.Run(async () =>
             {
-                await Task.Delay(2000);
+                await Task.Delay(3500);
                 _applicationView.Status.UpdateStatusLabel("Thank you for using our software!", "System");
             });
         }

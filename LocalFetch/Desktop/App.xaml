@@ -14,12 +14,16 @@
             <Color x:Key="{x:Static adonisUi:Colors.Layer0BackgroundColor}">#2B2D30</Color>
             <SolidColorBrush x:Key="{x:Static adonisUi:Brushes.Layer0BackgroundBrush}" Color="{DynamicResource {x:Static adonisUi:Colors.Layer0BackgroundColor}}"/>
             
+            <LinearGradientBrush x:Key="{x:Static adonisUi:Brushes.ForegroundBrush}" StartPoint="1 1" EndPoint="0 0">
+                <GradientStop Offset="0.0" Color="White"/>
+            </LinearGradientBrush>
+            
             <Color x:Key="{x:Static adonisUi:Colors.AccentColor}">#1f7cff</Color>
             <LinearGradientBrush x:Key="{x:Static adonisUi:Brushes.AccentBrush}" StartPoint="1 1" EndPoint="0 0">
                 <GradientStop Offset="0.0" Color="#2B2D30"/>
                 <GradientStop Offset="1.0" Color="#2B2D30"/>
             </LinearGradientBrush>
-            <LinearGradientBrush x:Key="{x:Static adonisUi:Brushes.ForegroundBrush}" StartPoint="1 1" EndPoint="0 0">
+            <LinearGradientBrush x:Key="{x:Static adonisUi:Brushes.Layer4BorderBrush}" StartPoint="1 1" EndPoint="0 0">
                 <GradientStop Offset="0.0" Color="#2B2D30"/>
             </LinearGradientBrush>
             <LinearGradientBrush x:Key="{x:Static adonisUi:Brushes.AlertBrush}" StartPoint="1 1" EndPoint="0 0">
@@ -27,7 +31,7 @@
             </LinearGradientBrush>
             
             <LinearGradientBrush x:Key="{x:Static adonisUi:Brushes.Layer1BackgroundBrush}" StartPoint="1 1" EndPoint="0 0">
-                <GradientStop Offset="1.0" Color="#16181a"/>
+                <GradientStop Offset="1.0" Color="#282b2e"/>
             </LinearGradientBrush>
         </ResourceDictionary>
     </Application.Resources>

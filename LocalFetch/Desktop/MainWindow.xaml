@@ -9,7 +9,7 @@
      xmlns:adonisExtensions="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
      Title="Local Fetch"
      WindowStartupLocation="CenterScreen" Loaded="OnLoaded"
-     TitleBarBackground="{DynamicResource {x:Static adonisUi:Brushes.ForegroundBrush}}" TitleBarForeground="#ffffff"
+     TitleBarBackground="{DynamicResource {x:Static adonisUi:Brushes.Layer4BorderBrush}}" TitleBarForeground="#ffffff"
      WindowButtonHighlightBrush="#45484d" Background="#2B2D30"
      Width="{Binding Source={x:Static SystemParameters.MaximizedPrimaryScreenWidth}, Converter={converters:RatioConverter}, ConverterParameter='0.60'}"
      Height="{Binding Source={x:Static SystemParameters.MaximizedPrimaryScreenHeight}, Converter={converters:RatioConverter}, ConverterParameter='0.65'}">
@@ -77,6 +77,11 @@
                                    <Setter Property="Text" Value="{Binding Status.Label}"/>
                                    <!--Didn't work.-->
                                    <!--<Setter Property="Foreground" Value="{Binding Status.StatusTextColor}"/>-->
+                                   <Setter Property="Effect">
+                                        <Setter.Value>
+                                             <DropShadowEffect Color="#11000000" BlurRadius="30" Direction="315" ShadowDepth="2"/>
+                                        </Setter.Value>
+                                   </Setter>
                               </Style>
                          </TextBlock.Style>
                     </TextBlock>
