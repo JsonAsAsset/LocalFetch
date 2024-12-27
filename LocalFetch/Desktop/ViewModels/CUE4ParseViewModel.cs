@@ -17,7 +17,6 @@ using UE4Config.Parsing;
 
 namespace LocalFetch.ViewModels;
 
-// messy.. fix later
 public class CUE4ParseViewModel : ViewModel
 {
     private string _internalGameName;

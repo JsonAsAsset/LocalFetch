@@ -5,7 +5,7 @@ namespace LocalFetch.ViewModels;
 
 public class ApplicationViewModel : ViewModel
 {
-    public string InitialWindowTitle => "";
+    public string InitialWindowTitle => "Local Fetch";
     public string TitleExtra => "";
     public string GameDisplayName => "";
     

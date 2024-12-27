@@ -18,7 +18,7 @@ namespace LocalFetchRestAPI
             Provider = _provider;
         }
 
-        public async Task RunWebApp(string[] args)
+        public async Task RunApi(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
             var services = builder.Services;

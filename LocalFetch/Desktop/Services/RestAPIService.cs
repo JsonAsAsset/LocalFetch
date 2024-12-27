@@ -17,8 +17,7 @@ namespace LocalFetch.Services
         public async Task Initialize()
         {
             LocalFetchApi newLocalFetchApi = new LocalFetchApi(CUE4Parse.Provider);
-            
-            await newLocalFetchApi.RunWebApp([]);
+            await newLocalFetchApi.RunApi([]);
         }
     }
 }
