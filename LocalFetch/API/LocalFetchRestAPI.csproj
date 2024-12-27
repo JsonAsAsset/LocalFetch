@@ -4,8 +4,8 @@
     </Target>
 
     <PropertyGroup>
-		<TargetFramework>net8.0-windows7.0</TargetFramework>
-		<Nullable>enable</Nullable>
+        <TargetFramework>net8.0-windows7.0</TargetFramework>
+        <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <AssemblyName>LocalFetchRestAPI</AssemblyName>
         <OutputType>Exe</OutputType>
@@ -16,14 +16,14 @@
         <SignAssembly>False</SignAssembly>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-        <UseWPF>true</UseWPF>
-        <CetCompat>false</CetCompat>
         <SelfContained>true</SelfContained>
+        <PublishSingleFile>true</PublishSingleFile>
+        <PublishTrimmed>true</PublishTrimmed>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\CUE4Parse\CUE4Parse-Conversion\CUE4Parse-Conversion.csproj"/>
-      <ProjectReference Include="..\..\..\CUE4Parse\CUE4Parse\CUE4Parse.csproj"/>
+        <ProjectReference Include="..\..\..\CUE4Parse\CUE4Parse-Conversion\CUE4Parse-Conversion.csproj"/>
+        <ProjectReference Include="..\..\..\CUE4Parse\CUE4Parse\CUE4Parse.csproj"/>
     </ItemGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
