@@ -24,7 +24,7 @@ namespace LocalFetchRestAPI.Controllers
     {
         // -----------------------------------------------------------------------------------------------------------------------
         private readonly DbContext _context = context;
-        private readonly AbstractVfsFileProvider _provider = LocalFetchApi.Provider; // Set from LocalFetch
+        private readonly AbstractVfsFileProvider? _provider = LocalFetchApi.Provider; // Set from LocalFetch
         // -----------------------------------------------------------------------------------------------------------------------
         
         // Normal Export
@@ -36,19 +36,19 @@ namespace LocalFetchRestAPI.Controllers
 
             try
             {
-                var localObject = _provider.LoadObject(path);
+                var localObject = _provider?.LoadObject(path);
 
-                if (!raw)
+                // Return a raw export
+                if (raw) return HandleRawExport(path);
+                
+                // Switch on Class Type
+                switch(localObject)
                 {
-                    // Switch on Class Type
-                    switch(localObject)
-                    {
-                        case UTexture texture:
-                            return ProcessTexture(texture, contentType);
-                        case USoundWave wave:
-                            return ProcessSoundWave(wave);
-                    };
-                }
+                    case UTexture texture:
+                        return ProcessTexture(texture, contentType);
+                    case USoundWave wave:
+                        return ProcessSoundWave(wave);
+                };
 
                 return HandleRawExport(path);
             }
@@ -67,12 +67,12 @@ namespace LocalFetchRestAPI.Controllers
         // Return a texture as a file / encoding
         private ActionResult ProcessTexture(UTexture texture, string contentType)
         {
-            if (texture.GetFirstMip().BulkData.Data is { } mipData && contentType == "application/octet-stream")
+            if (texture.GetFirstMip()?.BulkData.Data is { } mipData && contentType == "application/octet-stream")
             {
                 return File(mipData, contentType);
             }
 
-            SKBitmap textureData = texture.Decode();
+            SKBitmap? textureData = texture.Decode();
             if (textureData == null)
             {
                 return StatusCode(500, new
@@ -116,13 +116,13 @@ namespace LocalFetchRestAPI.Controllers
         private ActionResult HandleRawExport(string path)
         {
             var objectPath = path.SubstringBefore('.') + ".o.uasset";
-            var exports = _provider.LoadAllObjects(path);
+            var exports = _provider?.LoadAllObjects(path);
             var finalExports = new List<UObject>(exports);
 
             finalExports.AddRange(exports);
 
             var mergedExports = new List<UObject>();
-            if (_provider.TryLoadPackage(objectPath, out var editorAsset))
+            if (_provider != null && _provider.TryLoadPackage(objectPath, out var editorAsset))
             {
                 foreach (var export in exports)
                 {

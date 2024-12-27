@@ -1,7 +1,11 @@
 using CUE4Parse.FileProvider.Vfs;
 using Microsoft.EntityFrameworkCore;
+using LocalFetchRestAPI.Controllers;
 
 // Startup of Local Fetch's API
+// The API is at http://localhost:1500
+//
+// If you know any better, remove the Main function from this, as it's not needed, but I'm not quite sure how to without compile errors
 
 namespace LocalFetchRestAPI
 {
@@ -9,18 +13,9 @@ namespace LocalFetchRestAPI
     {
         public static AbstractVfsFileProvider? Provider;
 
-        public LocalFetchApi(AbstractVfsFileProvider Newprovider)
+        public LocalFetchApi(AbstractVfsFileProvider _provider)
         {
-            Provider = Newprovider;
-        }
-
-        public static void Main(string[] args)
-        {
-        }
-
-        public void Start(string[] args)
-        {
-            Task.Run(async () => await RunWebApp(args)).GetAwaiter().GetResult();
+            Provider = _provider;
         }
 
         public async Task RunWebApp(string[] args)
@@ -32,9 +27,10 @@ namespace LocalFetchRestAPI
             builder.Logging.AddConsole();
             builder.Logging.SetMinimumLevel(LogLevel.Information);
             builder.Logging.AddFilter("Microsoft.Hosting.Lifetime", LogLevel.None);
+            builder.Services.AddControllers().AddApplicationPart(typeof(LocalFetchApiController).Assembly);
 
             services.AddDbContext<DbContext>(opt => opt.UseInMemoryDatabase("LocalFetchWeb"));
-            services.AddControllers();  // Ensure controllers are added
+            services.AddControllers();
             services.AddEndpointsApiExplorer();
 
             services.AddHsts(options =>
@@ -71,7 +67,12 @@ namespace LocalFetchRestAPI
 
             Console.WriteLine("Web API is running in the background.");
 
-            await app.RunAsync();
+            await app.RunAsync("http://localhost:1500");
+        }
+        
+        // Doesn't compile without this ?
+        public static void Main(string[] args)
+        {
         }
     }
 }

@@ -19,7 +19,7 @@ namespace LocalFetch
         {
             // Load CUE4Parse and Start the API
             await _applicationView.CUE4Parse.Initialize();
-            _applicationView.RestApiService.Initialize();
+            await _applicationView.RestApiService.Initialize();
         }
     }
 }

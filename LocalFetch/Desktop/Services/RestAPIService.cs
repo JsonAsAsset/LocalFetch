@@ -1,4 +1,5 @@
-﻿using LocalFetch.ViewModels;
+﻿using System.Threading.Tasks;
+using LocalFetch.ViewModels;
 using LocalFetchRestAPI;
 
 namespace LocalFetch.Services
@@ -13,11 +14,11 @@ namespace LocalFetch.Services
             CUE4Parse = cue4parse;
         }
 
-        public void Initialize()
+        public async Task Initialize()
         {
-            LocalFetchApi NewLocalFetchAPI = new LocalFetchApi(CUE4Parse.Provider);
+            LocalFetchApi newLocalFetchApi = new LocalFetchApi(CUE4Parse.Provider);
             
-            NewLocalFetchAPI.Start(new string[] { });
+            await newLocalFetchApi.RunWebApp([]);
         }
     }
 }

@@ -18,6 +18,7 @@
         <RuntimeIdentifier>win-x64</RuntimeIdentifier>
         <UseWPF>true</UseWPF>
         <CetCompat>false</CetCompat>
+        <SelfContained>true</SelfContained>
     </PropertyGroup>
 
     <ItemGroup>
