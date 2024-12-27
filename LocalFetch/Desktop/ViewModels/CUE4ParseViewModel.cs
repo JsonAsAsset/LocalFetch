@@ -104,6 +104,12 @@ public class CUE4ParseViewModel : ViewModel
         return config;
     }
 
+    public void InitalizeProvider()
+    {
+        GetEditorConfig();
+        Provider = new DefaultFileProvider(ArchiveDirectory, SearchOption.TopDirectoryOnly, true, new VersionContainer(UnrealVersion));
+    }
+
     public async Task Initialize()
     {
         WriteLog("CORE", ConsoleColor.Cyan, "Initializing FetchContext, and provider..");
@@ -116,7 +122,6 @@ public class CUE4ParseViewModel : ViewModel
         ConfigIni config = GetEditorConfig();
 
         // Create new file provider
-        Provider = new DefaultFileProvider(ArchiveDirectory, SearchOption.TopDirectoryOnly, true, new VersionContainer(UnrealVersion));
         Provider.Initialize();
         
         InternalGameName = ArchiveDirectory.SubstringBeforeLast(ArchiveDirectory.Contains("eFootball") ? "\\pak" : "\\Content").SubstringAfterLast("\\");

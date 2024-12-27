@@ -9,7 +9,7 @@
      xmlns:adonisExtensions="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
      Title="Local Fetch"
      WindowStartupLocation="CenterScreen" Loaded="OnLoaded"
-     TitleBarBackground="Transparent" TitleBarForeground="#ffffff"
+     TitleBarBackground="{DynamicResource {x:Static adonisUi:Brushes.ForegroundBrush}}" TitleBarForeground="#ffffff"
      WindowButtonHighlightBrush="#45484d" Background="#2B2D30"
      Width="{Binding Source={x:Static SystemParameters.MaximizedPrimaryScreenWidth}, Converter={converters:RatioConverter}, ConverterParameter='0.60'}"
      Height="{Binding Source={x:Static SystemParameters.MaximizedPrimaryScreenHeight}, Converter={converters:RatioConverter}, ConverterParameter='0.65'}">
@@ -32,8 +32,101 @@
           </Style>
      </adonisControls:AdonisWindow.Style>
      
-     <adonisControls:AdonisWindow.TitleBarContent>
-          <StackPanel Orientation="Horizontal" Height="40.0" HorizontalAlignment="Left">
-          </StackPanel>
-     </adonisControls:AdonisWindow.TitleBarContent>
+     <adonisControls:AdonisWindow.Resources>
+          <ResourceDictionary>
+               <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="Views/Resources/Resources.xaml"/>
+               </ResourceDictionary.MergedDictionaries>
+          </ResourceDictionary>
+     </adonisControls:AdonisWindow.Resources>
+     
+     <Grid>
+          <Grid.RowDefinitions>
+               <RowDefinition Height="*"/>
+               <RowDefinition Height="Auto" />
+               <RowDefinition Height="{adonisUi:Space 1}" />
+               <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+          
+          <StatusBar Grid.Row="2" MinHeight="1" MaxHeight="1" adonisExtensions:LayerExtension.Layer="2" Background="#232528">
+          </StatusBar>
+          
+          <!--Status Bar - handled in Status.AppStatus-->
+          <StatusBar Grid.Row="3" MinHeight="32" MaxHeight="32" adonisExtensions:LayerExtension.Layer="3" Margin="0 0 0 0">
+               <StatusBar.Style>
+                     <Style TargetType="{x:Type StatusBar}" BasedOn="{StaticResource {x:Type StatusBar}}">
+                         <Style.Triggers>
+                             <DataTrigger Binding="{Binding Status.App}" Value="{x:Static local:EAppStatus.Completed}">
+                                 <Setter Property="Background" Value="{DynamicResource {x:Static adonisUi:Brushes.AccentBrush}}" />
+                                 <Setter Property="Foreground" Value="White" />
+                             </DataTrigger>
+                             <DataTrigger Binding="{Binding Status.App}" Value="{x:Static local:EAppStatus.Loading}">
+                                 <Setter Property="Background" Value="{DynamicResource {x:Static adonisUi:Brushes.AlertBrush}}" />
+                                 <Setter Property="Foreground" Value="White" />
+                             </DataTrigger>
+                         </Style.Triggers>
+                     </Style>
+               </StatusBar.Style>
+               
+               <StatusBarItem Margin="10,0,0,1.4" >
+                    <TextBlock>
+                         <TextBlock.Style>
+                              <Style TargetType="{x:Type TextBlock}">
+                                   <Setter Property="FontFamily" Value="Consolas"/>
+                                   <Setter Property="FontSize" Value="11.9"></Setter>
+                                   <Setter Property="Text" Value="{Binding Status.Label}"/>
+                              </Style>
+                         </TextBlock.Style>
+                    </TextBlock>
+               </StatusBarItem>
+               
+               <StatusBarItem Margin="0 0 5 0" HorizontalAlignment="Right" >
+                    <StackPanel Orientation="Horizontal">
+                         <StackPanel Orientation="Horizontal">
+                              <StackPanel.Style>
+                                   <Style TargetType="StackPanel">
+                                        <Style.Triggers>
+                                             <DataTrigger Binding="{Binding Status.IsReady}" Value="False">
+                                                  <Setter Property="Visibility" Value="Collapsed" />
+                                             </DataTrigger>
+                                        </Style.Triggers>
+                                   </Style>
+                              </StackPanel.Style>
+                         
+                              <StatusBarItem Margin="2 2 -7 0">
+                                   <Viewbox Width="24" Height="24">
+                                        <Canvas Width="24" Height="24">
+                                             <Path Fill="#ffffff" Data="{StaticResource BroadcastIcon}" />
+                                        </Canvas>
+                                   </Viewbox>
+                              </StatusBarItem>
+                              <StatusBarItem Margin="2 0 0 0">
+                                   <TextBlock>
+                                        <TextBlock.Style>
+                                             <Style TargetType="{x:Type TextBlock}">
+                                                  <Setter Property="FontFamily" Value="Consolas"/>
+                                                  <Setter Property="FontSize" Value="8.9"></Setter>
+                                                  <Setter Property="Text" Value="localhost:1500"/>
+                                             </Style>
+                                        </TextBlock.Style>
+                                   </TextBlock>
+                              </StatusBarItem>
+                         </StackPanel>
+                         
+                         <StackPanel Orientation="Horizontal">
+                              <StatusBarItem Margin="6 0 -3 0" HorizontalAlignment="Right" >
+                                   <Button Style="{DynamicResource {x:Static adonisUi:Styles.ToolbarButton}}" ToolTip="Github Icon">
+                                        <Viewbox Width="16" Height="16" HorizontalAlignment="Center">
+                                             <Canvas Width="24" Height="24">
+                                                  <Path Fill="#ffffff" Data="{StaticResource GitHubIcon}" />
+                                             </Canvas>
+                                        </Viewbox>
+                                   </Button>
+                              </StatusBarItem>
+                         </StackPanel>
+                    </StackPanel>
+               </StatusBarItem>
+          </StatusBar>
+     </Grid>
+
 </adonisControls:AdonisWindow>
