@@ -1,0 +1,38 @@
+﻿<adonisControls:AdonisWindow x:Class="LocalFetch.MainWindow"
+     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+     xmlns:local="clr-namespace:LocalFetch"
+     xmlns:converters="clr-namespace:LocalFetch.Views.Resources.Converters"
+     xmlns:services="clr-namespace:LocalFetch.Services"
+     xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
+     xmlns:adonisControls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
+     xmlns:adonisExtensions="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
+     WindowStartupLocation="CenterScreen" Loaded="OnLoaded"
+     TitleBarBackground="Transparent" TitleBarForeground="#ffffff"
+     WindowButtonHighlightBrush="#45484d" Background="#2B2D30"
+     Width="{Binding Source={x:Static SystemParameters.MaximizedPrimaryScreenWidth}, Converter={converters:RatioConverter}, ConverterParameter='0.45'}"
+     Height="{Binding Source={x:Static SystemParameters.MaximizedPrimaryScreenHeight}, Converter={converters:RatioConverter}, ConverterParameter='0.65'}">
+     
+     <adonisControls:AdonisWindow.Style>
+          <Style TargetType="adonisControls:AdonisWindow" BasedOn="{StaticResource {x:Type adonisControls:AdonisWindow}}" >
+               <Setter Property="Title" Value="{Binding DataContext.InitialWindowTitle, RelativeSource={RelativeSource Self}}" />
+               <Style.Triggers>
+                    <DataTrigger Binding="{Binding DataContext.TitleExtra, RelativeSource={RelativeSource Self}, Converter={x:Static converters:IsNullToBoolReversedConverter.Instance}}" Value="True">
+                         <Setter Property="Title">
+                              <Setter.Value>
+                                   <MultiBinding StringFormat="{}{0} - {1} {2}">
+                                        <Binding Path="DataContext.InitialWindowTitle" RelativeSource="{RelativeSource Self}" />
+                                        <Binding Path="DataContext.GameDisplayName" RelativeSource="{RelativeSource Self}" />
+                                   </MultiBinding>
+                              </Setter.Value>
+                         </Setter>
+                    </DataTrigger>
+               </Style.Triggers>
+          </Style>
+     </adonisControls:AdonisWindow.Style>
+     
+     <adonisControls:AdonisWindow.TitleBarContent>
+          <StackPanel Orientation="Horizontal" Height="40.0" HorizontalAlignment="Left">
+          </StackPanel>
+     </adonisControls:AdonisWindow.TitleBarContent>
+</adonisControls:AdonisWindow>

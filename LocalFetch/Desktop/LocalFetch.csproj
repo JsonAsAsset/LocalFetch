@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
-
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -16,12 +15,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\API\LocalFetchRestAPI.csproj"/>
+    <ProjectReference Include="..\..\..\CUE4Parse\CUE4Parse-Conversion\CUE4Parse-Conversion.csproj"/>
+    <ProjectReference Include="..\..\..\CUE4Parse\CUE4Parse\CUE4Parse.csproj"/>
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="LocalFetch.ico" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AdonisUI" Version="1.17.1" />
     <PackageReference Include="AdonisUI.ClassicTheme" Version="1.17.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="EpicManifestParser" Version="1.2.70-temp"/>
+    <PackageReference Include="Infrablack.UE4Config" Version="0.7.2.97"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.5"/>
+    <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="110.2.0"/>
   </ItemGroup>
 
 </Project>
