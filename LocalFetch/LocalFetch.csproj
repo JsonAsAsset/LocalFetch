@@ -55,9 +55,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\API\LocalFetchRestAPI.csproj"/>
-      <ProjectReference Include="..\..\..\CUE4Parse\CUE4Parse-Conversion\CUE4Parse-Conversion.csproj"/>
-      <ProjectReference Include="..\..\..\CUE4Parse\CUE4Parse\CUE4Parse.csproj"/>
+      <ProjectReference Include="..\LocalFetch.API\LocalFetch.API.csproj"/>
+      <ProjectReference Include="..\Dependencies\CUE4Parse\CUE4Parse-Conversion\CUE4Parse-Conversion.csproj"/>
+      <ProjectReference Include="..\Dependencies\CUE4Parse\CUE4Parse\CUE4Parse.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
