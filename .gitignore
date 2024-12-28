@@ -75,7 +75,6 @@ _[Ss]cripts
 *.v2
 *.db
 *.v1
-*.sln
 .idea/
 /JsonAsAsset/ExternalSource/LocalFetch/.vs
 /JsonAsAsset/ExternalSource/LocalFetch/.config
