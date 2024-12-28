@@ -13,9 +13,9 @@ namespace LocalFetchRestAPI
     {
         public static AbstractVfsFileProvider? Provider;
 
-        public LocalFetchApi(AbstractVfsFileProvider _provider)
+        public LocalFetchApi(AbstractVfsFileProvider provider)
         {
-            Provider = _provider;
+            Provider = provider;
         }
 
         public async Task RunApi(string[] args)
@@ -29,7 +29,7 @@ namespace LocalFetchRestAPI
             builder.Logging.AddFilter("Microsoft.Hosting.Lifetime", LogLevel.None);
             builder.Services.AddControllers().AddApplicationPart(typeof(LocalFetchApiController).Assembly);
 
-            services.AddDbContext<DbContext>(opt => opt.UseInMemoryDatabase("LocalFetchWeb"));
+            services.AddDbContext<DbContext>(opt => opt.UseInMemoryDatabase("LocalFetchRestAPI"));
             services.AddControllers();
             services.AddEndpointsApiExplorer();
 

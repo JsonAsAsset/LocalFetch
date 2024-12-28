@@ -1,7 +1,7 @@
 ﻿namespace LocalFetch;
 
-public enum EAppStatus
+public enum EApplicationStatus
 {
-    Completed,
-    Loading
+    Loading,
+    Completed
 }

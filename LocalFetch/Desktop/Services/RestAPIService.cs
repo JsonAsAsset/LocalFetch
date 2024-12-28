@@ -1,23 +1,32 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using LocalFetch.ViewModels;
+
+// Starts the REST API for Local Fetch (used by JsonAsAsset)
+//
+// Uses LocalFetchRestAPI
+// CUE4Parse Provider is sent to it on constructor
+
 using LocalFetchRestAPI;
 
 namespace LocalFetch.Services
 {
-    // Starts the REST API for Local Fetch (used by JsonAsAsset)
-    public sealed class RestAPIService
+    public sealed class RestApiService(CUE4ParseViewModel cue4Parse)
     {
-        public CUE4ParseViewModel CUE4Parse { get; }
-
-        public RestAPIService(CUE4ParseViewModel cue4parse)
-        {
-            CUE4Parse = cue4parse;
-        }
+        // ReSharper disable once InconsistentNaming
+        private CUE4ParseViewModel CUE4Parse { get; } = cue4Parse;
 
         public async Task Initialize()
         {
-            LocalFetchApi newLocalFetchApi = new LocalFetchApi(CUE4Parse.Provider);
-            await newLocalFetchApi.RunApi([]);
+            if (CUE4Parse.Provider != null)
+            {
+                var newLocalFetchApi = new LocalFetchApi(CUE4Parse.Provider);
+                await newLocalFetchApi.RunApi([]);
+            }
+            else
+            {
+                throw new Exception("No provider found during initialization.");
+            }
         }
     }
 }

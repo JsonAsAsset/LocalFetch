@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:converters="clr-namespace:LocalFetch.Views.Resources.Converters"
+             xmlns:extensions="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -10,7 +12,7 @@
                 <ResourceDictionary Source="pack://application:,,,/AdonisUI;component/ColorSchemes/Light.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/AdonisUI.ClassicTheme;component/Resources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
+            
             <Color x:Key="{x:Static adonisUi:Colors.Layer0BackgroundColor}">#2B2D30</Color>
             <SolidColorBrush x:Key="{x:Static adonisUi:Brushes.Layer0BackgroundBrush}" Color="{DynamicResource {x:Static adonisUi:Colors.Layer0BackgroundColor}}"/>
             
@@ -18,10 +20,116 @@
                 <GradientStop Offset="0.0" Color="White"/>
             </LinearGradientBrush>
             
+            <Style x:Key="TabItemFillSpace" TargetType="TabItem" >
+                <Setter Property="Width">
+                    <Setter.Value>
+                        <MultiBinding Converter="{x:Static converters:TabSizeConverter.Instance}">
+                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}" />
+                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}" Path="ActualWidth" />
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            
+            <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                <Setter Property="Background" Value="#262626" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Padding" Value="5" />
+                <!-- Override the hover highlight -->
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ScrollViewer Margin="0"
+                                              x:Name="PART_ContentHost" 
+                                              VerticalScrollBarVisibility="Auto" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            
+                <Style x:Key="AssetsListBox" TargetType="ListBox" BasedOn="{StaticResource {x:Type ListBox}}">
+        <Setter Property="ItemsSource" Value="{Binding SelectedItem.AssetsList.AssetsView, ElementName=AssetsFolderName, IsAsync=True}" />
+        <Setter Property="SelectionMode" Value="Extended" />
+        <Setter Property="extensions:ScrollViewerExtension.VerticalScrollBarExpansionMode" Value="NeverExpand"/>
+        <Setter Property="extensions:ScrollViewerExtension.VerticalScrollBarPlacement" Value="Docked"/>
+        <Setter Property="extensions:ScrollViewerExtension.HorizontalScrollBarExpansionMode" Value="NeverExpand"/>
+        <Setter Property="extensions:ScrollViewerExtension.HorizontalScrollBarPlacement" Value="Docked"/>
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="Padding" Value="5 3" />
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding SelectedItem.AssetsList.Assets.Count, ElementName=AssetsFolderName, FallbackValue=0}" Value="0">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Grid>
+                                <TextBlock Text="No package found in folder" FontWeight="SemiBold" TextAlignment="Center" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+            
+            <Style x:Key="CustomSeparator" TargetType="Separator" BasedOn="{StaticResource {x:Type Separator}}">
+                <Setter Property="Background" Value="{DynamicResource {x:Static adonisUi:Brushes.Layer1BorderBrush}}"/>
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static adonisUi:Brushes.ForegroundBrush}}"/>
+                <Setter Property="Margin" Value="0 8" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Separator}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Separator Grid.Column="0" VerticalAlignment="Center" Margin="0"
+                                           Background="{TemplateBinding Background}"
+                                           Foreground="{TemplateBinding Foreground}"/>
+                                <TextBlock x:Name="TagTextBlock" Grid.Column="1" VerticalAlignment="Center" Text="{TemplateBinding Tag}"
+                                           FontWeight="SemiBold" FontSize="11" Margin="10 0" />
+                                <Separator Grid.Column="2" VerticalAlignment="Center" Margin="0"
+                                           Background="{TemplateBinding Background}"
+                                           Foreground="{TemplateBinding Foreground}"/>
+                            </Grid>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="Text" SourceName="TagTextBlock" Value="">
+                                    <Setter Property="Margin" TargetName="TagTextBlock" Value="0" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            
             <Color x:Key="{x:Static adonisUi:Colors.AccentColor}">#1f7cff</Color>
+            <Color x:Key="{x:Static adonisUi:Colors.Layer3BackgroundColor}">#2B2D30</Color>
+            <Color x:Key="{x:Static adonisUi:Colors.Layer3BorderColor}">#17171a</Color>
+            <SolidColorBrush x:Key="{x:Static adonisUi:Brushes.Layer3BorderBrush}" Color="{DynamicResource {x:Static adonisUi:Colors.Layer3BorderColor}}"/>
+
+            <Color x:Key="{x:Static adonisUi:Colors.Layer3HighlightColor}">#43454A</Color>
+            <Color x:Key="{x:Static adonisUi:Colors.Layer3IntenseHighlightColor}">#43454A</Color>
             <LinearGradientBrush x:Key="{x:Static adonisUi:Brushes.AccentBrush}" StartPoint="1 1" EndPoint="0 0">
-                <GradientStop Offset="0.0" Color="#2B2D30"/>
-                <GradientStop Offset="1.0" Color="#2B2D30"/>
+                <!--<GradientStop Offset="0.0" Color="#2B2D30"/>
+                <GradientStop Offset="1.0" Color="#2B2D30"/>-->
+                
+                <!--<GradientStop Offset="1.0" Color="#2B2D30"/>-->
+                <GradientStop Offset="0.0" Color="#1b74fa"></GradientStop>
             </LinearGradientBrush>
             <LinearGradientBrush x:Key="{x:Static adonisUi:Brushes.Layer4BorderBrush}" StartPoint="1 1" EndPoint="0 0">
                 <GradientStop Offset="0.0" Color="#2B2D30"/>
