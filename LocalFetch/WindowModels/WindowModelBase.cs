@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using LocalFetch.Shared.Framework;
+﻿using LocalFetch.Shared.Framework;
 
 namespace LocalFetch.WindowModels;
 

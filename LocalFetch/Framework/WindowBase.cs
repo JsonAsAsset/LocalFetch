@@ -1,5 +1,4 @@
-﻿using System;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using LocalFetch.Shared.Services;
 
 namespace LocalFetch.Shared.Framework;

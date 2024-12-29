@@ -34,45 +34,45 @@ public class CUE4ParseViewModel : ViewModelBase
     public static EGame UnrealVersion;
     public static string? ArchiveKey;
 
-    public void WriteLog(string source, ConsoleColor Color, string description)
+    public void WriteLog(string source, ConsoleColor color, string description)
     {
-        Console.ForegroundColor = Color;
+        Console.ForegroundColor = color;
         Console.Write('[' + source + "] ");
         Console.ResetColor();
         Console.WriteLine(description);
     }
 
-    public string GetStringProperty(ConfigIni config, string PropertyName)
+    public string GetStringProperty(ConfigIni config, string propertyName)
     {
         var values = new List<string>();
-        config.EvaluatePropertyValues("/Script/JsonAsAsset.JsonAsAssetSettings", PropertyName, values);
+        config.EvaluatePropertyValues("/Script/JsonAsAsset.JsonAsAssetSettings", propertyName, values);
 
         return values.Count == 1 ? values[0] : "";
     }
 
-    public List<string> GetArrayProperty(ConfigIni config, string PropertyName)
+    public List<string> GetArrayProperty(ConfigIni config, string propertyName)
     {
         var values = new List<string>();
-        config.EvaluatePropertyValues("/Script/JsonAsAsset.JsonAsAssetSettings", PropertyName, values);
+        config.EvaluatePropertyValues("/Script/JsonAsAsset.JsonAsAssetSettings", propertyName, values);
 
         return values;
     }
 
-    public bool GetBoolProperty(ConfigIni config, string PropertyName, bool Default = false)
+    public bool GetBoolProperty(ConfigIni config, string propertyName, bool @default = false)
     {
         var values = new List<string>();
-        config.EvaluatePropertyValues("/Script/JsonAsAsset.JsonAsAssetSettings", PropertyName, values);
+        config.EvaluatePropertyValues("/Script/JsonAsAsset.JsonAsAssetSettings", propertyName, values);
 
         if (values.Count == 0)
-            return Default;
+            return @default;
 
         return values[0] == "True";
     }
 
-    public string GetPathProperty(ConfigIni config, string PropertyName)
+    public string GetPathProperty(ConfigIni config, string propertyName)
     {
         var values = new List<string>();
-        config.EvaluatePropertyValues("/Script/JsonAsAsset.JsonAsAssetSettings", PropertyName, values);
+        config.EvaluatePropertyValues("/Script/JsonAsAsset.JsonAsAssetSettings", propertyName, values);
 
         return values.Count == 0 ? "" : values[0].SubstringBeforeLast("\"").SubstringAfterLast("\"");
     }
@@ -80,9 +80,9 @@ public class CUE4ParseViewModel : ViewModelBase
     // Find config folder & UpdateData
     public ConfigIni GetEditorConfig()
     {
-        string config_folder = System.AppDomain.CurrentDomain.BaseDirectory.SubstringBeforeLast("\\Plugins\\") + "\\Config\\";
+        string configFolder = System.AppDomain.CurrentDomain.BaseDirectory.SubstringBeforeLast("\\Plugins\\") + "\\Config\\";
         ConfigIni config = new ConfigIni("DefaultEditorPerProjectUserSettings");
-        config.Read(File.OpenText(config_folder + "DefaultEditorPerProjectUserSettings.ini"));
+        config.Read(File.OpenText(configFolder + "DefaultEditorPerProjectUserSettings.ini"));
 
         // Set Config Data to class
         MappingFilePath = GetPathProperty(config, "MappingFilePath");
@@ -107,8 +107,8 @@ public class CUE4ParseViewModel : ViewModelBase
         WriteLog("CORE", ConsoleColor.Cyan, "Initializing FetchContext, and provider..");
 
         // Find config folder
-        string config_folder = System.AppDomain.CurrentDomain.BaseDirectory.SubstringBeforeLast("\\Plugins\\") + "\\Config\\";
-        WriteLog("UserSettings", ConsoleColor.Blue, $"Found config folder: {config_folder.SubstringBeforeLast("\\")}");
+        string configFolder = System.AppDomain.CurrentDomain.BaseDirectory.SubstringBeforeLast("\\Plugins\\") + "\\Config\\";
+        WriteLog("UserSettings", ConsoleColor.Blue, $"Found config folder: {configFolder.SubstringBeforeLast("\\")}");
 
         // DefaultEditorPerProjectUserSettings
         ConfigIni config = GetEditorConfig();
@@ -146,12 +146,12 @@ public class CUE4ParseViewModel : ViewModelBase
             WriteLog("Provider", ConsoleColor.Red, $"Submitted Archive Key: {ArchiveKey}");
         }
 
-        var DynamicKeys = GetArrayProperty(config, "DynamicKeys");
-        if (DynamicKeys.Count != 0)
-            WriteLog("Provider", ConsoleColor.Red, "Reading " + DynamicKeys.Count + " Dynamic Keys -------------------------------------------");
+        var dynamicKeys = GetArrayProperty(config, "DynamicKeys");
+        if (dynamicKeys.Count != 0)
+            WriteLog("Provider", ConsoleColor.Red, "Reading " + dynamicKeys.Count + " Dynamic Keys -------------------------------------------");
 
         // Submit each dynamic key
-        foreach (string key in DynamicKeys)
+        foreach (string key in dynamicKeys)
         {
             var _key = key; var ReAssignedKey = _key.SubstringAfterLast("(").SubstringBeforeLast(")");
             string[] entries = ReAssignedKey.Split(",");
@@ -169,7 +169,7 @@ public class CUE4ParseViewModel : ViewModelBase
         Provider.LoadVirtualPaths();
         
         ApplicationStatus.SetStatus(EApplicationStatus.Completed);
-        ApplicationStatus.UpdateLabel($"Initialized provider successfully, and ready for command", "CUE4Parse");
+        ApplicationStatus.UpdateLabel($"Initialized provider successfully", "CUE4Parse");
         
         ApplicationStatus.IsReady = true;
     }

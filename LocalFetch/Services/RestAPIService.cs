@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using LocalFetch.API;
 using LocalFetch.Shared;
 using LocalFetch.Shared.Framework;
-using Org.BouncyCastle.Pkix;
-using Org.BouncyCastle.Pqc.Crypto.Falcon;
 
 namespace LocalFetch.Services;
 
@@ -42,15 +40,13 @@ public sealed class RestApiService : ViewModelBase
     
     public override async Task Initialize()
     {
-        Console.WriteLine("RestApiService initialized");
-        IsAPIStarted = true;
-
         if (CUE4ParseVM.Provider != null)
         {
             var newLocalFetchApi = new LocalFetchApi(CUE4ParseVM.Provider);
             newLocalFetchApi.RunApi([]);
 
-            LocalHostUrl = Globals.LOCAL_FETCH_URL;
+            IsAPIStarted = true;
+            LocalHostUrl = new Uri(Globals.LOCAL_FETCH_URL).Authority;
         }
         else
         {
