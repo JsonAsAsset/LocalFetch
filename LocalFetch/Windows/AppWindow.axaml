@@ -5,11 +5,11 @@
         xmlns:converters="clr-namespace:LocalFetch.Converters"
         x:Class="LocalFetch.Windows.AppWindow"
         x:DataType="windowModels:AppWindowModel"
-        Width="1160" Height="770" RequestedThemeVariant="Dark" FontFamily="Segoe UI" Background="Transparent"
+        Width="1160" Height="770" RequestedThemeVariant="Dark" FontFamily="Segoe UI"
+        Background="Transparent" TransparencyLevelHint="Mica"
         WindowStartupLocation="CenterScreen"
         Icon="/Assets/LocalFetch.ico"
-        TransparencyLevelHint="Mica"
-        Title="Local Fetch">
+        Title="{Binding WindowTitle}">
     
     <Window.Resources>
         <converters:StatusColorConverter x:Key="StatusColorConverter" />

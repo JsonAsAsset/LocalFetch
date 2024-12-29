@@ -38,8 +38,8 @@ public class StatusBarAnimation
         // Create the color animation with smooth transitions
         var animation = new Avalonia.Animation.Animation
         {
-            // I want to change this to 3 seconds, it's such a small detail, I'm not final with 0.5
-            Duration = TimeSpan.FromSeconds(0.5),
+            // I want to change this to 3 seconds, it's such a small detail, I'm not final
+            Duration = TimeSpan.FromSeconds(1),
             Easing = new SineEaseInOut(),
             Children =
             {
