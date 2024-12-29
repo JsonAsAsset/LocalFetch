@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CUE4Parse", "Dependencies\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CUE4Parse-Conversion", "Dependencies\CUE4Parse\CUE4Parse-Conversion\CUE4Parse-Conversion.csproj", "{A40E4E45-3A7A-42E4-B3CF-555239F28E9B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalFetch.Shared", "LocalFetch.Shared\LocalFetch.Shared.csproj", "{8C5CD8A1-1728-44D5-817D-897A5041E46F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{A40E4E45-3A7A-42E4-B3CF-555239F28E9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A40E4E45-3A7A-42E4-B3CF-555239F28E9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A40E4E45-3A7A-42E4-B3CF-555239F28E9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C5CD8A1-1728-44D5-817D-897A5041E46F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C5CD8A1-1728-44D5-817D-897A5041E46F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C5CD8A1-1728-44D5-817D-897A5041E46F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C5CD8A1-1728-44D5-817D-897A5041E46F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

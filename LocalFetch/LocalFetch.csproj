@@ -14,7 +14,9 @@
 
     <ItemGroup>
         <PackageReference Include="Avalonia" Version="11.2.1"/>
+        <PackageReference Include="Avalonia.AvaloniaEdit" Version="11.1.0" />
         <PackageReference Include="Avalonia.Desktop" Version="11.2.1"/>
+        <PackageReference Include="Avalonia.Svg" Version="11.2.0.2" />
         <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.1"/>
         <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.1"/>
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
@@ -56,6 +58,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\LocalFetch.API\LocalFetch.API.csproj"/>
+      <ProjectReference Include="..\LocalFetch.Shared\LocalFetch.Shared.csproj"/>
       <ProjectReference Include="..\Dependencies\CUE4Parse\CUE4Parse-Conversion\CUE4Parse-Conversion.csproj"/>
       <ProjectReference Include="..\Dependencies\CUE4Parse\CUE4Parse\CUE4Parse.csproj"/>
     </ItemGroup>
@@ -67,6 +70,10 @@
       </Compile>
       <Compile Update="Application\App.axaml.cs">
         <DependentUpon>App.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Windows\SplashWindow.axaml.cs">
+        <DependentUpon>SplashWindow.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
     </ItemGroup>

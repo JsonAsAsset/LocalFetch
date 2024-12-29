@@ -2,12 +2,65 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ui="using:FluentAvalonia.UI.Controls"
         xmlns:windowModels="clr-namespace:LocalFetch.WindowModels"
+        xmlns:converters="clr-namespace:LocalFetch.Converters"
         x:Class="LocalFetch.Windows.AppWindow"
         x:DataType="windowModels:AppWindowModel"
-        Width="1160" Height="770" RequestedThemeVariant="Dark" FontFamily="Segoe UI" Background="White"
-        ExtendClientAreaToDecorationsHint="True"
+        Width="1160" Height="770" RequestedThemeVariant="Dark" FontFamily="Segoe UI" Background="Transparent"
         WindowStartupLocation="CenterScreen"
         Icon="/Assets/LocalFetch.ico"
+        TransparencyLevelHint="Mica"
         Title="Local Fetch">
-    Welcome to Avalonia!
+    
+    <Window.Resources>
+        <converters:StatusColorConverter x:Key="StatusColorConverter" />
+    </Window.Resources>
+    
+    <Panel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Status Bar -->
+            <Grid x:Name="StatusBar" Grid.Row="2" VerticalAlignment="Bottom" Height="30">
+                <!-- Background Border (non-interactive) -->
+                <Border Background="#1b1b1c" Height="33" VerticalAlignment="Top" IsHitTestVisible="False" />
+                <Border Height="30" IsHitTestVisible="False">
+                    <Border.Background>
+                        <Binding Path="Indicator.Status" Converter="{StaticResource StatusColorConverter}" />
+                    </Border.Background>
+                </Border>
+
+                <!-- Label (non-interactive) -->
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" Margin="10 1.5 0 0">
+                        <TextBlock FontFamily="Consolas" FontSize="12.3" Text="{Binding Indicator.SubLabel}" />
+                        <TextBlock FontFamily="Consolas" FontSize="12" Text="{Binding Indicator.Label}" VerticalAlignment="Center" />
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Right hand: Button (interactive) -->
+                <StackPanel Orientation="Horizontal" Margin="0 0 5 0" HorizontalAlignment="Right">
+                    <!-- Information -->
+                    <StackPanel IsVisible="{Binding ApiServiceReference.IsAPIStarted}" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Viewbox Width="11" Height="11">
+                            <Svg Width="11" Path="/Assets/Icons/rocket.svg" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
+                        </Viewbox>
+                        
+                        <TextBlock FontFamily="Consolas" VerticalAlignment="Center" FontSize="8.9" Text="{Binding ApiServiceReference.LocalHostUrl}" Margin="5 2.1 5 0" />
+                    </StackPanel>
+
+                    <!-- Vertical line separator -->
+                    <Rectangle IsVisible="{Binding ApiServiceReference.IsAPIStarted}" Width="1" Height="20" Fill="White" Margin="5,0" RadiusX="2" RadiusY="2" />
+
+                    <!-- Primary Buttons -->
+                    <Button Click="onPressGithub" Width="22" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3.5 0  3.5 0" Padding="2">
+                        <Svg Width="11" Path="/Assets/Icons/github.svg" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Panel>
 </Window>

@@ -1,0 +1,1 @@
+﻿global using static LocalFetch.Services.ApplicationService;

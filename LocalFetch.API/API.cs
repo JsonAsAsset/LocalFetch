@@ -1,6 +1,8 @@
 using CUE4Parse.FileProvider.Vfs;
 using Microsoft.EntityFrameworkCore;
+
 using LocalFetch.API.Controllers;
+using LocalFetch.Shared;
 
 // Startup of Local Fetch's API
 // The API is at http://localhost:1500
@@ -65,9 +67,8 @@ public class LocalFetchApi
         app.UseAuthorization();
         app.MapControllers();
 
-        Console.WriteLine("Web API is running in the background.");
-
-        await app.RunAsync("http://localhost:1500");
+        Console.WriteLine($"LocalFetch.API is running in the background: {Globals.LOCAL_FETCH_URL}");
+        await app.RunAsync(Globals.LOCAL_FETCH_URL);
     }
         
     // Doesn't compile without this ?

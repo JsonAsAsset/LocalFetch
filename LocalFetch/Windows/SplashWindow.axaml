@@ -1,0 +1,15 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ui="using:FluentAvalonia.UI.Controls"
+        xmlns:windowModels="clr-namespace:LocalFetch.WindowModels"
+        xmlns:converters="clr-namespace:LocalFetch.Converters"
+        x:DataType="windowModels:AppWindowModel"
+        Width="1160" Height="770" RequestedThemeVariant="Dark" FontFamily="Segoe UI" Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Assets/LocalFetch.ico"
+        TransparencyLevelHint="Mica"
+        Title="Local Fetch">
+
+    <Panel>
+    </Panel>
+</Window>

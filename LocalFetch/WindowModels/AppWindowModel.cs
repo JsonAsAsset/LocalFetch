@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using ATL.Logging;
-using Avalonia.Media;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using FluentAvalonia.UI.Controls;
+﻿using System.Threading.Tasks;
+using Avalonia.Interactivity;
+using CUE4Parse.UE4.VirtualFileSystem;
+using LocalFetch.Framework;
+using LocalFetch.Services;
+using LocalFetch.Shared.Framework;
+using LocalFetch.Shared.Services;
+using LocalFetch.ViewModels;
 
 namespace LocalFetch.WindowModels;
 
 public partial class AppWindowModel : WindowModelBase
 {
+    public StatusIndicator Indicator => ApplicationStatus;
+    public RestApiService ApiServiceReference => RestApiVM;
 }
