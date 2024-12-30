@@ -1,8 +1,11 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Media;
 using Avalonia.Threading;
+using FluentAvalonia.Styling;
 using LocalFetch.Shared.Framework;
 using LocalFetch.WindowModels;
 using LocalFetch.Windows.Animation;
@@ -19,6 +22,9 @@ public partial class AppWindow : WindowBase<AppWindowModel>
         DataContext = WindowModel;
 
         InitializeLoadingAnimation();
+        
+        var faTheme = Avalonia.Application.Current?.Styles.OfType<FluentAvaloniaTheme>().FirstOrDefault();
+        faTheme.CustomAccentColor = Color.Parse("#ffffff");
     }
 
     public void onPressGithub(object sender, RoutedEventArgs args)

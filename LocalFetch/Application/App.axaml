@@ -8,7 +8,6 @@
              RequestedThemeVariant="Dark">
     
     <Application.Styles>
-        <FluentTheme />
         <fluentStyle:FluentAvaloniaTheme/>
         <material:MaterialIconStyles/>
         <StyleInclude Source="avares://FluentAvalonia.ProgressRing/Styling/Controls/ProgressRing.axaml" />

@@ -8,5 +8,5 @@ public partial class AppWindowModel : WindowModelBase
     public StatusIndicator Indicator => ApplicationStatus;
     public RestApiService ApiServiceReference => RestApiVM;
 
-    public string WindowTitle => $"LocalFetch";
+    public string WindowTitle => $"Local Fetch";
 }

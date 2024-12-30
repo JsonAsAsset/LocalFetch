@@ -12,19 +12,47 @@
         Title="{Binding WindowTitle}">
     
     <Window.Resources>
+        <ControlTheme x:Key="SettingsButton"
+                      BasedOn="{StaticResource TransparentButton}"
+                      TargetType="Button">
+            <Setter Property="Width" Value="32" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </ControlTheme>
+        
         <converters:StatusColorConverter x:Key="StatusColorConverter" />
     </Window.Resources>
     
     <Panel>
-
-        
         <Grid>
+            <ui:NavigationView
+                PaneDisplayMode="LeftCompact" IsSettingsVisible="False" IsBackEnabled="False" 
+                IsPaneToggleButtonVisible="False" UseLayoutRounding="False" Background="Transparent"
+                CornerRadius="0">
+                <ui:NavigationView.MenuItems>
+                    <ui:NavigationViewItem Content="Welcome" Tag="Welcome" IsSelected="True">
+                    </ui:NavigationViewItem>
+                    
+                    <ui:NavigationViewItemSeparator Height="20" Margin="0 0 0 -5" Padding="0 0 0 0"></ui:NavigationViewItemSeparator>
+                    <ui:NavigationViewItem Content="Welcome" Tag="Welcome" IsSelected="True">
+                    </ui:NavigationViewItem>
+                    <ui:NavigationViewItem Content="Welcome" Tag="Welcome" IsSelected="True">
+                    </ui:NavigationViewItem>
+                    <ui:NavigationViewItem Content="Welcome" Tag="Welcome" IsSelected="True">
+                    </ui:NavigationViewItem>
+                    <ui:NavigationViewItem Content="Welcome" Tag="Welcome" IsSelected="True">
+                    </ui:NavigationViewItem>
+                </ui:NavigationView.MenuItems>
+            </ui:NavigationView>
+            
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-
+            
             <!-- Status Bar -->
             <Grid x:Name="StatusBar" Grid.Row="2" VerticalAlignment="Bottom" Height="30" ColumnDefinitions="Auto, *">
                 <Border Background="#1b1b1c" Height="33" VerticalAlignment="Top" IsHitTestVisible="False" Grid.ColumnSpan="2"/>
