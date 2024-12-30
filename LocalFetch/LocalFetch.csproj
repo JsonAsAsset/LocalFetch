@@ -7,10 +7,13 @@
         <ApplicationManifest>Application/app.manifest</ApplicationManifest>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
         <ApplicationIcon>Assets/LocalFetch.ico</ApplicationIcon>
-        <SelfContained>true</SelfContained>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    </PropertyGroup>
+		<PublishTrimmed>true</PublishTrimmed>
+		<PublishSingleFile>true</PublishSingleFile>
+		<SelfContained>true</SelfContained>
+        <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+	</PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Avalonia" Version="11.2.1"/>

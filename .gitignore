@@ -83,3 +83,7 @@ _[Ss]cripts
 appsettings*
 *.bin
 LocalFetch.exe
+LocalFetch/Properties/PublishProfiles/FolderProfile.pubxml
+LocalFetch/FodyWeavers.xsd
+LocalFetch/FodyWeavers.xml
+LocalFetch.API/Properties/launchSettings.json

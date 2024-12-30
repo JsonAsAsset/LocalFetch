@@ -17,6 +17,7 @@
     
     <Panel>
 
+        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -29,7 +30,8 @@
                 <Border Background="#1b1b1c" Height="33" VerticalAlignment="Top" IsHitTestVisible="False" Grid.ColumnSpan="2"/>
 
                 <!-- Loading Bar -->
-                <Border Name="LoadingBorder" Height="30" VerticalAlignment="Center" IsHitTestVisible="False" Grid.ColumnSpan="2">
+                <Border Name="LoadingBorder" Height="30" VerticalAlignment="Center" IsHitTestVisible="False" Grid.ColumnSpan="2"
+                        Grid.Column="0">
                     <Border.Background>
                         <Binding Path="Indicator.Status" Converter="{StaticResource StatusColorConverter}" />
                     </Border.Background>

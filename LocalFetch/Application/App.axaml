@@ -14,5 +14,15 @@
         <StyleInclude Source="avares://FluentAvalonia.ProgressRing/Styling/Controls/ProgressRing.axaml" />
         <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
         <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
+        
+        <Style Selector="ui|NavigationView.NoBackground">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        
+        <Style Selector="ui|NavigationView.NoBackground /template/ StackPanel#TopNavArea">
+            <Setter Property="Background" Value="#16000000"/>
+        </Style>
     </Application.Styles>
 </Application>
