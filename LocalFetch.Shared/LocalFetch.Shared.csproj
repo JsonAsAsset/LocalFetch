@@ -3,7 +3,9 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    </PropertyGroup>
+		<OutputType>Library</OutputType>
+		<IsPublishable>false</IsPublishable>
+	</PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Avalonia" Version="11.2.1"/>
