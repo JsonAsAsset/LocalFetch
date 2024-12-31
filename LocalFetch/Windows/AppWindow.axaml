@@ -3,6 +3,7 @@
         xmlns:ui="using:FluentAvalonia.UI.Controls"
         xmlns:windowModels="clr-namespace:LocalFetch.WindowModels"
         xmlns:converters="clr-namespace:LocalFetch.Converters"
+        xmlns:uip="clr-namespace:FluentAvalonia.UI.Controls.Primitives;assembly=FluentAvalonia"
         x:Class="LocalFetch.Windows.AppWindow"
         x:DataType="windowModels:AppWindowModel"
         Width="1160" Height="770" RequestedThemeVariant="Dark" FontFamily="Segoe UI"
@@ -23,35 +24,60 @@
         </ControlTheme>
         
         <converters:StatusColorConverter x:Key="StatusColorConverter" />
+        
+        <SolidColorBrush Color="#247bff" x:Key="NavigationViewItemBackgroundSelected"/>
+        <SolidColorBrush Color="#247bff" x:Key="NavigationViewItemBackgroundSelectedPointerOver"/>
+        <SolidColorBrush Color="#247bff" x:Key="NavigationViewItemBorderBrushSelected"/>
     </Window.Resources>
     
-    <Panel>
+    <Grid RowDefinitions="*, Auto" Margin="{Binding $parent[Window].OffScreenMargin}">
         <Grid>
-            <ui:NavigationView
-                PaneDisplayMode="LeftCompact" IsSettingsVisible="False" IsBackEnabled="False" 
-                IsPaneToggleButtonVisible="False" UseLayoutRounding="False" Background="Transparent"
-                CornerRadius="0">
-                <ui:NavigationView.MenuItems>
-                    <ui:NavigationViewItem Content="Welcome" Tag="Welcome" IsSelected="True">
-                    </ui:NavigationViewItem>
-                    
-                    <ui:NavigationViewItemSeparator Height="20" Margin="0 0 0 -5" Padding="0 0 0 0"></ui:NavigationViewItemSeparator>
-                    <ui:NavigationViewItem Content="Welcome" Tag="Welcome" IsSelected="True">
-                    </ui:NavigationViewItem>
-                    <ui:NavigationViewItem Content="Welcome" Tag="Welcome" IsSelected="True">
-                    </ui:NavigationViewItem>
-                    <ui:NavigationViewItem Content="Welcome" Tag="Welcome" IsSelected="True">
-                    </ui:NavigationViewItem>
-                    <ui:NavigationViewItem Content="Welcome" Tag="Welcome" IsSelected="True">
-                    </ui:NavigationViewItem>
-                </ui:NavigationView.MenuItems>
-            </ui:NavigationView>
-            
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
+            
+            <ui:Frame Grid.Row="0" x:Name="ContentFrame" Transitions="{x:Null}"/>
+            
+            <ui:NavigationView Grid.Row="0" PaneDisplayMode="LeftCompact" IsBackEnabled="False" Foreground="Transparent" BorderBrush="Transparent" IsSettingsVisible="False"
+                IsPaneToggleButtonVisible="False" UseLayoutRounding="False" Background="Transparent" Width="50" HorizontalAlignment="Left">
+                
+                <ui:NavigationView.MenuItems>
+                    <ui:NavigationViewItem IsSelected="False" SelectsOnInvoked="False">
+                        <Viewbox Width="16" Height="16">
+                            <Svg Width="16" Path="/Assets/Icons/Files/search.svg" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
+                        </Viewbox>
+                    </ui:NavigationViewItem>
+                    
+                    <ui:NavigationViewItemSeparator></ui:NavigationViewItemSeparator>
+                    
+                    <ui:NavigationViewItem IsSelected="True">
+                        <Panel>
+                            <Viewbox Width="16" Height="16" IsVisible="{Binding !IsSelected, RelativeSource={RelativeSource AncestorType=ui:NavigationViewItem}}">
+                                <Svg Width="16" Path="/Assets/Icons/Files/folder.svg" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
+                            </Viewbox>
+                            <Viewbox Width="16" Height="16" IsVisible="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ui:NavigationViewItem}}">
+                                <Svg Width="16" Path="/Assets/Icons/Files/folder_fill.svg" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
+                            </Viewbox>
+                        </Panel>
+                    </ui:NavigationViewItem>
+                    
+                    <ui:NavigationViewItem>
+                        <Panel>
+                            <Viewbox Width="16" Height="16" IsVisible="{Binding !IsSelected, RelativeSource={RelativeSource AncestorType=ui:NavigationViewItem}}">
+                                <Svg Width="16" Path="/Assets/Icons/Files/file.svg" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
+                            </Viewbox>
+                            <Viewbox Width="16" Height="16" IsVisible="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ui:NavigationViewItem}}">
+                                <Svg Width="16" Path="/Assets/Icons/Files/file_fill.svg" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
+                            </Viewbox>
+                        </Panel>
+                    </ui:NavigationViewItem>
+                </ui:NavigationView.MenuItems>
+                
+                <ui:NavigationView.FooterMenuItems>
+                </ui:NavigationView.FooterMenuItems>
+            </ui:NavigationView>
             
             <!-- Status Bar -->
             <Grid x:Name="StatusBar" Grid.Row="2" VerticalAlignment="Bottom" Height="30" ColumnDefinitions="Auto, *">
@@ -75,8 +101,8 @@
                 <StackPanel Orientation="Horizontal" Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="1">
                     <!-- Local Fetch API Information -->
                     <StackPanel IsVisible="{Binding ApiServiceReference.IsAPIStarted}" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Viewbox Width="11" Height="11">
-                            <Svg Width="11" Path="/Assets/Icons/rocket.svg" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
+                        <Viewbox Width="14" Height="14">
+                            <Svg Width="14" Path="/Assets/Icons/broadcast.svg" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
                         </Viewbox>
                         <TextBlock FontFamily="Consolas" VerticalAlignment="Center" FontSize="8.9" Text="{Binding ApiServiceReference.LocalHostUrl}" Margin="5 2.1 5 0" />
                     </StackPanel>
@@ -91,5 +117,5 @@
                 </StackPanel>
             </Grid>
         </Grid>
-    </Panel>
+    </Grid>
 </Window>
