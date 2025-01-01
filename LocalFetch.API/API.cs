@@ -31,7 +31,7 @@ public class LocalFetchApi
         builder.Logging.AddFilter("Microsoft.Hosting.Lifetime", LogLevel.None);
         builder.Services.AddControllers().AddApplicationPart(typeof(LocalFetchApiController).Assembly);
 
-        services.AddDbContext<DbContext>(opt => opt.UseInMemoryDatabase("LocalFetchRestAPI"));
+        services.AddDbContext<DbContext>(opt => opt.UseInMemoryDatabase("LocalFetch.API"));
         services.AddControllers();
         services.AddEndpointsApiExplorer();
 

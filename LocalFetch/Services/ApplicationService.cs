@@ -59,6 +59,18 @@ public static class ApplicationService
             RestApiVM.Initialize();
         });
     }
+
+    public static void LogToConsole(string message)
+    {
+        Dispatcher.UIThread.InvokeAsync(() =>
+        {
+            if (!AppWM.LogEditor.Text.EndsWith(Environment.NewLine) && AppWM.LogEditor.Text.Length > 0)
+            {
+                AppWM.LogEditor.AppendText(Environment.NewLine);
+            };
+            AppWM.LogEditor.AppendText(message);
+        });
+    }
     
     public static void HandleException(Exception e)
     {

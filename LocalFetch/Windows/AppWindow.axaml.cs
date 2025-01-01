@@ -1,12 +1,14 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Threading;
 using AvaloniaEdit;
 using AvaloniaEdit.CodeCompletion;
+using AvaloniaEdit.Highlighting;
 using FluentAvalonia.Styling;
 using LocalFetch.Extensions;
 using LocalFetch.Shared.Framework;
@@ -29,6 +31,11 @@ public partial class AppWindow : WindowBase<AppWindowModel>
         
         var faTheme = Avalonia.Application.Current?.Styles.OfType<FluentAvaloniaTheme>().FirstOrDefault();
         faTheme.CustomAccentColor = Color.Parse("#08335E");
+
+        WindowModel.LogEditor = Editor2;
+        Editor2.SyntaxHighlighting = new LogSyntaxHighlighter();
+        
+        Editor2.AppendText("Thanks for using Local Fetch's Application!\n");
     }
     
     public void onPressGithub(object sender, RoutedEventArgs args)

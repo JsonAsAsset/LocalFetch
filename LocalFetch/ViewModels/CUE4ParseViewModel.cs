@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using Avalonia.Threading;
 using CUE4Parse.Compression;
 using CUE4Parse.Encryption.Aes;
 using CUE4Parse.FileProvider;
@@ -12,6 +13,7 @@ using CUE4Parse.UE4.Objects.Core.Misc;
 using CUE4Parse.UE4.Versions;
 using CUE4Parse.UE4.VirtualFileSystem;
 using CUE4Parse.Utils;
+using LocalFetch.Services;
 using LocalFetch.Shared.Framework;
 using UE4Config.Parsing;
 
@@ -102,6 +104,11 @@ public class CUE4ParseViewModel : ViewModelBase
         return config;
     }
 
+    public async void RunEditorDataTask()
+    {
+        
+    }
+
     public override async Task Initialize()
     {
         WriteLog("CORE", ConsoleColor.Cyan, "Initializing FetchContext, and provider..");
@@ -172,5 +179,7 @@ public class CUE4ParseViewModel : ViewModelBase
         ApplicationStatus.UpdateLabel($"Initialized provider successfully", "CUE4Parse");
         
         ApplicationStatus.IsReady = true;
+        
+        LogToConsole("[CUE4Parse] Initialized provider successfully");
     }
 }

@@ -17,6 +17,7 @@ public partial class AppWindowModel : WindowModelBase
     public string WindowTitle => $"Local Fetch";
     
     public static IHighlightingDefinition JsonHighlighter { get; set; }
+    public AvaloniaEdit.TextEditor LogEditor { get; set; }
     
     static AppWindowModel()
     {

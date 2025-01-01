@@ -47,6 +47,8 @@ public sealed class RestApiService : ViewModelBase
 
             IsAPIStarted = true;
             LocalHostUrl = new Uri(Globals.LOCAL_FETCH_URL).Authority;
+            
+            LogToConsole($"[RestAPI] Running at {LocalHostUrl}");
         }
         else
         {
