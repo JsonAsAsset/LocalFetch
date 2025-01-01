@@ -33,7 +33,7 @@ public class LocalFetchApiController(DbContext context) : ControllerBase
     {
         var contentType = Request.Headers.ContentType;
         path = path.SubstringBefore('.');
-
+        
         try
         {
             var localObject = _provider?.LoadObject(path);

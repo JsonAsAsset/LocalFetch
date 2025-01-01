@@ -4,6 +4,7 @@
         xmlns:windowModels="clr-namespace:LocalFetch.WindowModels"
         xmlns:converters="clr-namespace:LocalFetch.Converters"
         xmlns:uip="clr-namespace:FluentAvalonia.UI.Controls.Primitives;assembly=FluentAvalonia"
+        xmlns:avaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
         x:Class="LocalFetch.Windows.AppWindow"
         x:DataType="windowModels:AppWindowModel"
         Width="1160" Height="770" RequestedThemeVariant="Dark" FontFamily="Segoe UI"
@@ -25,45 +26,74 @@
         
         <converters:StatusColorConverter x:Key="StatusColorConverter" />
         
-        <SolidColorBrush Color="#247bff" x:Key="NavigationViewItemBackgroundSelected"/>
-        <SolidColorBrush Color="#247bff" x:Key="NavigationViewItemBackgroundSelectedPointerOver"/>
-        <SolidColorBrush Color="#247bff" x:Key="NavigationViewItemBorderBrushSelected"/>
+        <SolidColorBrush Color="#0069d9" x:Key="NavigationViewItemBackgroundSelected"/>
+        <SolidColorBrush Color="#43454A" x:Key="NavigationViewItemBackgroundSelectedPointerOver"/>
+        <SolidColorBrush Color="#0069d9" x:Key="NavigationViewItemBorderBrushSelected"/>
+        <x:Double x:Key="NavigationViewSelectionIndicatorWidth">0</x:Double>
     </Window.Resources>
     
     <Grid RowDefinitions="*, Auto, Auto" Margin="{Binding $parent[Window].OffScreenMargin}">
-        <ui:NavigationView Grid.Row="0" 
-           PaneDisplayMode="Top" IsBackEnabled="False" Foreground="Transparent" BorderBrush="Transparent" IsSettingsVisible="False"
-           HorizontalContentAlignment="Center" VerticalAlignment="Top"
-           IsPaneToggleButtonVisible="False" UseLayoutRounding="False" Background="Transparent" Height="50" HorizontalAlignment="Left"
-           >
-            
-            <ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem IsSelected="True">
-                    <Panel>
-                        <Viewbox Width="16" Height="16" IsVisible="{Binding !IsSelected, RelativeSource={RelativeSource AncestorType=ui:NavigationViewItem}}">
-                            <Svg Width="16" Path="/Assets/Icons/Files/folder.svg" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
-                        </Viewbox>
-                        <Viewbox Width="16" Height="16" IsVisible="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ui:NavigationViewItem}}">
-                            <Svg Width="16" Path="/Assets/Icons/Files/folder_fill.svg" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
-                        </Viewbox>
-                    </Panel>
-                </ui:NavigationViewItem>
-                
-                <ui:NavigationViewItem>
-                    <Panel>
-                        <Viewbox Width="16" Height="16" IsVisible="{Binding !IsSelected, RelativeSource={RelativeSource AncestorType=ui:NavigationViewItem}}">
-                            <Svg Width="16" Path="/Assets/Icons/Files/file.svg" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
-                        </Viewbox>
-                        <Viewbox Width="16" Height="16" IsVisible="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ui:NavigationViewItem}}">
-                            <Svg Width="16" Path="/Assets/Icons/Files/file_fill.svg" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
-                        </Viewbox>
-                    </Panel>
-                </ui:NavigationViewItem>
-            </ui:NavigationView.MenuItems>
-            
-            <ui:NavigationView.FooterMenuItems>
-            </ui:NavigationView.FooterMenuItems>
-        </ui:NavigationView>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="465" MinWidth="200" MaxWidth="600"/>
+                <ColumnDefinition Width="0" MaxWidth="0.01"/>  <!-- Splitter -->
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Navigation View -->
+            <ui:NavigationView Grid.Column="0"
+               PaneDisplayMode="LeftCompact" IsBackEnabled="False" Foreground="Transparent" BorderBrush="Transparent"
+               HorizontalContentAlignment="Center"
+               IsPaneToggleButtonVisible="False" UseLayoutRounding="False" Background="Transparent" HorizontalAlignment="Stretch"
+               Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ColumnDefinition}}">
+                <ui:NavigationView.MenuItems>
+                    <ui:NavigationViewItem IsSelected="True">
+                        <Panel>
+                            <Viewbox Width="16" Height="16" IsVisible="{Binding !IsSelected, RelativeSource={RelativeSource AncestorType=ui:NavigationViewItem}}">
+                                <Svg Width="16" Path="/Assets/Icons/Files/folder.svg" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
+                            </Viewbox>
+                            <Viewbox Width="16" Height="16" IsVisible="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ui:NavigationViewItem}}">
+                                <Svg Width="16" Path="/Assets/Icons/Files/folder_fill.svg" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
+                            </Viewbox>
+                        </Panel>
+                    </ui:NavigationViewItem>
+                    <ui:NavigationViewItem>
+                        <Panel>
+                            <Viewbox Width="16" Height="16" IsVisible="{Binding !IsSelected, RelativeSource={RelativeSource AncestorType=ui:NavigationViewItem}}">
+                                <Svg Width="16" Path="/Assets/Icons/Files/file.svg" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
+                            </Viewbox>
+                            <Viewbox Width="16" Height="16" IsVisible="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ui:NavigationViewItem}}">
+                                <Svg Width="16" Path="/Assets/Icons/Files/file_fill.svg" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
+                            </Viewbox>
+                            <Border Background="#0069d9" Width="9" Height="10" CornerRadius="2"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,10,0,0">
+                                <TextBlock FontFamily="Cascadia Code, Consolas, Menlo, Monospace" Text="5" FontSize="8" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"/>
+                            </Border>
+                        </Panel>
+                    </ui:NavigationViewItem>
+                </ui:NavigationView.MenuItems>
+                <ui:NavigationView.FooterMenuItems>
+                </ui:NavigationView.FooterMenuItems>
+            </ui:NavigationView>
+
+            <!-- Grid Splitter -->
+            <GridSplitter Grid.Column="1" Width="0" MaxWidth="0.0" HorizontalAlignment="Center" Background="#1E1F22" VerticalAlignment="Stretch"/>
+
+            <!-- Main Content -->
+            <Border Grid.Column="2" Background="#262626">
+                <avaloniaEdit:TextEditor Grid.Row="0" x:Name="Editor" SyntaxHighlighting="{Binding JsonHighlighter}"
+                                         ShowLineNumbers="True" FontFamily="Cascadia Code, Consolas, Menlo, Monospace"
+                                         FontSize="12">
+                    
+                    <avaloniaEdit:TextEditor.Options>
+                        <avaloniaEdit:TextEditorOptions AllowScrollBelowDocument="False"  />
+                    </avaloniaEdit:TextEditor.Options>
+                    
+                    <avaloniaEdit:TextEditor.Styles>
+                    </avaloniaEdit:TextEditor.Styles>
+                </avaloniaEdit:TextEditor>
+            </Border>
+        </Grid>
         
         <!-- Status Bar -->
         <Grid x:Name="StatusBar" Grid.Row="2" VerticalAlignment="Bottom" Height="30" ColumnDefinitions="Auto, *">

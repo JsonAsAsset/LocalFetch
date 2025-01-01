@@ -5,10 +5,14 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Threading;
+using AvaloniaEdit;
+using AvaloniaEdit.CodeCompletion;
 using FluentAvalonia.Styling;
+using LocalFetch.Extensions;
 using LocalFetch.Shared.Framework;
 using LocalFetch.WindowModels;
 using LocalFetch.Windows.Animation;
+using Microsoft.Win32;
 
 namespace LocalFetch.Windows;
 
@@ -24,9 +28,9 @@ public partial class AppWindow : WindowBase<AppWindowModel>
         InitializeLoadingAnimation();
         
         var faTheme = Avalonia.Application.Current?.Styles.OfType<FluentAvaloniaTheme>().FirstOrDefault();
-        faTheme.CustomAccentColor = Color.Parse("#ffffff");
+        faTheme.CustomAccentColor = Color.Parse("#08335E");
     }
-
+    
     public void onPressGithub(object sender, RoutedEventArgs args)
     {
         try
