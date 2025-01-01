@@ -18,7 +18,7 @@ using SkiaSharp;
 
 namespace LocalFetch.API.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/v1")]
 [ApiController]
 public class LocalFetchApiController(DbContext context) : ControllerBase
 {
@@ -28,7 +28,7 @@ public class LocalFetchApiController(DbContext context) : ControllerBase
     // -----------------------------------------------------------------------------------------------------------------------
         
     // Normal Export
-    [HttpGet("/api/v1/export")]
+    [HttpGet("export")]
     public ActionResult Get(bool raw, string path)
     {
         var contentType = Request.Headers.ContentType;
@@ -40,27 +40,24 @@ public class LocalFetchApiController(DbContext context) : ControllerBase
 
             // Return a raw export
             if (raw) return HandleRawExport(path);
-                
-            // Switch on Class Type
-            switch(localObject)
-            {
-                case UTexture texture:
-                    return ProcessTexture(texture, contentType);
-                case USoundWave wave:
-                    return ProcessSoundWave(wave);
-            };
 
-            return HandleRawExport(path);
+            // Switch on Class Type
+            return localObject switch
+            {
+                UTexture texture => ProcessTexture(texture, contentType),
+                USoundWave wave => ProcessSoundWave(wave),
+                _ => HandleRawExport(path)
+            };
         }
         catch (Exception exception)
         {
-            return Conflict(new
+            return new ConflictObjectResult(JsonConvert.SerializeObject(new
             {
                 errored = true,
                 note = exception.Message.StartsWith("One or more errors occurred. (There is no game file with the path ")
                     ? "Unable to find package"
                     : exception.Message
-            });
+            }, Formatting.Indented));
         }
     }
 
