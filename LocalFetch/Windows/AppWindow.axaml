@@ -99,7 +99,7 @@
 
                     <!-- Editor 2 -->
                     <avaloniaEdit:TextEditor Grid.Row="2" x:Name="Editor2"
-                                             ShowLineNumbers="False" FontFamily="Consolas" IsReadOnly="True"
+                                             ShowLineNumbers="False" FontFamily="Consolas" IsReadOnly="True" WordWrap="True"
                                              FontSize="10.8" Text="" Margin="9 6 0 0">
                         <avaloniaEdit:TextEditor.Options>
                             <avaloniaEdit:TextEditorOptions AllowScrollBelowDocument="False"
