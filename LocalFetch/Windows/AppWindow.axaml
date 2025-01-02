@@ -88,8 +88,7 @@
                                              SyntaxHighlighting="{Binding JsonHighlighter}"
                                              ShowLineNumbers="True" Background="#262626"
                                              FontFamily="Cascadia Code, Consolas, Menlo, Monospace" Padding="0 0 0 8"
-                                             FontSize="12"
-                                             PointerWheelChanged="Editor1_OnPointerWheelChanged">
+                                             FontSize="12">
                         <avaloniaEdit:TextEditor.Options>
                             <avaloniaEdit:TextEditorOptions AllowScrollBelowDocument="False" />
                         </avaloniaEdit:TextEditor.Options>

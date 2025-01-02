@@ -76,25 +76,4 @@ public partial class AppWindow : WindowBase<AppWindowModel>
             return true;
         }, TimeSpan.FromMilliseconds(100));
     }
-    
-    private const double MinFontSize = 8;
-    private const double MaxFontSize = 48;
-    private const double FontSizeStep = 1;
-    
-    private void Editor1_OnPointerWheelChanged(object? sender, PointerWheelEventArgs e)
-    {
-        if (e.KeyModifiers.HasFlag(KeyModifiers.Control))
-        {
-            e.Handled = true; // Mark the event as handled
-
-            if (e.Delta.Y > 0)
-            {
-                Editor1.FontSize = Math.Min(Editor1.FontSize + FontSizeStep, MaxFontSize);
-            }
-            else if (e.Delta.Y < 0)
-            {
-                Editor1.FontSize = Math.Max(Editor1.FontSize - FontSizeStep, MinFontSize);
-            }
-        }
-    }
 }
