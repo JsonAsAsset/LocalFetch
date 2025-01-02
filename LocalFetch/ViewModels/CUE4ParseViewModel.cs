@@ -116,7 +116,7 @@ public class CUE4ParseViewModel : ViewModelBase
         // Find config folder
         string configFolder = System.AppDomain.CurrentDomain.BaseDirectory.SubstringBeforeLast("\\Plugins\\") + "\\Config\\";
         WriteLog("UserSettings", ConsoleColor.Blue, $"Found config folder: {configFolder.SubstringBeforeLast("\\")}");
-
+        
         // DefaultEditorPerProjectUserSettings
         ConfigIni config = GetEditorConfig();
         
@@ -140,10 +140,13 @@ public class CUE4ParseViewModel : ViewModelBase
         // Create new file provider
         Provider.Initialize();
         
-        InternalGameName = ArchiveDirectory.SubstringBeforeLast(ArchiveDirectory.Contains("eFootball") ? "\\pak" : "\\Content").SubstringAfterLast("\\");
-
+        InternalGameName = ArchiveDirectory.Replace("/", "\\").SubstringBeforeLast(ArchiveDirectory.Contains("eFootball") ? "\\pak" : "\\Content").SubstringAfterLast("\\");
+        
         var oodlePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, OodleHelper.OODLE_DLL_NAME);
-        if (!File.Exists(oodlePath)) await OodleHelper.DownloadOodleDllAsync(oodlePath);
+        if (!File.Exists(oodlePath))
+        {
+            await OodleHelper.DownloadOodleDllAsync(oodlePath);
+        }
         OodleHelper.Initialize(oodlePath);
 
         if (!string.IsNullOrEmpty(ArchiveKey))
@@ -180,6 +183,6 @@ public class CUE4ParseViewModel : ViewModelBase
         
         ApplicationStatus.IsReady = true;
         
-        LogToConsole("[CUE4Parse] Initialized provider successfully");
+        LogToConsole($"[CUE4Parse] Initialized provider successfully");
     }
 }

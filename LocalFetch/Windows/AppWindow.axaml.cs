@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Threading;
@@ -35,7 +36,7 @@ public partial class AppWindow : WindowBase<AppWindowModel>
         WindowModel.LogEditor = Editor2;
         Editor2.SyntaxHighlighting = new LogSyntaxHighlighter();
         
-        Editor2.AppendText("Thanks for using Local Fetch's Application!\n");
+        Editor2.AppendText("[INFO] Setting up DataContext and loading models..\n\nI love executing! Said the program.");
     }
     
     public void onPressGithub(object sender, RoutedEventArgs args)
@@ -74,5 +75,26 @@ public partial class AppWindow : WindowBase<AppWindowModel>
 
             return true;
         }, TimeSpan.FromMilliseconds(100));
+    }
+    
+    private const double MinFontSize = 8;
+    private const double MaxFontSize = 48;
+    private const double FontSizeStep = 1;
+    
+    private void Editor1_OnPointerWheelChanged(object? sender, PointerWheelEventArgs e)
+    {
+        if (e.KeyModifiers.HasFlag(KeyModifiers.Control))
+        {
+            e.Handled = true; // Mark the event as handled
+
+            if (e.Delta.Y > 0)
+            {
+                Editor1.FontSize = Math.Min(Editor1.FontSize + FontSizeStep, MaxFontSize);
+            }
+            else if (e.Delta.Y < 0)
+            {
+                Editor1.FontSize = Math.Max(Editor1.FontSize - FontSizeStep, MinFontSize);
+            }
+        }
     }
 }
