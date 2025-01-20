@@ -75,6 +75,7 @@ _[Ss]cripts
 *.v2
 *.db
 *.v1
+*.sln
 .idea/
 /JsonAsAsset/ExternalSource/LocalFetch/.vs
 /JsonAsAsset/ExternalSource/LocalFetch/.config
@@ -82,8 +83,11 @@ _[Ss]cripts
 *.config
 appsettings*
 *.bin
-LocalFetch.exe
-LocalFetch/Properties/PublishProfiles/FolderProfile.pubxml
+*.exe
+Properties/launchSettings.json
+Properties/PublishProfiles/FolderProfile.pubxml
 LocalFetch/FodyWeavers.xsd
 LocalFetch/FodyWeavers.xml
+LocalFetch/Properties/PublishProfiles/FolderProfile.pubxml
 LocalFetch.API/Properties/launchSettings.json
+/.vs

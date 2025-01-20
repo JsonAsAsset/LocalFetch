@@ -4,8 +4,36 @@
              xmlns:ui="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              xmlns:material="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:uip="clr-namespace:FluentAvalonia.UI.Controls.Primitives;assembly=FluentAvalonia"
+             xmlns:converters="clr-namespace:LocalFetch.Converters"
              x:Class="LocalFetch.Application.App"
              RequestedThemeVariant="Dark">
+    
+    <Application.Resources>
+        <!-- Button Themes -->
+        <ControlTheme x:Key="SettingsButton"
+                      BasedOn="{StaticResource TransparentButton}"
+                      TargetType="Button">
+            <Setter Property="Width" Value="32" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <!-- Triggers for Button States -->
+            <Setter Property="Background" Value="{StaticResource NavigationViewItemBackgroundSelectedPointerOver}" />
+            <Setter Property="Background" Value="{StaticResource NavigationViewItemBackgroundSelected}" />
+        </ControlTheme>
+
+        <!-- Converters -->
+        <converters:StatusColorConverter x:Key="StatusColorConverter" />
+
+        <!-- Brushes -->
+        <SolidColorBrush Color="#0069d9" x:Key="NavigationViewItemBackgroundSelected" />
+        <SolidColorBrush Color="#43454A" x:Key="NavigationViewItemBackgroundSelectedPointerOver" />
+        <SolidColorBrush Color="#0069d9" x:Key="NavigationViewItemBorderBrushSelected" />
+
+        <!-- Dimensions -->
+        <x:Double x:Key="NavigationViewSelectionIndicatorWidth">0</x:Double>
+    </Application.Resources>
     
     <Application.Styles>
         <fluentStyle:FluentAvaloniaTheme>

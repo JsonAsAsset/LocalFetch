@@ -1,61 +1,50 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ui="using:FluentAvalonia.UI.Controls"
+        xmlns:uip="clr-namespace:FluentAvalonia.UI.Controls.Primitives;assembly=FluentAvalonia"
         xmlns:windowModels="clr-namespace:LocalFetch.WindowModels"
         xmlns:converters="clr-namespace:LocalFetch.Converters"
-        xmlns:uip="clr-namespace:FluentAvalonia.UI.Controls.Primitives;assembly=FluentAvalonia"
         xmlns:avaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
         x:Class="LocalFetch.Windows.AppWindow"
         x:DataType="windowModels:AppWindowModel"
-        Width="1160" Height="770" RequestedThemeVariant="Dark" FontFamily="Segoe UI"
-        Background="Transparent" TransparencyLevelHint="Mica"
+        
+        Width="1160"
+        Height="770"
+        
+        FontFamily="Segoe UI"
+        
+        Background="Transparent"
         WindowStartupLocation="CenterScreen"
+        RequestedThemeVariant="Dark"
+        TransparencyLevelHint="Mica"
+        
         Icon="/Assets/LocalFetch.ico"
         Title="{Binding WindowTitle}">
-    
-    <Window.Resources>
-        <ControlTheme x:Key="SettingsButton"
-                      BasedOn="{StaticResource TransparentButton}"
-                      TargetType="Button">
-            <Setter Property="Width" Value="32" />
-            <Setter Property="Height" Value="32" />
-            <Setter Property="Padding" Value="0" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="HorizontalContentAlignment" Value="Center" />
-        </ControlTheme>
-        
-        <converters:StatusColorConverter x:Key="StatusColorConverter" />
-        
-        <SolidColorBrush Color="#0069d9" x:Key="NavigationViewItemBackgroundSelected"/>
-        <SolidColorBrush Color="#43454A" x:Key="NavigationViewItemBackgroundSelectedPointerOver"/>
-        <SolidColorBrush Color="#0069d9" x:Key="NavigationViewItemBorderBrushSelected"/>
-        <x:Double x:Key="NavigationViewSelectionIndicatorWidth">0</x:Double>
-    </Window.Resources>
-    
+
     <Grid RowDefinitions="*, Auto, Auto" Margin="{Binding $parent[Window].OffScreenMargin}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="465" MinWidth="200" MaxWidth="900"/>
-                <ColumnDefinition Width="0" MaxWidth="0.01"/>  <!-- Splitter -->
+                <ColumnDefinition Width="0" MaxWidth="0.01"/> <!-- Splitter -->
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <!-- Navigation View -->
             <ui:NavigationView Grid.Column="0"
-               PaneDisplayMode="LeftCompact" IsBackEnabled="False" Foreground="Transparent" BorderBrush="Transparent"
-               HorizontalContentAlignment="Center"
-               IsPaneToggleButtonVisible="False" UseLayoutRounding="False" Background="Transparent" HorizontalAlignment="Stretch"
-               Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ColumnDefinition}}">
-                
+                               PaneDisplayMode="LeftCompact" IsBackEnabled="False" Foreground="Transparent" BorderBrush="Transparent"
+                               HorizontalContentAlignment="Center" IsPaneToggleButtonVisible="False" 
+                               UseLayoutRounding="False" Background="Transparent" HorizontalAlignment="Stretch"
+                               Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ColumnDefinition}}">
+
                 <ui:NavigationView.MenuItems>
                     <ui:NavigationViewItem IsSelected="False" SelectsOnInvoked="False">
                         <Viewbox Width="16" Height="16">
                             <Svg Width="16" Path="/Assets/Icons/Files/search.svg" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
                         </Viewbox>
                     </ui:NavigationViewItem>
-                    
-                    <ui:NavigationViewItemSeparator></ui:NavigationViewItemSeparator>
-                    
+
+                    <ui:NavigationViewItemSeparator/>
+
                     <ui:NavigationViewItem IsSelected="True">
                         <Panel>
                             <Viewbox Width="16" Height="16" IsVisible="{Binding !IsSelected, RelativeSource={RelativeSource AncestorType=ui:NavigationViewItem}}">
@@ -67,8 +56,6 @@
                         </Panel>
                     </ui:NavigationViewItem>
                 </ui:NavigationView.MenuItems>
-                <ui:NavigationView.FooterMenuItems>
-                </ui:NavigationView.FooterMenuItems>
             </ui:NavigationView>
 
             <!-- Grid Splitter -->
@@ -84,18 +71,16 @@
                     </Grid.RowDefinitions>
 
                     <!-- Editor 1 -->
-                    <avaloniaEdit:TextEditor Grid.Row="0" x:Name="Editor1" 
-                                             SyntaxHighlighting="{Binding JsonHighlighter}"
-                                             ShowLineNumbers="True" Background="#262626"
-                                             FontFamily="Cascadia Code, Consolas, Menlo, Monospace" Padding="0 0 0 8"
-                                             FontSize="12">
+                    <avaloniaEdit:TextEditor Grid.Row="0" x:Name="Editor1"
+                                             SyntaxHighlighting="{Binding JsonHighlighter}" ShowLineNumbers="True" Background="#262626"
+                                             FontFamily="Cascadia Code, Consolas, Menlo, Monospace" Padding="0 0 0 8" FontSize="12">
                         <avaloniaEdit:TextEditor.Options>
-                            <avaloniaEdit:TextEditorOptions AllowScrollBelowDocument="False" />
+                            <avaloniaEdit:TextEditorOptions AllowScrollBelowDocument="False"/>
                         </avaloniaEdit:TextEditor.Options>
                     </avaloniaEdit:TextEditor>
 
                     <!-- Grid Splitter -->
-                    <GridSplitter Grid.Row="1" Height="0" HorizontalAlignment="Stretch" Background="#2323234D" />
+                    <GridSplitter Grid.Row="1" Height="0" HorizontalAlignment="Stretch" Background="#2323234D"/>
 
                     <!-- Editor 2 -->
                     <avaloniaEdit:TextEditor Grid.Row="2" x:Name="Editor2"
@@ -109,7 +94,7 @@
                 </Grid>
             </Border>
         </Grid>
-        
+
         <!-- Status Bar -->
         <Grid x:Name="StatusBar" Grid.Row="2" VerticalAlignment="Bottom" Height="30" ColumnDefinitions="Auto, *">
             <Border Background="#1b1b1c" Height="33" VerticalAlignment="Top" IsHitTestVisible="False" Grid.ColumnSpan="2"/>
@@ -118,31 +103,30 @@
             <Border Name="LoadingBorder" Height="30" VerticalAlignment="Center" IsHitTestVisible="False" Grid.ColumnSpan="2"
                     Grid.Column="0">
                 <Border.Background>
-                    <Binding Path="Indicator.Status" Converter="{StaticResource StatusColorConverter}" />
+                    <Binding Path="Indicator.Status" Converter="{StaticResource StatusColorConverter}"/>
                 </Border.Background>
             </Border>
 
             <!-- Left Side: Status Information -->
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,1.5,10,0" Grid.Column="0">
-                <TextBlock FontFamily="Consolas" FontSize="12.3" Text="{Binding Indicator.SubLabel}" />
-                <TextBlock FontFamily="Consolas" FontSize="12" Text="{Binding Indicator.Label}" VerticalAlignment="Center" />
+                <TextBlock FontFamily="Consolas" FontSize="12.3" Text="{Binding Indicator.SubLabel}"/>
+                <TextBlock FontFamily="Consolas" FontSize="12" Text="{Binding Indicator.Label}" VerticalAlignment="Center"/>
             </StackPanel>
 
             <!-- Right Side: Buttons & Information -->
             <StackPanel Orientation="Horizontal" Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="1">
-                <!-- Local Fetch API Information -->
                 <StackPanel IsVisible="{Binding ApiServiceReference.IsAPIStarted}" Orientation="Horizontal" HorizontalAlignment="Right">
                     <Viewbox Width="14" Height="14">
                         <Svg Width="14" Path="/Assets/Icons/broadcast.svg" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
                     </Viewbox>
-                    <TextBlock FontFamily="Consolas" VerticalAlignment="Center" FontSize="8.9" Text="{Binding ApiServiceReference.LocalHostUrl}" Margin="5 2.1 5 0" />
+                    <TextBlock FontFamily="Consolas" VerticalAlignment="Center" FontSize="8.9" Text="{Binding ApiServiceReference.LocalHostUrl}" Margin="5 2.1 5 0"/>
                 </StackPanel>
 
                 <!-- Vertical line separator -->
-                <Rectangle IsVisible="{Binding ApiServiceReference.IsAPIStarted}" Width="1" Height="20" Fill="White" Margin="5,0" RadiusX="2" RadiusY="2" />
+                <Rectangle IsVisible="{Binding ApiServiceReference.IsAPIStarted}" Width="1" Height="20" Fill="White" Margin="5,0" RadiusX="2" RadiusY="2"/>
 
                 <!-- Primary Buttons -->
-                <Button Click="onPressGithub" Background="Transparent" BorderBrush="Transparent" Width="22" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3.5 0  3.5 0" Padding="2">
+                <Button Click="onPressGithub" Background="Transparent" BorderBrush="Transparent" Width="22" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3.5 0 3.5 0" Padding="2">
                     <Svg Width="11" Path="/Assets/Icons/github.svg" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
                 </Button>
             </StackPanel>
