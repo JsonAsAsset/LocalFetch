@@ -114,8 +114,6 @@ namespace LocalFetch.Controllers
             var exports = _provider.LoadAllObjects(path);
             var finalExports = new List<UObject>(exports);
 
-            finalExports.AddRange(exports);
-
             var mergedExports = new List<UObject>();
             if (_provider.TryLoadPackage(objectPath, out var editorAsset))
             {
