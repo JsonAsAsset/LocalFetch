@@ -29,10 +29,10 @@ public class FetchContext
         Console.WriteLine(description);
     }
 
-    public string GetStringProperty(ConfigIni config, string PropertyName)
+    public string GetStringProperty(ConfigIni config, string propertyName)
     {
         var values = new List<string>();
-        config.EvaluatePropertyValues("/Script/JsonAsAsset.JsonAsAssetSettings", PropertyName, values);
+        config.EvaluatePropertyValues("/Script/JsonAsAsset.JsonAsAssetSettings", propertyName, values);
 
         return values.Count == 1 ? values[0] : "";
     }
@@ -135,7 +135,6 @@ public class FetchContext
         }
 
         if (MappingFilePath != "") Provider.MappingsContainer = new FileUsmapTypeMappingsProvider(MappingFilePath);
-        Provider.LoadLocalization(ELanguage.English);
         Provider.LoadVirtualPaths();
     }
 }

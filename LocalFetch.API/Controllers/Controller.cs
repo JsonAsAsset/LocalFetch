@@ -34,7 +34,7 @@ namespace LocalFetch.Controllers
 
             try
             {
-                var localObject = _provider.LoadObject(path);
+                _provider.TryLoadPackageObject(path, export: out var localObject);
 
                 if (!raw)
                 {
@@ -111,7 +111,9 @@ namespace LocalFetch.Controllers
         private ActionResult HandleRawExport(string path)
         {
             var objectPath = path.SubstringBefore('.') + ".o.uasset";
-            var exports = _provider.LoadAllObjects(path);
+            
+            var pkg = _provider.LoadPackage(path);
+            var exports = pkg.GetExports().ToArray();
             var finalExports = new List<UObject>(exports);
 
             var mergedExports = new List<UObject>();

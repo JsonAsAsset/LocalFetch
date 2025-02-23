@@ -1,0 +1,182 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CEAFD9D8-B01A-4345-9DE2-DC8B8E46D690}|LocalFetch.csproj|d:\\build\\\u002B\u002Bjsonasasset\\fortnitegame\\plugins\\localfetch\\utilities\\fetchcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CEAFD9D8-B01A-4345-9DE2-DC8B8E46D690}|LocalFetch.csproj|solutionrelative:utilities\\fetchcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CEAFD9D8-B01A-4345-9DE2-DC8B8E46D690}|LocalFetch.csproj|d:\\build\\\u002B\u002Bjsonasasset\\fortnitegame\\plugins\\localfetch\\dependencies\\cue4parse\\cue4parse\\obj\\debug\\net8.0\\cue4parse.assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CEAFD9D8-B01A-4345-9DE2-DC8B8E46D690}|LocalFetch.csproj|solutionrelative:dependencies\\cue4parse\\cue4parse\\obj\\debug\\net8.0\\cue4parse.assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\obj\\Debug\\net8.0-windows7.0\\win-x64\\LocalFetch.AssemblyInfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:obj\\Debug\\net8.0-windows7.0\\win-x64\\LocalFetch.AssemblyInfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CEAFD9D8-B01A-4345-9DE2-DC8B8E46D690}|LocalFetch.csproj|d:\\build\\\u002B\u002Bjsonasasset\\fortnitegame\\plugins\\localfetch\\dependencies\\cue4parse\\cue4parse\\ue4\\readers\\farchiveloadcompressedproxy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CEAFD9D8-B01A-4345-9DE2-DC8B8E46D690}|LocalFetch.csproj|solutionrelative:dependencies\\cue4parse\\cue4parse\\ue4\\readers\\farchiveloadcompressedproxy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CEAFD9D8-B01A-4345-9DE2-DC8B8E46D690}|LocalFetch.csproj|d:\\build\\\u002B\u002Bjsonasasset\\fortnitegame\\plugins\\localfetch\\dependencies\\cue4parse\\cue4parse\\ue4\\wwise\\wwisereader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CEAFD9D8-B01A-4345-9DE2-DC8B8E46D690}|LocalFetch.csproj|solutionrelative:dependencies\\cue4parse\\cue4parse\\ue4\\wwise\\wwisereader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CEAFD9D8-B01A-4345-9DE2-DC8B8E46D690}|LocalFetch.csproj|d:\\build\\\u002B\u002Bjsonasasset\\fortnitegame\\plugins\\localfetch\\dependencies\\cue4parse\\cue4parse-conversion\\meshes\\gltf\\vertexcolorxtexturex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CEAFD9D8-B01A-4345-9DE2-DC8B8E46D690}|LocalFetch.csproj|solutionrelative:dependencies\\cue4parse\\cue4parse-conversion\\meshes\\gltf\\vertexcolorxtexturex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CEAFD9D8-B01A-4345-9DE2-DC8B8E46D690}|LocalFetch.csproj|d:\\build\\\u002B\u002Bjsonasasset\\fortnitegame\\plugins\\localfetch\\dependencies\\cue4parse\\cue4parse-conversion\\meshes\\gltf\\gltf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CEAFD9D8-B01A-4345-9DE2-DC8B8E46D690}|LocalFetch.csproj|solutionrelative:dependencies\\cue4parse\\cue4parse-conversion\\meshes\\gltf\\gltf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CEAFD9D8-B01A-4345-9DE2-DC8B8E46D690}|LocalFetch.csproj|d:\\build\\\u002B\u002Bjsonasasset\\fortnitegame\\plugins\\localfetch\\dependencies\\cue4parse\\cue4parse-conversion\\materials\\materialexporter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CEAFD9D8-B01A-4345-9DE2-DC8B8E46D690}|LocalFetch.csproj|solutionrelative:dependencies\\cue4parse\\cue4parse-conversion\\materials\\materialexporter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CEAFD9D8-B01A-4345-9DE2-DC8B8E46D690}|LocalFetch.csproj|d:\\build\\\u002B\u002Bjsonasasset\\fortnitegame\\plugins\\localfetch\\dependencies\\cue4parse\\cue4parse-conversion\\textures\\texturedecoder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CEAFD9D8-B01A-4345-9DE2-DC8B8E46D690}|LocalFetch.csproj|solutionrelative:dependencies\\cue4parse\\cue4parse-conversion\\textures\\texturedecoder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CEAFD9D8-B01A-4345-9DE2-DC8B8E46D690}|LocalFetch.csproj|d:\\build\\\u002B\u002Bjsonasasset\\fortnitegame\\plugins\\localfetch\\localfetch.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{CEAFD9D8-B01A-4345-9DE2-DC8B8E46D690}|LocalFetch.csproj|solutionrelative:localfetch.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FetchContext.cs",
+              "DocumentMoniker": "D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\Utilities\\FetchContext.cs",
+              "RelativeDocumentMoniker": "Utilities\\FetchContext.cs",
+              "ToolTip": "D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\Utilities\\FetchContext.cs",
+              "RelativeToolTip": "Utilities\\FetchContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T20:55:54.222Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CUE4Parse.AssemblyInfo.cs",
+              "DocumentMoniker": "D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\Dependencies\\CUE4Parse\\CUE4Parse\\obj\\Debug\\net8.0\\CUE4Parse.AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "Dependencies\\CUE4Parse\\CUE4Parse\\obj\\Debug\\net8.0\\CUE4Parse.AssemblyInfo.cs",
+              "ToolTip": "D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\Dependencies\\CUE4Parse\\CUE4Parse\\obj\\Debug\\net8.0\\CUE4Parse.AssemblyInfo.cs",
+              "RelativeToolTip": "Dependencies\\CUE4Parse\\CUE4Parse\\obj\\Debug\\net8.0\\CUE4Parse.AssemblyInfo.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAlwBAAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T20:55:26.477Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LocalFetch.AssemblyInfo.cs",
+              "DocumentMoniker": "D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\obj\\Debug\\net8.0-windows7.0\\win-x64\\LocalFetch.AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "obj\\Debug\\net8.0-windows7.0\\win-x64\\LocalFetch.AssemblyInfo.cs",
+              "ToolTip": "D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\obj\\Debug\\net8.0-windows7.0\\win-x64\\LocalFetch.AssemblyInfo.cs",
+              "RelativeToolTip": "obj\\Debug\\net8.0-windows7.0\\win-x64\\LocalFetch.AssemblyInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAlwA4AAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T20:55:24.331Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "WwiseReader.cs",
+              "DocumentMoniker": "D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\Dependencies\\CUE4Parse\\CUE4Parse\\UE4\\Wwise\\WwiseReader.cs",
+              "RelativeDocumentMoniker": "Dependencies\\CUE4Parse\\CUE4Parse\\UE4\\Wwise\\WwiseReader.cs",
+              "ToolTip": "D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\Dependencies\\CUE4Parse\\CUE4Parse\\UE4\\Wwise\\WwiseReader.cs",
+              "RelativeToolTip": "Dependencies\\CUE4Parse\\CUE4Parse\\UE4\\Wwise\\WwiseReader.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T20:49:45.15Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "VertexColorXTextureX.cs",
+              "DocumentMoniker": "D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\Dependencies\\CUE4Parse\\CUE4Parse-Conversion\\Meshes\\glTF\\VertexColorXTextureX.cs",
+              "RelativeDocumentMoniker": "Dependencies\\CUE4Parse\\CUE4Parse-Conversion\\Meshes\\glTF\\VertexColorXTextureX.cs",
+              "ToolTip": "D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\Dependencies\\CUE4Parse\\CUE4Parse-Conversion\\Meshes\\glTF\\VertexColorXTextureX.cs",
+              "RelativeToolTip": "Dependencies\\CUE4Parse\\CUE4Parse-Conversion\\Meshes\\glTF\\VertexColorXTextureX.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAA1wAgAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T20:49:34.516Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "TextureDecoder.cs",
+              "DocumentMoniker": "D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\Dependencies\\CUE4Parse\\CUE4Parse-Conversion\\Textures\\TextureDecoder.cs",
+              "RelativeDocumentMoniker": "Dependencies\\CUE4Parse\\CUE4Parse-Conversion\\Textures\\TextureDecoder.cs",
+              "ToolTip": "D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\Dependencies\\CUE4Parse\\CUE4Parse-Conversion\\Textures\\TextureDecoder.cs",
+              "RelativeToolTip": "Dependencies\\CUE4Parse\\CUE4Parse-Conversion\\Textures\\TextureDecoder.cs",
+              "ViewState": "AgIAANUAAAAAAAAAAAAlwOMAAAC5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T20:49:12.904Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Gltf.cs",
+              "DocumentMoniker": "D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\Dependencies\\CUE4Parse\\CUE4Parse-Conversion\\Meshes\\glTF\\Gltf.cs",
+              "RelativeDocumentMoniker": "Dependencies\\CUE4Parse\\CUE4Parse-Conversion\\Meshes\\glTF\\Gltf.cs",
+              "ToolTip": "D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\Dependencies\\CUE4Parse\\CUE4Parse-Conversion\\Meshes\\glTF\\Gltf.cs",
+              "RelativeToolTip": "Dependencies\\CUE4Parse\\CUE4Parse-Conversion\\Meshes\\glTF\\Gltf.cs",
+              "ViewState": "AgIAALgAAAAAAAAAAAAawMUAAAC6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T20:48:46.882Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FArchiveLoadCompressedProxy.cs",
+              "DocumentMoniker": "D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\Dependencies\\CUE4Parse\\CUE4Parse\\UE4\\Readers\\FArchiveLoadCompressedProxy.cs",
+              "RelativeDocumentMoniker": "Dependencies\\CUE4Parse\\CUE4Parse\\UE4\\Readers\\FArchiveLoadCompressedProxy.cs",
+              "ToolTip": "D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\Dependencies\\CUE4Parse\\CUE4Parse\\UE4\\Readers\\FArchiveLoadCompressedProxy.cs",
+              "RelativeToolTip": "Dependencies\\CUE4Parse\\CUE4Parse\\UE4\\Readers\\FArchiveLoadCompressedProxy.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAlwCcAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T20:48:36.059Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "LocalFetch.csproj",
+              "DocumentMoniker": "D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\LocalFetch.csproj",
+              "RelativeDocumentMoniker": "LocalFetch.csproj",
+              "ToolTip": "D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\LocalFetch.csproj",
+              "RelativeToolTip": "LocalFetch.csproj",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-02-23T20:48:28.993Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MaterialExporter.cs",
+              "DocumentMoniker": "D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\Dependencies\\CUE4Parse\\CUE4Parse-Conversion\\Materials\\MaterialExporter.cs",
+              "RelativeDocumentMoniker": "Dependencies\\CUE4Parse\\CUE4Parse-Conversion\\Materials\\MaterialExporter.cs",
+              "ToolTip": "D:\\Build\\\u002B\u002BJsonAsAsset\\FortniteGame\\Plugins\\LocalFetch\\Dependencies\\CUE4Parse\\CUE4Parse-Conversion\\Materials\\MaterialExporter.cs",
+              "RelativeToolTip": "Dependencies\\CUE4Parse\\CUE4Parse-Conversion\\Materials\\MaterialExporter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T20:47:39.147Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
