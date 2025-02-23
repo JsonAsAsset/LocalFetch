@@ -1,5 +1,3 @@
-!JsonAsAsset/Binaries/*/JsonAsAsset_API/*
-JsonAsAsset/Intermediate/*
 .vscode/settings.json
 
 *.com
@@ -56,7 +54,6 @@ TestResults/
 ######################
 .DS_Store?
 ehthumbs.db
-Icon?
 Thumbs.db
 [Bb]in
 [Oo]bj
@@ -77,8 +74,6 @@ _[Ss]cripts
 *.v1
 *.sln
 .idea/
-/JsonAsAsset/ExternalSource/LocalFetch/.vs
-/JsonAsAsset/ExternalSource/LocalFetch/.config
 *.vsidx
 *.config
 appsettings*

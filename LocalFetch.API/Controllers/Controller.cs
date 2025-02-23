@@ -116,8 +116,6 @@ public class LocalFetchApiController(DbContext context) : ControllerBase
         var exports = _provider?.LoadAllObjects(path);
         var finalExports = new List<UObject>(exports);
 
-        finalExports.AddRange(exports);
-
         var mergedExports = new List<UObject>();
         if (_provider != null && _provider.TryLoadPackage(objectPath, out var editorAsset))
         {

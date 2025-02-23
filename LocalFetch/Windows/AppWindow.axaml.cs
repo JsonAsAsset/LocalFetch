@@ -35,8 +35,6 @@ public partial class AppWindow : WindowBase<AppWindowModel>
 
         WindowModel.LogEditor = Editor2;
         Editor2.SyntaxHighlighting = new LogSyntaxHighlighter();
-        
-        Editor2.AppendText("[INFO] Setting up DataContext and loading models..\n\nI love executing! Said the program.");
     }
     
     public void onPressGithub(object sender, RoutedEventArgs args)

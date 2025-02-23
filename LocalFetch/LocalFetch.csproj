@@ -16,9 +16,9 @@
 	</PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.2.1"/>
+        <PackageReference Include="Avalonia" Version="11.2.4" />
         <PackageReference Include="Avalonia.AvaloniaEdit" Version="11.1.0" />
-        <PackageReference Include="Avalonia.Desktop" Version="11.2.1"/>
+        <PackageReference Include="Avalonia.Desktop" Version="11.2.4" />
         <PackageReference Include="Avalonia.Svg" Version="11.2.0.2" />
         <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.1"/>
         <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.1"/>
@@ -45,13 +45,13 @@
         <PackageReference Condition="'$(Configuration)' == 'Release'" Include="Costura.Fody" Version="5.8.0-alpha0098">
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Material.Icons.Avalonia" Version="2.1.9" />
+        <PackageReference Include="Material.Icons.Avalonia" Version="2.2.0" />
         <PackageReference Include="NAudio" Version="2.2.1" />
         <PackageReference Include="NAudio.Vorbis" Version="1.5.0" />
         <PackageReference Include="ReactiveUI" Version="20.0.1" />
         <PackageReference Include="RestSharp" Version="110.2.1-alpha.0.20" />
         <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="110.2.1-alpha.0.20" />
-        <PackageReference Include="ScottPlot.Avalonia" Version="5.0.36" />
+        <PackageReference Include="ScottPlot.Avalonia" Version="5.0.54" />
         <PackageReference Include="Serilog.Sinks.File" Version="5.0.1-dev-00972" />
         <PackageReference Include="Tomlyn" Version="0.17.0" />
     </ItemGroup>
