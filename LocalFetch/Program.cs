@@ -24,6 +24,6 @@ internal static class Program
     public static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()
-            .LogToTrace()
-            .With(new Win32PlatformOptions { CompositionMode = [Win32CompositionMode.WinUIComposition] });
+            .WithInterFont()
+            .LogToTrace();
 }

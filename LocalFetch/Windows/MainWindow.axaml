@@ -1,0 +1,38 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Background="#2B2D30"
+        Width="786" Height="643" CanResize="False"
+        WindowStartupLocation="CenterScreen"
+        x:Class="LocalFetch.Windows.MainViewViewModel"
+        xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
+        xmlns:primitives="clr-namespace:ActiproSoftware.UI.Avalonia.Controls.Primitives;assembly=ActiproSoftware.Avalonia.Shared"
+        Icon="/Assets/LocalFetch.ico"
+        Title="Local Fetch">
+
+    <DockPanel>
+        <actipro:ChromedTitleBar DockPanel.Dock="Top" Background="#2B2D30">
+            <actipro:ChromedTitleBar.LeftContent>
+                <primitives:OverlayInputFilter>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Margin="10,7,0,7" VerticalAlignment="Center" IsHitTestVisible="False">
+                            <Border Height="30"></Border>
+                        </StackPanel>
+                    </StackPanel>
+                </primitives:OverlayInputFilter>
+            </actipro:ChromedTitleBar.LeftContent>
+        </actipro:ChromedTitleBar>
+	
+        <primitives:OverlayInputFilter>
+            <Grid>
+                <actipro:WindowResizeGrip/>
+			    
+                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" ZIndex="99">
+                </StackPanel>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+            </Grid>
+        </primitives:OverlayInputFilter>
+    </DockPanel>
+</Window>

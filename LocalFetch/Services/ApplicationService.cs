@@ -14,9 +14,8 @@ using LocalFetch.Framework;
 using LocalFetch.Shared.Framework;
 using LocalFetch.Shared.Services;
 using LocalFetch.ViewModels;
+using LocalFetch.Windows;
 using Serilog;
-
-using AppWindow = LocalFetch.Windows.AppWindow;
 using AppWindowModel = LocalFetch.WindowModels.AppWindowModel;
 
 namespace LocalFetch.Services;
@@ -34,13 +33,9 @@ public static class ApplicationService
 
     public async static void Initialize()
     {
-        ViewModelRegistry.New<StatusIndicator>();
-        ViewModelRegistry.New<RestApiService>();
-        ViewModelRegistry.New<CUE4ParseViewModel>();
-
         Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
 
-        Application.MainWindow = new AppWindow();
+        Application.MainWindow = new MainViewViewModel();
         Application.Startup += OnStartup;
         Application.Exit += OnExit;
         
