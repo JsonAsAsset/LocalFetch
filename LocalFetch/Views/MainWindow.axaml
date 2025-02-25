@@ -1,0 +1,42 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:LocalFetch.ViewModels"
+        Width="786" Height="642" CanResize="False"
+        WindowStartupLocation="CenterScreen"
+        x:Class="LocalFetch.Views.MainWindow"
+        xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
+        xmlns:primitives="clr-namespace:ActiproSoftware.UI.Avalonia.Controls.Primitives;assembly=ActiproSoftware.Avalonia.Shared"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/LocalFetch.ico"
+        Background="#2B2D30"
+        Title="Local Fetch">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <DockPanel>
+		<actipro:ChromedTitleBar DockPanel.Dock="Top" Background="#2B2D30">
+			<actipro:ChromedTitleBar.LeftContent>
+				<primitives:OverlayInputFilter>
+					<StackPanel Orientation="Horizontal" IsHitTestVisible="True">
+						<StackPanel Margin="10,7,0,7" VerticalAlignment="Center" IsHitTestVisible="True">
+							<Border Height="30"></Border>
+						</StackPanel>
+					</StackPanel>
+				</primitives:OverlayInputFilter>
+			</actipro:ChromedTitleBar.LeftContent>
+		</actipro:ChromedTitleBar>
+	
+	    <primitives:OverlayInputFilter>
+		    <Grid>
+			    <actipro:WindowResizeGrip/>
+			    
+
+			    <Grid.RowDefinitions>
+				    <RowDefinition Height="*"/>
+			    </Grid.RowDefinitions>
+		    </Grid>
+	    </primitives:OverlayInputFilter>
+	</DockPanel>
+</Window>

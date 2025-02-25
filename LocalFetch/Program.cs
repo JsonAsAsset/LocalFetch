@@ -1,25 +1,13 @@
 ﻿using Avalonia;
 using System;
-using LocalFetch.Application;
-using Serilog;
 
 namespace LocalFetch;
 
-internal static class Program
+sealed class Program
 {
     [STAThread]
-    public static void Main(string[] args)
-    {
-        try
-        {
-            BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
-        }
-        catch (Exception e)
-        {
-            Log.Error(e.ToString());
-            Log.CloseAndFlush();
-        }
-    }
+    public static void Main(string[] args) => BuildAvaloniaApp()
+        .StartWithClassicDesktopLifetime(args);
 
     public static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<App>()
