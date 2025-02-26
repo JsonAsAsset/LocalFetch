@@ -7,10 +7,18 @@
 
     <Application.Styles>
         <FluentTheme />
-        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
     </Application.Styles>
              
      <Application.Styles>
          <actipro:ModernTheme/>
      </Application.Styles>
+    
+    <Application.Resources>
+        <RadialGradientBrush x:Key="RadialBackground"
+                             Center="2.0, 0.0"
+                             GradientOrigin="2.0, 1.0" SpreadMethod="Pad"
+                             Radius="0.5">
+            <GradientStop Color="#2B2D30" Offset="1.0" />
+        </RadialGradientBrush>
+    </Application.Resources>
 </Application>

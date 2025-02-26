@@ -1,7 +1,7 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:LocalFetch.ViewModels"
-        Width="786" Height="642"
+        Width="786" Height="642" CanResize="False"
         MinWidth="786" MinHeight="642"
         WindowStartupLocation="CenterScreen"
         x:Class="LocalFetch.Views.MainWindow"
@@ -9,7 +9,8 @@
         xmlns:primitives="clr-namespace:ActiproSoftware.UI.Avalonia.Controls.Primitives;assembly=ActiproSoftware.Avalonia.Shared"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/LocalFetch.ico"
-        Background="#2B2D30"
+        Background="#1E1F22"
+        FontFamily="Segoe UI"
         Title="Local Fetch">
 
     <Design.DataContext>
@@ -18,20 +19,25 @@
 
     <DockPanel>
 		<actipro:ChromedTitleBar DockPanel.Dock="Top"
-		                         Background="#2B2D30"
+		                         Background="{StaticResource RadialBackground}"
 		>
 			<actipro:ChromedTitleBar.LeftContent>
 				<primitives:OverlayInputFilter>
 					<StackPanel Orientation="Horizontal" IsHitTestVisible="True">
-						<StackPanel Margin="10,7,0,7" VerticalAlignment="Center" IsHitTestVisible="True">
-							<Border Height="30"></Border>
+						<StackPanel Margin="15,7,0,7" VerticalAlignment="Center" IsHitTestVisible="True">
+							<Border Height="30" Width="" Background="Black"></Border>
 						</StackPanel>
 						<StackPanel Orientation="Horizontal">
+							<Image Source="/Assets/LocalFetch.ico"
+							       Width="15" 
+							       Height="15"
+							       VerticalAlignment="Center"
+							       Margin="0,8,7,7"/>
 							<TextBlock Text="Welcome to Local Fetch"
 							           VerticalAlignment="Center"
 							           IsHitTestVisible="False"
 							           Foreground="#6A7176"
-							           Margin="10,8,0,7"
+							           Margin="0,8,0,7"
 							           TextTrimming="CharacterEllipsis"/>
 						</StackPanel>
 					</StackPanel>
@@ -43,11 +49,9 @@
 		    <Grid>
 			    <actipro:WindowResizeGrip/>
 			    <Grid.RowDefinitions>
+				    <RowDefinition Height="60"/>
 				    <RowDefinition Height="1"/>
-				    <RowDefinition Height="*"/>
 			    </Grid.RowDefinitions>
-			    
-			    <!--<Border Grid.Row="0" Height="1" Background="#1E1F22"></Border>-->
 		    </Grid>
 	    </primitives:OverlayInputFilter>
 	</DockPanel>

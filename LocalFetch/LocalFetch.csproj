@@ -9,7 +9,6 @@
         <ApplicationIcon>Assets/LocalFetch.ico</ApplicationIcon>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-		    <PublishTrimmed>true</PublishTrimmed>
 		    <PublishSingleFile>true</PublishSingleFile>
 		    <SelfContained>true</SelfContained>
         <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
@@ -24,6 +23,7 @@
         <PackageReference Include="ActiproSoftware.Controls.Avalonia.Pro" Version="24.2.0" />
         <PackageReference Include="Avalonia" Version="11.2.4" />
         <PackageReference Include="Avalonia.Desktop" Version="11.2.4" />
+        <PackageReference Include="Avalonia.Svg" Version="11.2.0.2" />
         <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.4" />
         <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
