@@ -100,7 +100,8 @@
 					                        FontSize="14"
 					                        Foreground="#D0DBE4"
 					                        ToolTip.Tip="Setup a new build for Local Fetch"
-					                        Content="New Local Fetch"
+					                        Content="New Configuration"
+					                        Click="NewLocalFetch_Click"
 					                        Margin="0,0,10,0" />
 					            </StackPanel>
 					        </Grid>

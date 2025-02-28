@@ -1,0 +1,89 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
+        x:Class="LocalFetch.Views.NewLocalFetchView"
+        WindowStartupLocation="CenterScreen"
+        Title="New Local Fetch"
+        Background="#2B2D30"
+        Width="983" Height="550"
+        MinWidth="983" MinHeight="550"
+        FontFamily="Segoe UI"
+        x:Name="NewLocalFetchWindow">
+
+    <DockPanel Margin="{Binding #NewLocalFetchWindow.OffScreenMargin}">
+
+        <!-- Title Bar (Unchanged) -->
+        <actipro:ChromedTitleBar DockPanel.Dock="Top" Background="{StaticResource RadialBackground}">
+            <actipro:ChromedTitleBar.LeftContent>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Margin="15,7,0,7" VerticalAlignment="Center">
+                        <Border Height="33" Background="Black"></Border>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Create a New Configuration"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   IsHitTestVisible="False"
+                                   Foreground="#6A7176"
+                                   Margin="0,8,0,7"
+                                   TextTrimming="CharacterEllipsis"/>
+                    </StackPanel>
+                </StackPanel>
+            </actipro:ChromedTitleBar.LeftContent>
+        </actipro:ChromedTitleBar>
+
+        <!-- Bottom Bar with Button (Fixed at the Bottom) -->
+        <Border DockPanel.Dock="Bottom"
+                Height="60"
+                BorderBrush="#1E1F22" 
+                BorderThickness="0 1 0 0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Text on the Left -->
+                <TextBlock Grid.Column="0"
+                           Text="Import From Editor Preferences"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="20,0"
+                           FontSize="15"
+                           ToolTip.Tip="Imports configuration from DefaultEditorPerProjectUserSettings.ini"
+                           Foreground="#6B9CFF" 
+                           Cursor="Hand"/>
+                
+                <!-- Buttons on the Right -->
+                <StackPanel Grid.Column="1" 
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Spacing="10">
+            
+                    <Button
+                            FontSize="15"
+                            Width="100"
+                            Foreground="#D0DBE4"
+                            Padding="8"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Margin="0,0,13,0"
+                            Content="Create"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Main Content Area (Fills Remaining Space) -->
+        <Border Background="#2B2D30">
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Main Content Goes Here"
+                           FontSize="24" 
+                           Foreground="#D0DBE4"
+                           Background="#2B2D30"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+    </DockPanel>
+</Window>

@@ -61,5 +61,8 @@
         <DependentUpon>App.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="Views\NewLocalFetchViewModel.cs">
+        <DependentUpon>NewLocalFetchView.axaml</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>

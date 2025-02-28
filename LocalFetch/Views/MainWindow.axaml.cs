@@ -16,4 +16,10 @@ public partial class MainWindow : Window
         SR.SetCustomString(SRName.UICaptionButtonMinimizeText, null!);
         SR.SetCustomString(SRName.UICaptionButtonRestoreText, null!);
     }
+    
+    private async void NewLocalFetch_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        var newLocalFetchView = new NewLocalFetchView();
+        await newLocalFetchView.ShowDialog(this);
+    }
 }
