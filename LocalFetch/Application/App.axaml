@@ -6,14 +6,86 @@
 
      <Application.Styles>
          <actipro:ModernTheme/>
+         
+         <Style Selector="Button">
+             <Setter Property="Foreground" Value="#DEE9F2" />
+         </Style>
      </Application.Styles>
     
     <Application.Resources>
+        <Color x:Key="TitleBarBackgroundHoverColor">#383A3D</Color>
+        <Color x:Key="ButtonOutline">#4E5157</Color>
+        <Color x:Key="ButtonHoverOutline">#5E6168</Color>
+        <Color x:Key="ButtonBackgroundColor">#2B2D30</Color>
+        <Color x:Key="ButtonBackgroundPressedColor">#2B2D30</Color>
+        <Color x:Key="MenuBackgroundColor">#2B2D30</Color>
+        
         <RadialGradientBrush x:Key="RadialBackground" 
                              Center="0.0, 45.0"
                              GradientOrigin="150.0, 0.0" SpreadMethod="Pad"
                              Radius="0.8">
             <GradientStop Color="#2B2D30" Offset="1.0" />
         </RadialGradientBrush>
+        
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey TitleBarBackgroundBrush}" Color="Transparent" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey TitleBarButtonBackgroundBrushPointerOver}" Color="{DynamicResource TitleBarBackgroundHoverColor}" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey TitleBarButtonBackgroundBrushPressed}" Color="{DynamicResource TitleBarBackgroundHoverColor}" />
+        
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBackgroundBrushEmphasized}" Color="#FFA83232" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBackgroundBrushEmphasizedPointerOver}" Color="#FF32A852" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBackgroundBrushEmphasizedPressed}" Color="#327BA8" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBackgroundBrushEmphasizedDisabled}" Color="#FF7F32A8" />
+
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBackgroundBrushOutline}" Color="{DynamicResource ButtonBackgroundColor}" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBackgroundBrushOutlinePointerOver}" Color="{DynamicResource ButtonBackgroundColor}" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBackgroundBrushOutlinePressed}" Color="{DynamicResource ButtonBackgroundColor}" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBackgroundBrushOutlineDisabled}" Color="#FFA83232" />
+
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBackgroundBrushSoft}" Color="#FF32A8A8" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBackgroundBrushSoftPointerOver}" Color="#FFA8527B" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBackgroundBrushSoftPressed}" Color="#FF7BA832" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBackgroundBrushSoftDisabled}" Color="#FF327BA8" />
+
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBackgroundBrushSolid}" Color="#FFA87B32" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBackgroundBrushSolidPointerOver}" Color="#FF32A832" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBackgroundBrushSolidPressed}" Color="#FF32A87B" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBackgroundBrushSolidDisabled}" Color="{DynamicResource ButtonBackgroundColor}" />
+
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBackgroundBrushSubtlePointerOver}" Color="#FF7F32A8" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBackgroundBrushSubtlePressed}" Color="#FFA83252" />
+
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBorderBrushOutline}" Color="{DynamicResource ButtonOutline}" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBorderBrushOutlinePointerOver}" Color="{DynamicResource ButtonHoverOutline}" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBorderBrushOutlinePressed}" Color="#4CBDFF" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonBorderBrushOutlineDisabled}" Color="#FF32A8A8" />
+
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonForegroundBrush}" Color="#FFA83232" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonForegroundBrushDisabled}" Color="#FF32A832" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonForegroundBrushEmphasized}" Color="{DynamicResource ButtonBackgroundPressedColor}" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonForegroundBrushEmphasizedDisabled}" Color="#FF7F32A8" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonForegroundBrushLinkPointerOver}" Color="#FF327BA8" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonForegroundBrushLinkPressed}" Color="#FF32A87B" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonForegroundBrushSolid}" Color="{DynamicResource ButtonBackgroundColor}" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ButtonForegroundBrushSolidDisabled}" Color="#FF32A8A8" />
+        
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ToolTipBackgroundBrush}" Color="#393B40" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ToolTipBorderBrush}" Color="{DynamicResource ButtonOutline}" />
+        
+        <CornerRadius x:Key="{actipro:ThemeResourceKey ToolTipCornerRadius}">5</CornerRadius>
+        <Thickness x:Key="{actipro:ThemeResourceKey ToolTipBorderThickness}">1</Thickness>
+        <Thickness x:Key="{actipro:ThemeResourceKey ButtonPadding}">19,8</Thickness>
+        
+        <Thickness x:Key="{actipro:ThemeResourceKey ButtonBorderThickness}">1.43</Thickness>
+        <CornerRadius x:Key="{actipro:ThemeResourceKey ButtonCornerRadius}">5</CornerRadius>
+        
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ListBackgroundBrush}" Color="{DynamicResource ButtonBackgroundColor}" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ListGroupingBackgroundBrush}" Color="{DynamicResource ButtonBackgroundColor}" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ListHeaderBackgroundBrush}" Color="{DynamicResource ButtonBackgroundColor}" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey DefaultBackgroundBrush}" Color="{DynamicResource ButtonBackgroundColor}" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey EditBackgroundBrush}" Color="{DynamicResource ButtonBackgroundColor}" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ExpanderBackgroundBrush}" Color="{DynamicResource ButtonBackgroundColor}" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey MenuPopupBackgroundBrush}" Color="{DynamicResource ButtonBackgroundColor}" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey MenuPopupBorderBrush}" Color="#43454A" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey MenuItemBackgroundBrushSelected}" Color="#2E436E" />
     </Application.Resources>
 </Application>

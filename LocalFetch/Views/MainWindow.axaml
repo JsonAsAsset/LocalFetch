@@ -1,7 +1,7 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:LocalFetch.ViewModels"
-        Width="783" Height="641" CanResize="False"
+        Width="783" Height="641"
         MinWidth="783" MinHeight="641"
         WindowStartupLocation="CenterScreen"
         x:Class="LocalFetch.Views.MainWindow"
@@ -12,23 +12,17 @@
         Icon="/Assets/LocalFetch.ico"
         Background="#2B2D30"
         FontFamily="Segoe UI"
-        Title="Local Fetch">
+        Title="Local Fetch"
+        x:Name="rootWindow">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <DockPanel>
+    <DockPanel Margin="{Binding #rootWindow.OffScreenMargin}">
 	    <actipro:ChromedTitleBar DockPanel.Dock="Top"
 	                             Background="{StaticResource RadialBackground}"
 	    >
-		    <actipro:ChromedTitleBar.Styles>
-			    <!-- Hover Style for All Buttons in ChromedTitleBar -->
-			    <Style Selector="Button:pointerover">
-				    <Setter Property="Background" Value="LightGray" />
-			    </Style>
-		    </actipro:ChromedTitleBar.Styles>
-		    
 		    <actipro:ChromedTitleBar.Resources>
 			    <actipro:ComparisonConverter x:Key="RightContentMarginConverter">
 				    <actipro:ComparisonConverter.TrueResult>
@@ -55,7 +49,6 @@
 					</StackPanel>
 				</StackPanel>
 			</actipro:ChromedTitleBar.LeftContent>
-		    
 		    <primitives:OverlayInputFilter>
 			    <Grid>
 				    <actipro:WindowResizeGrip/>
@@ -71,40 +64,59 @@
 	            BorderThickness="{actipro:ThemeResource StatusBarBorderThickness}">
 		    <Grid Margin="0,0,0,1">
 			    <Grid.ColumnDefinitions>
-				    <ColumnDefinition Width="224" />
 				    <ColumnDefinition Width="*" />
 			    </Grid.ColumnDefinitions>
-        
-			    <Border Grid.Column="0" Background="Transparent">
-				    <TextBlock Text="Left Panel" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-			    </Border>
-			    
-			    <Border Grid.Column="1" Background="#1E1F22">
-				    <ScrollViewer Classes="theme-scroll-overlay">
-					    <StackPanel Margin="13 0 0 0">
-						    <Button Width="511" 
-						            Height="52" 
-						            Background="Transparent" 
-						            BorderBrush="Transparent"
-						            CornerRadius="5"
-						            Foreground="White"
-						            Content="Button Tile">
-							    <Button.Styles>
-								    <!-- Default Style -->
-								    <Style Selector="Button">
-									    <Setter Property="Background" Value="Transparent"/>
-									    <Setter Property="Foreground" Value="White"/>
-								    </Style>
-        
-								    <!-- Hover Style -->
-								    <Style Selector="Button:pointerover">
-									    <Setter Property="Background" Value="#2E436E"/>
-									    <Setter Property="Foreground" Value="White"/>
-								    </Style>
-							    </Button.Styles>
-						    </Button>
-					    </StackPanel>
-				    </ScrollViewer>
+
+			    <Border Grid.Column="0" Background="#1E1F22">
+					<StackPanel>
+					    <!-- Top Bar with Search Box and Buttons -->
+					    <Border Background="#1E1F22" Height="80">
+					        <Grid>
+					            <Grid.ColumnDefinitions>
+					                <ColumnDefinition Width="*" />
+					                <ColumnDefinition Width="Auto" />
+					            </Grid.ColumnDefinitions>
+
+					            <!-- Search Box with Icon -->
+					            <TextBlock Grid.Column="0"
+					                     Height="30" 
+					                     VerticalAlignment="Center" 
+					                     Margin="10,0"
+					                     Background="Transparent"
+					                     FontSize="16"
+					                     Padding="10,0"
+					                     FontStyle="Normal"
+					                     >Local Fetch</TextBlock>
+
+					            <!-- StackPanel for Buttons -->
+					            <StackPanel Grid.Column="1" 
+					                        Orientation="Horizontal" 
+					                        VerticalAlignment="Center"
+					                        HorizontalAlignment="Right"
+					                        Margin="10,0,22,0">
+
+					                <!-- New Local Fetch Button -->
+					                <Button FontWeight="Medium"
+					                        FontSize="14"
+					                        Foreground="#D0DBE4"
+					                        ToolTip.Tip="Setup a new build for Local Fetch"
+					                        Content="New Local Fetch"
+					                        Margin="0,0,10,0" />
+					            </StackPanel>
+					        </Grid>
+					    </Border>
+
+					    <Border Height="1" 
+					            Background="#393B40" 
+					            Margin="13,0,13,0" />
+
+					    <!-- Scrollable Content Below -->
+					    <ScrollViewer Classes="theme-scroll-overlay">
+					        <StackPanel Margin="10 0 0 0">
+					            <!-- Additional Content Goes Here -->
+					        </StackPanel>
+					    </ScrollViewer>
+					</StackPanel>
 			    </Border>
 		    </Grid>
 	    </Border>
