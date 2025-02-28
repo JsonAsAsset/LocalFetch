@@ -23,21 +23,10 @@
 	    <actipro:ChromedTitleBar DockPanel.Dock="Top"
 	                             Background="{StaticResource RadialBackground}"
 	    >
-		    <actipro:ChromedTitleBar.Resources>
-			    <actipro:ComparisonConverter x:Key="RightContentMarginConverter">
-				    <actipro:ComparisonConverter.TrueResult>
-					    <Thickness>0,0,20,0</Thickness>
-				    </actipro:ComparisonConverter.TrueResult>
-				    <actipro:ComparisonConverter.FalseResult>
-					    <Thickness>0,0,0,0</Thickness>
-				    </actipro:ComparisonConverter.FalseResult>
-			    </actipro:ComparisonConverter>
-		    </actipro:ChromedTitleBar.Resources>
-		    
 		    <actipro:ChromedTitleBar.LeftContent>
 				<StackPanel Orientation="Horizontal">
 					<StackPanel Margin="15,7,0,7" VerticalAlignment="Center">
-						<Border Height="33" Width="" Background="Black"></Border>
+						<Border Height="33" Background="Black"></Border>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Text="Welcome to Local Fetch"
@@ -49,14 +38,6 @@
 					</StackPanel>
 				</StackPanel>
 			</actipro:ChromedTitleBar.LeftContent>
-		    <primitives:OverlayInputFilter>
-			    <Grid>
-				    <actipro:WindowResizeGrip/>
-				    <Grid.RowDefinitions>
-					    <RowDefinition Height="1"/>
-				    </Grid.RowDefinitions>
-			    </Grid>
-		    </primitives:OverlayInputFilter>
 		</actipro:ChromedTitleBar>
 	    
 	    <Border DockPanel.Dock="Bottom"
@@ -69,7 +50,6 @@
 
 			    <Border Grid.Column="0" Background="#1E1F22">
 					<StackPanel>
-					    <!-- Top Bar with Search Box and Buttons -->
 					    <Border Background="#1E1F22" Height="80">
 					        <Grid>
 					            <Grid.ColumnDefinitions>
@@ -77,7 +57,6 @@
 					                <ColumnDefinition Width="Auto" />
 					            </Grid.ColumnDefinitions>
 
-					            <!-- Search Box with Icon -->
 					            <TextBlock Grid.Column="0"
 					                     Height="30" 
 					                     VerticalAlignment="Center" 
@@ -88,14 +67,12 @@
 					                     FontStyle="Normal"
 					                     >Local Fetch</TextBlock>
 
-					            <!-- StackPanel for Buttons -->
 					            <StackPanel Grid.Column="1" 
 					                        Orientation="Horizontal" 
 					                        VerticalAlignment="Center"
 					                        HorizontalAlignment="Right"
 					                        Margin="10,0,22,0">
 
-					                <!-- New Local Fetch Button -->
 					                <Button FontWeight="Medium"
 					                        FontSize="14"
 					                        Foreground="#D0DBE4"
@@ -111,7 +88,6 @@
 					            Background="#393B40" 
 					            Margin="13,0,13,0" />
 
-					    <!-- Scrollable Content Below -->
 					    <ScrollViewer Classes="theme-scroll-overlay">
 					        <StackPanel Margin="10 0 0 0">
 					            <!-- Additional Content Goes Here -->
