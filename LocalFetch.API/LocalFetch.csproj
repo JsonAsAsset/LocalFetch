@@ -4,8 +4,8 @@
     </Target>
 
     <PropertyGroup>
-		<TargetFramework>net8.0-windows7.0</TargetFramework>
-		<Nullable>enable</Nullable>
+	<TargetFramework>net8.0-windows7.0</TargetFramework>
+	<Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <AssemblyName>LocalFetch</AssemblyName>
         <OutputType>Exe</OutputType>
