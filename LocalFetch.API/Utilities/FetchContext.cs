@@ -102,7 +102,7 @@ public class FetchContext
         ConfigIni config = GetEditorConfig();
 
         // Create new file provider
-        Provider = new DefaultFileProvider(ArchiveDirectory, SearchOption.TopDirectoryOnly, true, new VersionContainer(UnrealVersion));
+        Provider = new DefaultFileProvider(ArchiveDirectory, SearchOption.AllDirectories, true, new VersionContainer(UnrealVersion));
         Provider.Initialize();
 
         var oodlePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, OodleHelper.OODLE_DLL_NAME);
