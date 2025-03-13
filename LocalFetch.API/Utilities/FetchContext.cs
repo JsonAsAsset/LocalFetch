@@ -16,10 +16,8 @@ public class FetchContext
     public static DefaultFileProvider? Provider;
     public static string? MappingFilePath;
     public static string? ArchiveDirectory;
-    public static string? ExportDirectory;
     public static EGame UnrealVersion;
     public static string? ArchiveKey;
-    public static bool bHideConsole;
 
     public void WriteLog(string source, ConsoleColor Color, string description)
     {
@@ -73,7 +71,6 @@ public class FetchContext
 
         // Set Config Data to class
         MappingFilePath = GetPathProperty(config, "MappingFilePath");
-        ExportDirectory = GetPathProperty(config, "ExportDirectory");
         ArchiveDirectory = GetPathProperty(config, "ArchiveDirectory");
         UnrealVersion = (EGame)Enum.Parse(typeof(EGame), GetStringProperty(config, "UnrealVersion"), true);
         ArchiveKey = GetStringProperty(config, "ArchiveKey");
@@ -83,9 +80,9 @@ public class FetchContext
         [DllImport("user32.dll")]
         static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-        if (MappingFilePath != "") WriteLog("UserSettings", ConsoleColor.Blue, $"Mappings: {MappingFilePath.SubstringBeforeLast("\\")}");
-        WriteLog("UserSettings", ConsoleColor.Blue, $"Archive Directory: {ArchiveDirectory.SubstringBeforeLast("\\")}");
-        WriteLog("UserSettings", ConsoleColor.Blue, $"Unreal Versioning: {UnrealVersion.ToString()}");
+        if (MappingFilePath != "") WriteLog("UserSettings", ConsoleColor.Blue, $"Mappings File Path: {MappingFilePath.SubstringBeforeLast("\\")}");
+        WriteLog("UserSettings", ConsoleColor.Blue, $"Directory: {ArchiveDirectory.SubstringBeforeLast("\\")}");
+        WriteLog("UserSettings", ConsoleColor.Blue, $"Unreal Engine: {UnrealVersion.ToString()}");
 
         return config;
     }
