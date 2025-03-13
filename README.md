@@ -11,5 +11,5 @@
 Open a console in this directory, and run `dotnet build`.
 
 ```
-git clone --recursive git://github.com/JsonAsAsset/LocalFetch.git
+git clone --recursive https://github.com/JsonAsAsset/LocalFetch.git
 ```
