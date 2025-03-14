@@ -8,13 +8,14 @@
         xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
         xmlns:primitives="clr-namespace:ActiproSoftware.UI.Avalonia.Controls.Primitives;assembly=ActiproSoftware.Avalonia.Shared"
         xmlns:system="clr-namespace:System;assembly=System.Runtime"
+        xmlns:models="clr-namespace:LocalFetch.Shared.Settings.Builds;assembly=LocalFetch.Shared"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/LocalFetch.ico"
         Background="#2B2D30"
         FontFamily="Segoe UI"
         Title="Local Fetch"
         x:Name="rootWindow">
-
+	
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
@@ -29,7 +30,7 @@
 						<Border Height="33" Background="Black"></Border>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal">
-						<TextBlock Text="Welcome to Local Fetch"
+						<TextBlock Text="Local Fetch"
 						           VerticalAlignment="Center"
 						           IsHitTestVisible="False"
 						           Foreground="#6A7176"
@@ -48,53 +49,40 @@
 				    <ColumnDefinition Width="*" />
 			    </Grid.ColumnDefinitions>
 
-			    <Border Grid.Column="0" Background="#1E1F22">
-					<StackPanel>
-					    <Border Background="#1E1F22" Height="80">
-					        <Grid>
-					            <Grid.ColumnDefinitions>
-					                <ColumnDefinition Width="*" />
-					                <ColumnDefinition Width="Auto" />
-					            </Grid.ColumnDefinitions>
+			    <ItemsControl ItemsSource="{Binding Builds}" Margin="15 0">
+				    <ItemsControl.ItemTemplate>
+					    <DataTemplate x:DataType="models:BuildSettings">
+						    <Button Margin="5" Height="85" BorderBrush="Transparent"
+						            HorizontalContentAlignment="Left"
+						            VerticalContentAlignment="Center">
+							    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0">
+								    <!-- Small rounded box with gradient background -->
+								    <Border Width="25" Height="25" CornerRadius="3.5" VerticalAlignment="Center" HorizontalAlignment="Left"
+								            Background="{Binding Display.GradientBrush}">
+									    <TextBlock Text="FN" 
+									               HorizontalAlignment="Center" 
+									               VerticalAlignment="Center" 
+									               Foreground="White" 
+									               FontSize="15"
+									               FontFamily="Consolas"
+									               FontWeight="Bold" />
+								    </Border>
 
-					            <TextBlock Grid.Column="0"
-					                     Height="30" 
-					                     VerticalAlignment="Center" 
-					                     Margin="10,0"
-					                     Background="Transparent"
-					                     FontSize="16"
-					                     Padding="10,0"
-					                     FontStyle="Normal"
-					                     >Local Fetch</TextBlock>
-
-					            <StackPanel Grid.Column="1" 
-					                        Orientation="Horizontal" 
-					                        VerticalAlignment="Center"
-					                        HorizontalAlignment="Right"
-					                        Margin="10,0,22,0">
-
-					                <Button FontWeight="Medium"
-					                        FontSize="14"
-					                        Foreground="#D0DBE4"
-					                        ToolTip.Tip="Setup a new build for Local Fetch"
-					                        Content="New Configuration"
-					                        Click="NewLocalFetch_Click"
-					                        Margin="0,0,10,0" />
-					            </StackPanel>
-					        </Grid>
-					    </Border>
-
-					    <Border Height="1" 
-					            Background="#393B40" 
-					            Margin="13,0,13,0" />
-
-					    <ScrollViewer Classes="theme-scroll-overlay">
-					        <StackPanel Margin="10 0 0 0">
-					            <!-- Additional Content Goes Here -->
-					        </StackPanel>
-					    </ScrollViewer>
-					</StackPanel>
-			    </Border>
+								    <StackPanel Orientation="Vertical" Margin="15 0 0 0" VerticalAlignment="Center">
+									    <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="19" Margin="0,0,10,0"/>
+									    <TextBlock Text="{Binding Path}" 
+									               FontFamily="Consolas" 
+									               Foreground="#97A1A8" 
+									               FontSize="14" />
+									    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,4,0,0">
+										    <TextBlock Text="{Binding Version}" FontFamily="Consolas" Foreground="#6A7176" FontSize="12" VerticalAlignment="Center"/>
+									    </StackPanel>
+								    </StackPanel>
+							    </StackPanel>
+						    </Button>
+					    </DataTemplate>
+				    </ItemsControl.ItemTemplate>
+			    </ItemsControl>
 		    </Grid>
 	    </Border>
 	</DockPanel>
