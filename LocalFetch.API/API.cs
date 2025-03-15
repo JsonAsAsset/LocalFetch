@@ -4,11 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using LocalFetch.API.Controllers;
 using LocalFetch.Shared;
 
-// Startup of Local Fetch's API
-// The API is at http://localhost:1500
-
 namespace LocalFetch.API;
 
+/* Startup of Local Fetch's API */
 public class LocalFetchApi
 {
     public static AbstractVfsFileProvider? Provider;
@@ -42,9 +40,9 @@ public class LocalFetchApi
 
         services.AddCors(options =>
         {
-            options.AddDefaultPolicy(builder =>
+            options.AddDefaultPolicy(policyBuilder =>
             {
-                builder.AllowAnyOrigin()
+                policyBuilder.AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader();
             });

@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Avalonia.Media.Imaging;
 using CUE4Parse.UE4.Versions;
 using LocalFetch.Shared.Settings.Builds.Aes;
 
@@ -102,19 +103,60 @@ public sealed class BuildSettings
             .Where(word => word.Any(char.IsLetter))
             .ToArray();
 
-        if (words.Length >= 2)
+        switch (words.Length)
         {
-            return $"{char.ToUpper(words[0][0])}{char.ToUpper(words[1][0])}";
-        }
-        else if (words.Length == 1)
-        {
-            string word = words[0];
-            if (word.Length < 2)
-                return char.ToUpper(word[0]).ToString();
+            case >= 2:
+                return $"{char.ToUpper(words[0][0])}{char.ToUpper(words[1][0])}";
+            case 1:
+            {
+                var word = words[0];
+                if (word.Length < 2)
+                    return char.ToUpper(word[0]).ToString();
                 
-            int mid = word.Length / 2;
-            return $"{char.ToUpper(word[0])}{char.ToUpper(word[mid])}";
+                var mid = word.Length / 2;
+                return $"{char.ToUpper(word[0])}{char.ToUpper(word[mid])}";
+            }
+            default:
+                return string.Empty;
         }
-        return string.Empty;
     }
+    
+    [JsonIgnore]
+    public string Abbreviation => GetAbbreviation();
+    
+    public Bitmap? LoadSplashBitmap()
+    {
+        var index = Path.IndexOf("Content", StringComparison.OrdinalIgnoreCase);
+        if (index < 0)
+        {
+            Console.Error.WriteLine("The 'Content' folder was not found in the provided path.");
+            return null;
+        }
+
+        var contentFolder = Path[..(index + "Content".Length)];
+        var splashPath = SystemPath.Combine(contentFolder, "Splash", "Splash.bmp");
+        
+        if (File.Exists(splashPath))
+        {
+            try
+            {
+                return new Bitmap(splashPath);
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"Error loading Splash.bmp from {splashPath}: {ex.Message}");
+                return null;
+            }
+        }
+        
+        Console.Error.WriteLine($"Splash.bmp not found at: {splashPath}");
+        
+        return null;
+    }
+    
+    [JsonIgnore]
+    public Bitmap? SplashBitmap => LoadSplashBitmap();
+    
+    [JsonIgnore]
+    public bool SplashVisibility => SplashBitmap != null;
 }

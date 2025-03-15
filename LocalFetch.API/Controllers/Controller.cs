@@ -11,23 +11,23 @@ using Newtonsoft.Json;
 using CUE4Parse.FileProvider.Vfs;
 using SkiaSharp;
 
-// --------------------------------------------------------------------------------------------------------------------------------
-// Here is where the Local Fetch API rests.
-// _provider is from the Local Fetch Web Application, as we don't want to start two different CUE4Parses
-// --------------------------------------------------------------------------------------------------------------------------------
+/* -------------------------------------------------------------------------------------------------------------------------------- */
+/* Local Fetch API Controller */
+/* _provider is from the Local Fetch Web Application, as we don't want to start two different CUE4Parses */
+/* -------------------------------------------------------------------------------------------------------------------------------- */
 
 namespace LocalFetch.API.Controllers;
 
-[Route("api/v1")]
+[Route("api")]
 [ApiController]
 public class LocalFetchApiController(DbContext context) : ControllerBase
 {
-    // -----------------------------------------------------------------------------------------------------------------------
+    /* ----------------------------------------------------------------------------------------------------------------------- */
     private readonly DbContext _context = context;
-    private readonly AbstractVfsFileProvider? _provider = LocalFetchApi.Provider; // Set from LocalFetch
-    // -----------------------------------------------------------------------------------------------------------------------
+    private readonly AbstractVfsFileProvider? fileProvider = LocalFetchApi.Provider; /* Set from LocalFetch
+    /* ----------------------------------------------------------------------------------------------------------------------- */
         
-    // Normal Export
+    /* Normal Export */
     [HttpGet("export")]
     public ActionResult Get(bool raw, string path)
     {
@@ -36,15 +36,15 @@ public class LocalFetchApiController(DbContext context) : ControllerBase
         
         try
         {
-            var localObject = _provider?.LoadObject(path);
+            var localObject = fileProvider?.LoadObject(path);
 
-            // Return a raw export
+            /* Return a raw export */
             if (raw) return HandleRawExport(path);
 
-            // Switch on Class Type
+            /* Switch on Class Type */
             return localObject switch
             {
-                UTexture texture => ProcessTexture(texture, contentType),
+                UTexture texture => ProcessTexture(texture, contentType!),
                 USoundWave wave => ProcessSoundWave(wave),
                 _ => HandleRawExport(path)
             };
@@ -61,7 +61,7 @@ public class LocalFetchApiController(DbContext context) : ControllerBase
         }
     }
 
-    // Return a texture as a file / encoding
+    /* Return a texture as a file / encoding */
     private ActionResult ProcessTexture(UTexture texture, string contentType)
     {
         if (texture.GetFirstMip()?.BulkData.Data is { } mipData && contentType == "application/octet-stream")
@@ -69,7 +69,7 @@ public class LocalFetchApiController(DbContext context) : ControllerBase
             return File(mipData, contentType);
         }
 
-        SKBitmap? textureData = texture.Decode();
+        var textureData = texture.Decode();
         if (textureData == null)
         {
             return StatusCode(500, new
@@ -83,16 +83,17 @@ public class LocalFetchApiController(DbContext context) : ControllerBase
         return File(textureData.Encode(SKEncodedImageFormat.Png, quality: 100).AsStream(), contentType);
     }
 
-    // Return a sound wave
+    /* Return a sound wave file format */
     private ActionResult ProcessSoundWave(USoundWave wave)
     {
         wave.Decode(true, out var audioFormat, out var data);
+        
         if (data == null || string.IsNullOrEmpty(audioFormat))
         {
             return Conflict(new
             {
                 errored = true,
-                exceptionstring = "Invalid audio data, exported as json",
+                exceptionstring = "Invalid audio data, returned raw export as json",
                 jsonOutput = new[] { wave }
             });
         }
@@ -109,33 +110,36 @@ public class LocalFetchApiController(DbContext context) : ControllerBase
         return File(data, mimeType);
     }
 
-    // Handle raw exports
+    /* Handle raw exports */
     private ActionResult HandleRawExport(string path)
     {
+        if (fileProvider == null)
+        {
+            return StatusCode(500);
+        }
+        
         var objectPath = path.SubstringBefore('.') + ".o.uasset";
-        var exports = _provider?.LoadAllObjects(path);
+            
+        var pkg = fileProvider.LoadPackage(path);
+        var exports = pkg.GetExports().ToArray();
         var finalExports = new List<UObject>(exports);
 
         var mergedExports = new List<UObject>();
-        if (_provider != null && _provider.TryLoadPackage(objectPath, out var editorAsset))
+        if (fileProvider.TryLoadPackage(objectPath, out var editorAsset))
         {
             foreach (var export in exports)
             {
                 var editorData = editorAsset.GetExportOrNull(export.Name + "EditorOnlyData");
-                if (editorData != null)
+                if (editorData == null)
                 {
-                    export.Properties.AddRange(editorData.Properties);
-                    mergedExports.Add(export);
+                    continue;
                 }
+                
+                export.Properties.AddRange(editorData.Properties);
+                mergedExports.Add(export);
             }
 
-            foreach (var editorExport in editorAsset.GetExports())
-            {
-                if (!mergedExports.Contains(editorExport))
-                {
-                    finalExports.Add(editorExport);
-                }
-            }
+            finalExports.AddRange(editorAsset.GetExports().Where(editorExport => !mergedExports.Contains(editorExport)));
         }
         mergedExports.Clear();
 

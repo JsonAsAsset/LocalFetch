@@ -14,18 +14,18 @@
     
     <Application.Resources>
         <Color x:Key="TitleBarBackgroundHoverColor">#383A3D</Color>
-        <Color x:Key="ButtonOutline">#4E5157</Color>
-        <Color x:Key="ButtonHoverOutline">#5E6168</Color>
-        <Color x:Key="ButtonBackgroundColor">#2B2D30</Color>
-        <Color x:Key="ButtonBackgroundPressedColor">#2B2D30</Color>
-        <Color x:Key="NormalButtonBackgroundPressedColor">#323438</Color>
+        <Color x:Key="ButtonOutline">#202024</Color>
+        <Color x:Key="ButtonHoverOutline">#414145</Color>
+        <Color x:Key="ButtonBackgroundColor">Transparent</Color>
+        <Color x:Key="ButtonBackgroundPressedColor">#343437</Color>
+        <Color x:Key="NormalButtonBackgroundPressedColor">#343437</Color>
         <Color x:Key="MenuBackgroundColor">#2B2D30</Color>
         
         <RadialGradientBrush x:Key="RadialBackground" 
                              Center="0.0, 45.0"
                              GradientOrigin="150.0, 0.0" SpreadMethod="Pad"
                              Radius="0.8">
-            <GradientStop Color="#2B2D30" Offset="1.0" />
+            <GradientStop Color="#1A1A1E" Offset="1.0" />
         </RadialGradientBrush>
         
         <SolidColorBrush x:Key="{actipro:ThemeResourceKey TitleBarBackgroundBrush}" Color="Transparent" />
@@ -76,7 +76,7 @@
         <Thickness x:Key="{actipro:ThemeResourceKey ToolTipBorderThickness}">1</Thickness>
         <Thickness x:Key="{actipro:ThemeResourceKey ButtonPadding}">19,8</Thickness>
         
-        <Thickness x:Key="{actipro:ThemeResourceKey ButtonBorderThickness}">1.46</Thickness>
+        <Thickness x:Key="{actipro:ThemeResourceKey ButtonBorderThickness}">2.46</Thickness>
         <CornerRadius x:Key="{actipro:ThemeResourceKey ButtonCornerRadius}">5</CornerRadius>
         
         <SolidColorBrush x:Key="{actipro:ThemeResourceKey ListBackgroundBrush}" Color="{DynamicResource ButtonBackgroundColor}" />
@@ -90,6 +90,16 @@
         <SolidColorBrush x:Key="{actipro:ThemeResourceKey MenuItemBackgroundBrushSelected}" Color="#2E436E" />
         <SolidColorBrush x:Key="{actipro:ThemeResourceKey ControlBackgroundBrushEmphasizedAccentDisabled}" Color="#2E436E" />
         <SolidColorBrush x:Key="{actipro:ThemeResourceKey ControlBackgroundBrushSolidAccentDisabled}" Color="#1E1F22" />
+        
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ScrollBarBackgroundBrushHorizontal}" Color="#FF32A8A8" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ScrollBarBackgroundBrushVertical}" Color="#FF32A8A8" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ScrollBarButtonBackgroundBrushHorizontal}" Color="#FF32A8A8" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ScrollBarButtonBackgroundBrushVertical}" Color="#FF32A8A8" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ScrollBarButtonBackgroundBrushVerticalPointerOver}" Color="#FF32A8A8" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ScrollBarButtonForegroundBrush}" Color="#FF32A8A8" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ScrollBarThumbBackgroundBrushVertical}" Color="#313138" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ScrollBarThumbBackgroundBrushVerticalPointerOver}" Color="#414145" />
+        <SolidColorBrush x:Key="{actipro:ThemeResourceKey ScrollBarThumbBackgroundBrushVerticalPressed}" Color="#414145" />
         
         <SolidColorBrush x:Key="{actipro:ThemeResourceKey PopupBackgroundBrush}" Color="{DynamicResource ButtonBackgroundColor}" />
     </Application.Resources>

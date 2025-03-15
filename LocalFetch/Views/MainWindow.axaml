@@ -1,8 +1,8 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:LocalFetch.ViewModels"
-        Width="783" Height="641"
-        MinWidth="783" MinHeight="641"
+        Width="635" Height="450"
+        MinWidth="635" MinHeight="450"
         WindowStartupLocation="CenterScreen"
         x:Class="LocalFetch.Views.MainWindow"
         xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
@@ -11,7 +11,7 @@
         xmlns:models="clr-namespace:LocalFetch.Shared.Settings.Builds;assembly=LocalFetch.Shared"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/LocalFetch.ico"
-        Background="#2B2D30"
+        Background="#101014"
         FontFamily="Segoe UI"
         Title="Local Fetch"
         x:Name="rootWindow">
@@ -41,49 +41,62 @@
 			</actipro:ChromedTitleBar.LeftContent>
 		</actipro:ChromedTitleBar>
 	    
-	    <Border DockPanel.Dock="Bottom"
-	            BorderBrush="Transparent" 
-	            BorderThickness="{actipro:ThemeResource StatusBarBorderThickness}">
-		    <Grid Margin="0,0,0,1">
-			    <Grid.ColumnDefinitions>
-				    <ColumnDefinition Width="*" />
-			    </Grid.ColumnDefinitions>
-
-			    <ItemsControl ItemsSource="{Binding Builds}" Margin="15 0">
-				    <ItemsControl.ItemTemplate>
-					    <DataTemplate x:DataType="models:BuildSettings">
-						    <Button Margin="5" Height="85" BorderBrush="Transparent"
-						            HorizontalContentAlignment="Left"
-						            VerticalContentAlignment="Center">
-							    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0">
-								    <!-- Small rounded box with gradient background -->
-								    <Border Width="25" Height="25" CornerRadius="3.5" VerticalAlignment="Center" HorizontalAlignment="Left"
-								            Background="{Binding Display.GradientBrush}">
-									    <TextBlock Text="FN" 
-									               HorizontalAlignment="Center" 
-									               VerticalAlignment="Center" 
-									               Foreground="White" 
-									               FontSize="15"
-									               FontFamily="Consolas"
-									               FontWeight="Bold" />
-								    </Border>
-
-								    <StackPanel Orientation="Vertical" Margin="15 0 0 0" VerticalAlignment="Center">
-									    <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="19" Margin="0,0,10,0"/>
-									    <TextBlock Text="{Binding Path}" 
-									               FontFamily="Consolas" 
-									               Foreground="#97A1A8" 
-									               FontSize="14" />
-									    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,4,0,0">
-										    <TextBlock Text="{Binding Version}" FontFamily="Consolas" Foreground="#6A7176" FontSize="12" VerticalAlignment="Center"/>
-									    </StackPanel>
-								    </StackPanel>
-							    </StackPanel>
-						    </Button>
-					    </DataTemplate>
-				    </ItemsControl.ItemTemplate>
-			    </ItemsControl>
-		    </Grid>
-	    </Border>
+        <Border DockPanel.Dock="Bottom"
+                BorderBrush="Transparent" 
+                BorderThickness="{actipro:ThemeResource StatusBarBorderThickness}">
+            <Grid Margin="0,0,0,1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
+                    <ItemsControl ItemsSource="{Binding Builds}" Margin="15 9">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="models:BuildSettings">
+                                <Button Margin="5" Height="85" BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Left"
+                                        VerticalContentAlignment="Center">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0">
+                                        <Border Width="60" Height="60" CornerRadius="3.5" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                Background="{Binding Display.GradientBrush}" ClipToBounds="True">
+                                            <Grid>
+                                                <TextBlock Text="{Binding Abbreviation}" 
+                                                           HorizontalAlignment="Center" 
+                                                           VerticalAlignment="Center" 
+                                                           Foreground="White" 
+                                                           FontSize="30"
+                                                           FontFamily="Consolas"
+                                                           FontWeight="Bold" />
+                                                <Image HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                       Source="{Binding SplashBitmap}" 
+                                                       Width="77" Height="77" 
+                                                       Stretch="Uniform">
+                                                    <Image.Effect>
+                                                        <BlurEffect Radius="0.1"/>
+                                                    </Image.Effect>
+                                                    <Image.IsVisible>
+                                                        <Binding Path="SplashVisibility"/>
+                                                    </Image.IsVisible>
+                                                </Image>
+                                            </Grid>
+                                        </Border>
+                                        <StackPanel Orientation="Vertical" Margin="15 0 0 0" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="19" Margin="0,0,10,0"/>
+                                            <TextBlock Text="{Binding Path}" 
+                                                       FontFamily="Consolas" 
+                                                       Foreground="#97A1A8" 
+                                                       FontSize="14" />
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,4,0,0">
+                                                <TextBlock Text="{Binding Version}" FontFamily="Consolas" Foreground="#6A7176" FontSize="12" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Border>
 	</DockPanel>
 </Window>

@@ -9,8 +9,8 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <AssemblyName>LocalFetch.API</AssemblyName>
-        <PackageProjectUrl>https://github.com/JsonAsAsset/JsonAsAsset</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/JsonAsAsset/JsonAsAsset</RepositoryUrl>
+        <PackageProjectUrl>https:/*github.com/JsonAsAsset/JsonAsAsset</PackageProjectUrl>
+        <RepositoryUrl>https:/*github.com/JsonAsAsset/JsonAsAsset</RepositoryUrl>
         <SignAssembly>False</SignAssembly>
         <RuntimeIdentifier>win-x64</RuntimeIdentifier>
 		<OutputType>Library</OutputType>

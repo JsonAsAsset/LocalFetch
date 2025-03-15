@@ -6,7 +6,7 @@ namespace LocalFetch.ViewModels
 {
     public class MainWindowViewModel : ObservableObject
     {
-        public ObservableCollection<BuildSettings> Builds { get; } = new ObservableCollection<BuildSettings>();
+        public ObservableCollection<BuildSettings> Builds { get; } = new ();
 
         public MainWindowViewModel()
         {
