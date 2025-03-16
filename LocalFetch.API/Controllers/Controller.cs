@@ -36,7 +36,7 @@ public class LocalFetchApiController(DbContext context) : ControllerBase
         
         try
         {
-            var localObject = fileProvider?.LoadObject(path);
+            fileProvider!.TryLoadPackageObject(path, export: out var localObject);
 
             /* Return a raw export */
             if (raw) return HandleRawExport(path);

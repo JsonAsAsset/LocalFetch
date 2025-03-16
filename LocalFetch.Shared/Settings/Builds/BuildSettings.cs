@@ -33,6 +33,9 @@ public sealed class BuildSettings
     
     [JsonIgnore]
     public string FilePath => SystemPath.Combine(SaveFolder, $"{SanitizeFileName(Name)}.json");
+    
+    [JsonIgnore]
+    public string VersionDisplay => Version.ToString();
 
     // Helper method to sanitize file names
     private static string SanitizeFileName(string fileName)

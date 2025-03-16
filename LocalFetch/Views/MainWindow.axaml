@@ -53,7 +53,7 @@
                     <ItemsControl ItemsSource="{Binding Builds}" Margin="15 9">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate x:DataType="models:BuildSettings">
-                                <Button Margin="5" Height="85" BorderBrush="Transparent"
+                                <Button Cursor="Hand" Margin="5" Height="85" BorderBrush="Transparent"
                                         HorizontalContentAlignment="Left"
                                         VerticalContentAlignment="Center">
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0">
@@ -72,7 +72,7 @@
                                                        Width="77" Height="77" 
                                                        Stretch="Uniform">
                                                     <Image.Effect>
-                                                        <BlurEffect Radius="0.1"/>
+                                                        <BlurEffect Radius="0.001"/>
                                                     </Image.Effect>
                                                     <Image.IsVisible>
                                                         <Binding Path="SplashVisibility"/>
@@ -87,7 +87,7 @@
                                                        Foreground="#97A1A8" 
                                                        FontSize="14" />
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,4,0,0">
-                                                <TextBlock Text="{Binding Version}" FontFamily="Consolas" Foreground="#6A7176" FontSize="12" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding VersionDisplay}" FontFamily="Consolas" Foreground="#6A7176" FontSize="12" VerticalAlignment="Center"/>
                                             </StackPanel>
                                         </StackPanel>
                                     </StackPanel>
