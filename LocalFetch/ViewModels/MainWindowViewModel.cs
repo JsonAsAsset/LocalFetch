@@ -21,6 +21,11 @@ namespace LocalFetch.ViewModels
                 Builds.Add(build);
                 _ = build.Save();
             }
+
+            if (!(Builds.Count > 50))
+            {
+                LoadBuilds();
+            }
         }
     }
 }

@@ -44,6 +44,48 @@
 				</StackPanel>
 			</actipro:ChromedTitleBar.LeftContent>
 		</actipro:ChromedTitleBar>
+		
+        <Border DockPanel.Dock="Bottom"
+                Height="85"
+                BorderBrush="#1E1F22" 
+                BorderThickness="0 1 0 0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                
+                <Grid Margin="22 0 22 0" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Settings button on the left with fixed height -->
+                    <Button Grid.Column="0"
+                            Height="40"
+                            FontSize="15"
+                            Foreground="#D0DBE4"
+                            Padding="10,4"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Content="Settings"/>
+  
+                    <!-- New button on the right with fixed height -->
+                    <Button Grid.Column="2"
+                            Height="40"
+                            FontSize="15"
+                            Padding="10,4"
+                            HorizontalContentAlignment="Center"
+                            FontWeight="SemiBold"
+                            VerticalContentAlignment="Center"
+                            Classes="theme-solid accent"
+                            Foreground="White"
+                            Content="Create New"/>
+                </Grid>
+            </Grid>
+        </Border>
 	    
         <Border DockPanel.Dock="Bottom"
                 BorderBrush="Transparent" 
@@ -65,6 +107,8 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                               </Grid.ColumnDefinitions>
+                              
+                              <!-- Existing content -->
                               <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
                                 <Border Width="60" Height="60" CornerRadius="3.5" VerticalAlignment="Center" HorizontalAlignment="Left"
                                         Background="{Binding Display.GradientBrush}" ClipToBounds="True">
@@ -91,6 +135,7 @@
                                 </Border>
                                 <StackPanel Orientation="Vertical" Margin="15,0,0,0" VerticalAlignment="Center">
                                   <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="19" Margin="0,0,10,0"/>
+                                  <!-- Truncated Path with a class assigned -->
                                   <TextBlock Text="{Binding Path, Converter={StaticResource TruncateConverter}, ConverterParameter=40}"
                                              Classes="pathText"
                                              FontFamily="Consolas" 
@@ -100,6 +145,11 @@
                                   </StackPanel>
                                 </StackPanel>
                               </StackPanel>
+                              
+                              <!-- Colon button, visible when parent is hovered -->
+                              <Button Grid.Column="1" Content=":" Width="30" Height="30" 
+                                      VerticalAlignment="Center" HorizontalAlignment="Right"
+                                      IsVisible="{Binding IsPointerOver, RelativeSource={RelativeSource AncestorType=Button}}"/>
                             </Grid>
                           </Button>
                         </DataTemplate>
