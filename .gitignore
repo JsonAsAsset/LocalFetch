@@ -1,4 +1,5 @@
-.vscode/settings.json
+# User Files
+LocalFetch/Properties/PublishProfiles/FolderProfile.pubxml
 
 *.com
 *.class
@@ -76,13 +77,6 @@ _[Ss]cripts
 .idea/
 *.vsidx
 *.config
-appsettings*
 *.bin
 *.exe
-Properties/launchSettings.json
-Properties/PublishProfiles/FolderProfile.pubxml
-LocalFetch/FodyWeavers.xsd
-LocalFetch/FodyWeavers.xml
-LocalFetch/Properties/PublishProfiles/FolderProfile.pubxml
-LocalFetch.API/Properties/launchSettings.json
 /.vs
