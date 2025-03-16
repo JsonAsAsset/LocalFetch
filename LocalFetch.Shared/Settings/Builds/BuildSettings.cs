@@ -132,7 +132,6 @@ public sealed class BuildSettings
         var index = Path.IndexOf("Content", StringComparison.OrdinalIgnoreCase);
         if (index < 0)
         {
-            Console.Error.WriteLine("The 'Content' folder was not found in the provided path.");
             return null;
         }
 
@@ -147,12 +146,9 @@ public sealed class BuildSettings
             }
             catch (Exception ex)
             {
-                Console.Error.WriteLine($"Error loading Splash.bmp from {splashPath}: {ex.Message}");
                 return null;
             }
         }
-        
-        Console.Error.WriteLine($"Splash.bmp not found at: {splashPath}");
         
         return null;
     }

@@ -10,6 +10,12 @@
          <Style Selector="Button">
              <Setter Property="Foreground" Value="#DEE9F2" />
          </Style>
+         <Style Selector="TextBlock.pathText">
+             <Setter Property="Foreground" Value="#97A1A8"/>
+         </Style>
+         <Style Selector="Button:pointerover TextBlock.pathText">
+             <Setter Property="Foreground" Value="#CCCCCC"/>
+         </Style>
      </Application.Styles>
     
     <Application.Resources>
@@ -20,13 +26,6 @@
         <Color x:Key="ButtonBackgroundPressedColor">#343437</Color>
         <Color x:Key="NormalButtonBackgroundPressedColor">#343437</Color>
         <Color x:Key="MenuBackgroundColor">#2B2D30</Color>
-        
-        <RadialGradientBrush x:Key="RadialBackground" 
-                             Center="0.0, 45.0"
-                             GradientOrigin="150.0, 0.0" SpreadMethod="Pad"
-                             Radius="0.8">
-            <GradientStop Color="#1A1A1E" Offset="1.0" />
-        </RadialGradientBrush>
         
         <SolidColorBrush x:Key="{actipro:ThemeResourceKey TitleBarBackgroundBrush}" Color="Transparent" />
         <SolidColorBrush x:Key="{actipro:ThemeResourceKey TitleBarButtonBackgroundBrushPointerOver}" Color="{DynamicResource TitleBarBackgroundHoverColor}" />

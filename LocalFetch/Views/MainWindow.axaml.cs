@@ -1,4 +1,5 @@
 using ActiproSoftware.Properties.Shared;
+using Avalonia;
 using Avalonia.Controls;
 
 namespace LocalFetch.Views;
@@ -19,7 +20,9 @@ public partial class MainWindow : Window
     
     private async void NewLocalFetch_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var newLocalFetchView = new NewLocalFetchView();
-        await newLocalFetchView.ShowDialog(this);
+        var newLocalFetchView = new HomeWindow();
+        newLocalFetchView.Show();
+        
+        Close();
     }
 }

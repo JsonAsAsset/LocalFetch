@@ -1,8 +1,7 @@
 using CUE4Parse.FileProvider.Vfs;
 using Microsoft.EntityFrameworkCore;
-
 using LocalFetch.API.Controllers;
-using LocalFetch.Shared;
+using LocalFetch.Shared.Settings;
 
 namespace LocalFetch.API;
 
@@ -65,8 +64,10 @@ public class LocalFetchApi
         {
             endpoints.MapControllers();
         });
+
+        var URL = "http://localhost:" + UserSettings.Port;
         
-        Console.WriteLine($"LocalFetch.API is running in the background: {Globals.LOCAL_FETCH_URL}");
-        await app.RunAsync(Globals.LOCAL_FETCH_URL);
+        Console.WriteLine($"LocalFetch.API is running in the background: {URL}");
+        await app.RunAsync(URL);
     }
 }

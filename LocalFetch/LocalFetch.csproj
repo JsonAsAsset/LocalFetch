@@ -64,6 +64,9 @@
       <Compile Update="Views\NewLocalFetchViewModel.cs">
         <DependentUpon>NewLocalFetchView.axaml</DependentUpon>
       </Compile>
+      <Compile Update="Views\HomeViewModel.cs">
+        <DependentUpon>HomeView.axaml</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

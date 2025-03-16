@@ -19,6 +19,11 @@ public sealed class UserSettings
         "LocalFetch",
         "Settings.json");
 #endif
+    
+    /// <summary>
+    /// Port to host the API at, default 1500
+    /// </summary>
+    public const int Port = 1500;
 
     public static UserSettings Load()
     {

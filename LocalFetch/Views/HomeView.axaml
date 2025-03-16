@@ -1,0 +1,71 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
+        x:Class="LocalFetch.Views.HomeWindow"
+        WindowStartupLocation="CenterScreen"
+        Title="Local Fetch"
+        Background="#101014"
+        Width="750" Height="550"
+        MinWidth="750" MinHeight="550"
+        FontFamily="Segoe UI"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        x:Name="newHomeWindow">
+    
+    <Window.Styles>
+        <Style Selector="TabItem">
+            <Setter Property="MinWidth" Value="120"/>
+        </Style>
+    </Window.Styles>
+
+    <DockPanel Margin="{Binding #newHomeWindow.OffScreenMargin}">
+
+        <actipro:ChromedTitleBar DockPanel.Dock="Top" Background="#101014">
+            <actipro:ChromedTitleBar.LeftContent>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Margin="15,7,0,7" VerticalAlignment="Center">
+                        <Border Height="33" Background="Black"></Border>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Local Fetch"
+                                   VerticalAlignment="Center"
+                                   IsHitTestVisible="False"
+                                   Foreground="#6A7176"
+                                   Margin="0,8,0,7"
+                                   TextTrimming="CharacterEllipsis"/>
+                    </StackPanel>
+                </StackPanel>
+            </actipro:ChromedTitleBar.LeftContent>
+        </actipro:ChromedTitleBar>
+
+        <Border DockPanel.Dock="Bottom"
+                Height="60"
+                BorderBrush="#101014" 
+                BorderThickness="0 1 0 0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                    
+            <Grid x:Name="StatusBar" VerticalAlignment="Bottom" Height="30" ColumnDefinitions="Auto, *">
+                <Border Background="#1b1b1c" Height="33" VerticalAlignment="Top" IsHitTestVisible="False" Grid.ColumnSpan="2"/>
+
+                <!-- Loading Bar -->
+                <Border Name="LoadingBorder" Background="#0078FF" Height="30" VerticalAlignment="Center" IsHitTestVisible="False" Grid.ColumnSpan="2"
+                        Grid.Column="0">
+                </Border>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,1.5,10,0" Grid.Column="0">
+                    <TextBlock FontFamily="Consolas" FontSize="12" Text="Loading..." VerticalAlignment="Center" />
+                </StackPanel>
+            </Grid>
+            </Grid>
+        </Border>
+
+        <Border Background="#101014">
+            <Grid>
+
+            </Grid>
+        </Border>
+    </DockPanel>
+</Window>

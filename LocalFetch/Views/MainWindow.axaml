@@ -1,20 +1,24 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:LocalFetch.ViewModels"
-        Width="635" Height="450"
-        MinWidth="635" MinHeight="450"
+        Width="635" Height="540"
+        MinWidth="635" MinHeight="540"
         WindowStartupLocation="CenterScreen"
         x:Class="LocalFetch.Views.MainWindow"
         xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
-        xmlns:primitives="clr-namespace:ActiproSoftware.UI.Avalonia.Controls.Primitives;assembly=ActiproSoftware.Avalonia.Shared"
-        xmlns:system="clr-namespace:System;assembly=System.Runtime"
         xmlns:models="clr-namespace:LocalFetch.Shared.Settings.Builds;assembly=LocalFetch.Shared"
+        xmlns:localFetch="clr-namespace:LocalFetch"
+        xmlns:converters="clr-namespace:LocalFetch.Views.Converters"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/LocalFetch.ico"
         Background="#101014"
         FontFamily="Segoe UI"
         Title="Local Fetch"
         x:Name="rootWindow">
+    
+    <Window.Resources>
+        <converters:TruncateConverter x:Key="TruncateConverter"/>
+    </Window.Resources>
 	
     <Design.DataContext>
         <vm:MainWindowViewModel/>
@@ -22,15 +26,15 @@
 
     <DockPanel Margin="{Binding #rootWindow.OffScreenMargin}">
 	    <actipro:ChromedTitleBar DockPanel.Dock="Top"
-	                             Background="{StaticResource RadialBackground}"
+	                             Background="#1A1A1E"
 	    >
 		    <actipro:ChromedTitleBar.LeftContent>
 				<StackPanel Orientation="Horizontal">
 					<StackPanel Margin="15,7,0,7" VerticalAlignment="Center">
-						<Border Height="33" Background="Black"></Border>
+						<Border Height="33"></Border>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal">
-						<TextBlock Text="Local Fetch"
+						<TextBlock Text="Select a build to host"
 						           VerticalAlignment="Center"
 						           IsHitTestVisible="False"
 						           Foreground="#6A7176"
@@ -51,49 +55,55 @@
                 <ScrollViewer VerticalScrollBarVisibility="Auto"
                               HorizontalScrollBarVisibility="Disabled">
                     <ItemsControl ItemsSource="{Binding Builds}" Margin="15 9">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate x:DataType="models:BuildSettings">
-                                <Button Cursor="Hand" Margin="5" Height="85" BorderBrush="Transparent"
-                                        HorizontalContentAlignment="Left"
-                                        VerticalContentAlignment="Center">
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0">
-                                        <Border Width="60" Height="60" CornerRadius="3.5" VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                Background="{Binding Display.GradientBrush}" ClipToBounds="True">
-                                            <Grid>
-                                                <TextBlock Text="{Binding Abbreviation}" 
-                                                           HorizontalAlignment="Center" 
-                                                           VerticalAlignment="Center" 
-                                                           Foreground="White" 
-                                                           FontSize="30"
-                                                           FontFamily="Consolas"
-                                                           FontWeight="Bold" />
-                                                <Image HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                                       Source="{Binding SplashBitmap}" 
-                                                       Width="77" Height="77" 
-                                                       Stretch="Uniform">
-                                                    <Image.Effect>
-                                                        <BlurEffect Radius="0.001"/>
-                                                    </Image.Effect>
-                                                    <Image.IsVisible>
-                                                        <Binding Path="SplashVisibility"/>
-                                                    </Image.IsVisible>
-                                                </Image>
-                                            </Grid>
-                                        </Border>
-                                        <StackPanel Orientation="Vertical" Margin="15 0 0 0" VerticalAlignment="Center">
-                                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="19" Margin="0,0,10,0"/>
-                                            <TextBlock Text="{Binding Path}" 
-                                                       FontFamily="Consolas" 
-                                                       Foreground="#97A1A8" 
-                                                       FontSize="14" />
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,4,0,0">
-                                                <TextBlock Text="{Binding VersionDisplay}" FontFamily="Consolas" Foreground="#6A7176" FontSize="12" VerticalAlignment="Center"/>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </StackPanel>
-                                </Button>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
+                      <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="models:BuildSettings">
+                          <Button Cursor="Hand" Margin="5" Height="85" BorderBrush="Transparent"
+                                  HorizontalContentAlignment="Stretch"
+                                  VerticalContentAlignment="Center">
+                            <Grid Margin="10,0,10,0">
+                              <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                              </Grid.ColumnDefinitions>
+                              <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <Border Width="60" Height="60" CornerRadius="3.5" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                        Background="{Binding Display.GradientBrush}" ClipToBounds="True">
+                                  <Grid>
+                                    <TextBlock Text="{Binding Abbreviation}" 
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center" 
+                                               Foreground="White" 
+                                               FontSize="30"
+                                               FontFamily="Consolas"
+                                               FontWeight="Bold" />
+                                    <Image HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                           Source="{Binding SplashBitmap}" 
+                                           Width="77" Height="77" Margin="0,17,0,0"
+                                           Stretch="Uniform">
+                                      <Image.Effect>
+                                        <BlurEffect Radius="0.001"/>
+                                      </Image.Effect>
+                                      <Image.IsVisible>
+                                        <Binding Path="SplashVisibility"/>
+                                      </Image.IsVisible>
+                                    </Image>
+                                  </Grid>
+                                </Border>
+                                <StackPanel Orientation="Vertical" Margin="15,0,0,0" VerticalAlignment="Center">
+                                  <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="19" Margin="0,0,10,0"/>
+                                  <TextBlock Text="{Binding Path, Converter={StaticResource TruncateConverter}, ConverterParameter=40}"
+                                             Classes="pathText"
+                                             FontFamily="Consolas" 
+                                             FontSize="14" />
+                                  <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,4,0,0">
+                                    <TextBlock Text="{Binding VersionDisplay}" FontFamily="Consolas" Foreground="#6A7176" FontSize="12" VerticalAlignment="Center"/>
+                                  </StackPanel>
+                                </StackPanel>
+                              </StackPanel>
+                            </Grid>
+                          </Button>
+                        </DataTemplate>
+                      </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </ScrollViewer>
             </Grid>

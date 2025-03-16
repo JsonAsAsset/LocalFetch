@@ -11,10 +11,10 @@ using Newtonsoft.Json;
 using CUE4Parse.FileProvider.Vfs;
 using SkiaSharp;
 
-/* -------------------------------------------------------------------------------------------------------------------------------- */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Local Fetch API Controller */
-/* _provider is from the Local Fetch Web Application, as we don't want to start two different CUE4Parses */
-/* -------------------------------------------------------------------------------------------------------------------------------- */
+/* fileProvider is from the Local Fetch Web Application, as we don't want to start two different CUE4Parses */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 namespace LocalFetch.API.Controllers;
 
@@ -22,10 +22,10 @@ namespace LocalFetch.API.Controllers;
 [ApiController]
 public class LocalFetchApiController(DbContext context) : ControllerBase
 {
-    /* ----------------------------------------------------------------------------------------------------------------------- */
+    /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
     private readonly DbContext _context = context;
     private readonly AbstractVfsFileProvider? fileProvider = LocalFetchApi.Provider; /* Set from LocalFetch
-    /* ----------------------------------------------------------------------------------------------------------------------- */
+    /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
         
     /* Normal Export */
     [HttpGet("export")]
