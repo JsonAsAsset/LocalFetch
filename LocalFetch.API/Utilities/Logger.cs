@@ -32,7 +32,7 @@ public static class Logger
             LogType.Error => ConsoleColor.Red,
             LogType.Credits => ConsoleColor.Blue,
             LogType.Configuration => ConsoleColor.Blue,
-            LogType.CUE4 => ConsoleColor.Green,
+            LogType.CUE4 => ConsoleColor.DarkCyan,
             _ => throw new ArgumentOutOfRangeException(nameof(level), level, null)
         };
 

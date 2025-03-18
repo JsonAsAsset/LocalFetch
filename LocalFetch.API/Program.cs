@@ -10,6 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
 builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.SetMinimumLevel(LogLevel.Information);
+builder.Logging.AddFilter("Microsoft.Hosting.Lifetime", LogLevel.None);
 
 // Create DB LocalFetch
 services.AddSingleton<FetchContext>();
@@ -58,7 +61,7 @@ app.MapControllers();
 
 /* Completed :] */
 Logger.Log("Running API...");
-Logger.Log("Please keep this window open while using JsonAsAsset; closing it will cause the application to stop working.", LogType.Info);
+Logger.Log("Please keep this window open while using JsonAsAsset.", LogType.Info);
 Logger.Log("Developed by Tector and in collaboration with GMatrixGames. Thank you for using our software!", LogType.Credits);
 
 app.Run();

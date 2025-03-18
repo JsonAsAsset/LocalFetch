@@ -66,7 +66,7 @@ public class FetchContext
         UnrealVersion = (EGame)Enum.Parse(typeof(EGame), GetStringProperty(config, "UnrealVersion"), true);
         ArchiveKey = GetStringProperty(config, "ArchiveKey");
 
-        if (MappingFilePath != "") Logger.Log($"Mappings File Path: {MappingFilePath.SubstringBeforeLast("\\")}", LogType.Configuration);
+        if (MappingFilePath != "") Logger.Log($"Mappings File: {MappingFilePath.SubstringAfterLast("/")}", LogType.Configuration);
         Logger.Log($"Directory: {ArchiveDirectory.SubstringBeforeLast("\\")}", LogType.Configuration);
         Logger.Log($"Unreal Engine: {UnrealVersion.ToString()}", LogType.Configuration);
 
@@ -76,10 +76,6 @@ public class FetchContext
     public async Task Initialize()
     {
         Logger.Log("Initializing FetchContext, and provider..");
-
-        // Find config folder
-        var config_folder = AppDomain.CurrentDomain.BaseDirectory.SubstringBeforeLast(@"\Plugins\") + @"\Config\";
-        Logger.Log($"Found config folder: {config_folder.SubstringBeforeLast("\\")}", LogType.Configuration);
 
         // DefaultEditorPerProjectUserSettings
         var config = GetEditorConfig();
