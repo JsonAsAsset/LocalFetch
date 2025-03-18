@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using CUE4Parse.Utils;
 using CUE4Parse.UE4.Assets.Exports;
 using CUE4Parse.UE4.Assets.Exports.Texture;
@@ -9,46 +8,38 @@ using CUE4Parse_Conversion.Sounds;
 using Newtonsoft.Json;
 using SkiaSharp;
 using CUE4Parse.FileProvider;
+using LocalFetch.Utilities;
 
-// Handles API Requests
 namespace LocalFetch.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class LocalFetchController : ControllerBase
     {
-        private readonly DbContext _context;
-        private readonly DefaultFileProvider _provider;
+        private readonly DefaultFileProvider? fileProvider = FetchContext.Provider;
 
-        public LocalFetchController(DbContext context)
+        [HttpGet("/api/export")]
+        public ActionResult Get(bool raw, string? path)
         {
-            _context = context;
-            _provider = FetchContext.Provider;
-        }
-
-        [HttpGet("/api/v1/export")]
-        public ActionResult Get(bool raw, string path)
-        {
+            if (fileProvider == null) return BadRequest();
+            if (path == null) return BadRequest();
+            
             var contentType = Request.Headers.ContentType;
             path = path.SubstringBefore('.');
 
             try
             {
-                _provider.TryLoadPackageObject(path, export: out var localObject);
+                fileProvider.TryLoadPackageObject(path, export: out var localObject);
 
-                if (!raw)
+                if (raw) return HandleRawExport(path);
+                
+                /* Switch on Class Type */
+                return localObject switch
                 {
-                    // Switch on Class Type
-                    switch(localObject)
-                    {
-                        case UTexture texture:
-                            return ProcessTexture(texture, contentType);
-                        case USoundWave wave:
-                            return ProcessSoundWave(wave);
-                    };
-                }
-
-                return HandleRawExport(path);
+                    UTexture texture => ProcessTexture(texture, contentType!),
+                    USoundWave wave => ProcessSoundWave(wave),
+                    _ => HandleRawExport(path)
+                };
             }
             catch (Exception exception)
             {
@@ -64,12 +55,12 @@ namespace LocalFetch.Controllers
 
         private ActionResult ProcessTexture(UTexture texture, string contentType)
         {
-            if (texture.GetFirstMip().BulkData.Data is { } mipData && contentType == "application/octet-stream")
+            if (texture.GetFirstMip()!.BulkData.Data is { } mipData && contentType == "application/octet-stream")
             {
                 return File(mipData, contentType);
             }
 
-            SKBitmap textureData = texture.Decode();
+            var textureData = texture.Decode();
             if (textureData == null)
             {
                 return StatusCode(500, new
@@ -108,34 +99,29 @@ namespace LocalFetch.Controllers
             return File(data, mimeType);
         }
 
-        private ActionResult HandleRawExport(string path)
+        public ActionResult HandleRawExport(string? path)
         {
+            if (path == null) return BadRequest();
+            
             var objectPath = path.SubstringBefore('.') + ".o.uasset";
             
-            var pkg = _provider.LoadPackage(path);
+            var pkg = fileProvider!.LoadPackage(path);
             var exports = pkg.GetExports().ToArray();
             var finalExports = new List<UObject>(exports);
 
             var mergedExports = new List<UObject>();
-            if (_provider.TryLoadPackage(objectPath, out var editorAsset))
+            if (fileProvider.TryLoadPackage(objectPath, out var editorAsset))
             {
                 foreach (var export in exports)
                 {
                     var editorData = editorAsset.GetExportOrNull(export.Name + "EditorOnlyData");
-                    if (editorData != null)
-                    {
-                        export.Properties.AddRange(editorData.Properties);
-                        mergedExports.Add(export);
-                    }
+                    if (editorData == null) continue;
+                    
+                    export.Properties.AddRange(editorData.Properties);
+                    mergedExports.Add(export);
                 }
 
-                foreach (var editorExport in editorAsset.GetExports())
-                {
-                    if (!mergedExports.Contains(editorExport))
-                    {
-                        finalExports.Add(editorExport);
-                    }
-                }
+                finalExports.AddRange(editorAsset.GetExports().Where(editorExport => !mergedExports.Contains(editorExport)));
             }
             mergedExports.Clear();
 

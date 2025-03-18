@@ -1,33 +1,24 @@
-﻿using System.Runtime.InteropServices;
-using System.IO;
-using CUE4Parse.Utils;
-using CUE4Parse.UE4.Objects.Core.Misc;
-using CUE4Parse.UE4.Versions;
+﻿using System.IO;
 using CUE4Parse.Compression;
 using CUE4Parse.Encryption.Aes;
-using CUE4Parse.MappingsProvider;
-using UE4Config.Parsing;
 using CUE4Parse.FileProvider;
+using CUE4Parse.MappingsProvider;
+using CUE4Parse.UE4.Objects.Core.Misc;
+using CUE4Parse.UE4.Versions;
+using CUE4Parse.Utils;
+using UE4Config.Parsing;
 
-// Local Fetch's Context
-// Sets up everything CUE4Parse wise
+namespace LocalFetch.Utilities;
+
 public class FetchContext
 {
     public static DefaultFileProvider? Provider;
-    public static string? MappingFilePath;
-    public static string? ArchiveDirectory;
-    public static EGame UnrealVersion;
-    public static string? ArchiveKey;
+    private static string? MappingFilePath;
+    private static string? ArchiveDirectory;
+    private static EGame UnrealVersion;
+    private static string? ArchiveKey;
 
-    public void WriteLog(string source, ConsoleColor Color, string description)
-    {
-        Console.ForegroundColor = Color;
-        Console.Write('[' + source + "] ");
-        Console.ResetColor();
-        Console.WriteLine(description);
-    }
-
-    public string GetStringProperty(ConfigIni config, string propertyName)
+    public static string GetStringProperty(ConfigIni config, string propertyName)
     {
         var values = new List<string>();
         config.EvaluatePropertyValues("/Script/JsonAsAsset.JsonAsAssetSettings", propertyName, values);
@@ -35,7 +26,7 @@ public class FetchContext
         return values.Count == 1 ? values[0] : "";
     }
 
-    public List<string> GetArrayProperty(ConfigIni config, string PropertyName)
+    public static List<string> GetArrayProperty(ConfigIni config, string PropertyName)
     {
         var values = new List<string>();
         config.EvaluatePropertyValues("/Script/JsonAsAsset.JsonAsAssetSettings", PropertyName, values);
@@ -54,7 +45,7 @@ public class FetchContext
         return values[0] == "True";
     }
 
-    public string GetPathProperty(ConfigIni config, string PropertyName)
+    public static string GetPathProperty(ConfigIni config, string PropertyName)
     {
         var values = new List<string>();
         config.EvaluatePropertyValues("/Script/JsonAsAsset.JsonAsAssetSettings", PropertyName, values);
@@ -63,10 +54,10 @@ public class FetchContext
     }
 
     // Find config folder & UpdateData
-    public ConfigIni GetEditorConfig()
+    public static ConfigIni GetEditorConfig()
     {
-        string config_folder = System.AppDomain.CurrentDomain.BaseDirectory.SubstringBeforeLast("\\Plugins\\") + "\\Config\\";
-        ConfigIni config = new ConfigIni("DefaultEditorPerProjectUserSettings");
+        var config_folder = AppDomain.CurrentDomain.BaseDirectory.SubstringBeforeLast(@"\Plugins\") + @"\Config\";
+        var config = new ConfigIni("DefaultEditorPerProjectUserSettings");
         config.Read(File.OpenText(config_folder + "DefaultEditorPerProjectUserSettings.ini"));
 
         // Set Config Data to class
@@ -75,31 +66,26 @@ public class FetchContext
         UnrealVersion = (EGame)Enum.Parse(typeof(EGame), GetStringProperty(config, "UnrealVersion"), true);
         ArchiveKey = GetStringProperty(config, "ArchiveKey");
 
-        [DllImport("kernel32.dll")]
-        static extern IntPtr GetConsoleWindow();
-        [DllImport("user32.dll")]
-        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
-        if (MappingFilePath != "") WriteLog("UserSettings", ConsoleColor.Blue, $"Mappings File Path: {MappingFilePath.SubstringBeforeLast("\\")}");
-        WriteLog("UserSettings", ConsoleColor.Blue, $"Directory: {ArchiveDirectory.SubstringBeforeLast("\\")}");
-        WriteLog("UserSettings", ConsoleColor.Blue, $"Unreal Engine: {UnrealVersion.ToString()}");
+        if (MappingFilePath != "") Logger.Log($"Mappings File Path: {MappingFilePath.SubstringBeforeLast("\\")}", LogType.Configuration);
+        Logger.Log($"Directory: {ArchiveDirectory.SubstringBeforeLast("\\")}", LogType.Configuration);
+        Logger.Log($"Unreal Engine: {UnrealVersion.ToString()}", LogType.Configuration);
 
         return config;
     }
 
     public async Task Initialize()
     {
-        WriteLog("CORE", ConsoleColor.Cyan, "Initializing FetchContext, and provider..");
+        Logger.Log("Initializing FetchContext, and provider..");
 
         // Find config folder
-        string config_folder = System.AppDomain.CurrentDomain.BaseDirectory.SubstringBeforeLast("\\Plugins\\") + "\\Config\\";
-        WriteLog("UserSettings", ConsoleColor.Blue, $"Found config folder: {config_folder.SubstringBeforeLast("\\")}");
+        var config_folder = AppDomain.CurrentDomain.BaseDirectory.SubstringBeforeLast(@"\Plugins\") + @"\Config\";
+        Logger.Log($"Found config folder: {config_folder.SubstringBeforeLast("\\")}", LogType.Configuration);
 
         // DefaultEditorPerProjectUserSettings
-        ConfigIni config = GetEditorConfig();
+        var config = GetEditorConfig();
 
         // Create new file provider
-        Provider = new DefaultFileProvider(ArchiveDirectory, SearchOption.AllDirectories, true, new VersionContainer(UnrealVersion));
+        Provider = new DefaultFileProvider(ArchiveDirectory!, SearchOption.AllDirectories, new VersionContainer(UnrealVersion), StringComparer.OrdinalIgnoreCase);
         Provider.Initialize();
 
         var oodlePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, OodleHelper.OODLE_DLL_NAME);
@@ -110,28 +96,26 @@ public class FetchContext
         {
             // Submit Main AES Key
             await Provider.SubmitKeyAsync(new FGuid(), new FAesKey(ArchiveKey));
-            WriteLog("Provider", ConsoleColor.Red, $"Submitted Archive Key: {ArchiveKey}");
+            Logger.Log($"Submitted Key: {ArchiveKey}", LogType.CUE4);
         }
 
         var DynamicKeys = GetArrayProperty(config, "DynamicKeys");
-        if (DynamicKeys.Count() != 0)
-            WriteLog("Provider", ConsoleColor.Red, "Reading " + DynamicKeys.Count() + " Dynamic Keys -------------------------------------------");
 
         // Submit each dynamic key
-        foreach (string key in DynamicKeys)
+        foreach (var key in DynamicKeys)
         {
-            var _key = key; var ReAssignedKey = _key.SubstringAfterLast("(").SubstringBeforeLast(")");
-            string[] entries = ReAssignedKey.Split(",");
+            var ReAssignedKey = key.SubstringAfterLast("(").SubstringBeforeLast(")");
+            var entries = ReAssignedKey.Split(",");
 
             // Key & Guid
             var Key = entries[0].SubstringBeforeLast("\"").SubstringAfterLast("\"");
             var Guid = entries[1].SubstringBeforeLast("\"").SubstringAfterLast("\"");
 
             await Provider.SubmitKeyAsync(new FGuid(Guid), new FAesKey(Key));
-            WriteLog("Provider", ConsoleColor.Red, $"Submitted Key: {Key}");
+            Logger.Log($"Submitted Dynamic Key: {Key}", LogType.CUE4);
         }
 
-        if (MappingFilePath != "") Provider.MappingsContainer = new FileUsmapTypeMappingsProvider(MappingFilePath);
+        if (MappingFilePath != null) Provider.MappingsContainer = new FileUsmapTypeMappingsProvider(MappingFilePath);
         Provider.LoadVirtualPaths();
     }
 }
