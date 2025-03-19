@@ -53,6 +53,14 @@ namespace LocalFetch.Controllers
             }
         }
 
+        [HttpGet("/api/name")]
+        public ActionResult Get()
+        {
+            if (fileProvider == null) return BadRequest();
+            
+            return StatusCode(200, fileProvider.ProjectName);
+        }
+
         private ActionResult ProcessTexture(UTexture texture, string contentType)
         {
             if (texture.GetFirstMip()!.BulkData.Data is { } mipData && contentType == "application/octet-stream")
