@@ -1,15 +1,15 @@
-# LocalFetch
-[CUE4Parse](https://github.com/FabianFG/CUE4Parse) API made for [JsonAsAsset's](https://github.com/JsonAsAsset/JsonAsAsset) usage.
+LocalFetch - Automation of the Porting Process
+------------------------------------------
 
-**Editor Only Data**:
-<br> In Unreal Engine 5.2 and above, editor only data has been introduced to Unreal Engine.
+Local Fetch is an application that hosts the CUE4Parse API on your local machine for use by other programs, particularly [JsonAsAsset](https://github.com/JsonAsAsset/JsonAsAsset).
 
-**Contributors**:
-<br> [Tector](https://github.com/Tectors), and [GMatrix](https://github.com/GMatrixGames)
+[![Discord](https://img.shields.io/badge/Join%20Discord-Collector?color=0363ff&logo=discord&logoColor=white&style=for-the-badge)](https://discord.gg/h9s6qpBnUT)
+[![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/JsonAsAsset/LocalFetch/total?style=for-the-badge&label=DOWNLOADS&color=#03ffc8)](https://github.com/JsonAsAsset/LocalFetch/releases)
+[![GitHub Repo stars](https://img.shields.io/github/stars/JsonAsAsset/LocalFetch?style=for-the-badge&logo=&color=gold)](https://github.com/JsonAsAsset/LocalFetch/stargazers)
 
-**Build**:
-Open a console in this directory, and run `dotnet build`.
+------------------------------------------
 
+### Cloning Local Fetch
 ```
-git clone --recursive https://github.com/JsonAsAsset/LocalFetch.git
+git clone https://github.com/JsonAsAsset/LocalFetch --recursive
 ```
