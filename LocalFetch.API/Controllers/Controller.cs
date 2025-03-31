@@ -8,7 +8,59 @@ using CUE4Parse_Conversion.Sounds;
 using Newtonsoft.Json;
 using SkiaSharp;
 using CUE4Parse.FileProvider;
+using CUE4Parse.UE4.Objects.Meshes;
 using LocalFetch.Utilities;
+using Newtonsoft.Json.Serialization;
+
+class FColorVertexBufferCustomConverter : JsonConverter<FColorVertexBuffer>
+{
+    public override void WriteJson(JsonWriter writer, FColorVertexBuffer? value, JsonSerializer serializer)
+    {
+        writer.WriteStartObject();
+
+        writer.WritePropertyName("Data");
+        writer.WriteStartArray();
+        
+        foreach (var c in value!.Data)
+            writer.WriteValue(UnsafePrint.BytesToHex(c.A, c.R, c.G, c.B));
+        
+        writer.WriteEndArray();
+
+        writer.WritePropertyName("Stride");
+        writer.WriteValue(value.Stride);
+
+        writer.WritePropertyName("NumVertices");
+        writer.WriteValue(value.NumVertices);
+
+        writer.WriteEndObject();
+    }
+
+    public override FColorVertexBuffer ReadJson(JsonReader reader, Type objectType, FColorVertexBuffer? existingValue, bool hasExistingValue,
+        JsonSerializer serializer)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+class LocalFetchResolver : DefaultContractResolver
+{
+    private Dictionary<Type, JsonConverter> _Converters { get; set; }
+
+    public LocalFetchResolver(Dictionary<Type, JsonConverter> converters)
+    {
+        _Converters = converters;
+    }
+
+    protected override JsonObjectContract CreateObjectContract(Type objectType)
+    {
+        JsonObjectContract contract = base.CreateObjectContract(objectType);
+        if (_Converters.TryGetValue(objectType, out JsonConverter converter))
+        {
+            contract.Converter = converter;
+        }
+        return contract;
+    }
+}
 
 namespace LocalFetch.Controllers
 {
@@ -132,12 +184,18 @@ namespace LocalFetch.Controllers
                 finalExports.AddRange(editorAsset.GetExports().Where(editorExport => !mergedExports.Contains(editorExport)));
             }
             mergedExports.Clear();
+            
+            var converters = new Dictionary<Type, JsonConverter>()
+            {
+                { typeof(FColorVertexBuffer), new FColorVertexBufferCustomConverter() }
+            };
+            var settings = new JsonSerializerSettings { ContractResolver = new LocalFetchResolver(converters) };
 
             // Serialize object, and return it indented
             return new OkObjectResult(JsonConvert.SerializeObject(new
             {
                 jsonOutput = finalExports
-            }, Formatting.Indented));
+            }, Formatting.Indented, settings));
         }
     }
 }
