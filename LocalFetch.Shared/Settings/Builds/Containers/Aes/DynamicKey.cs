@@ -1,4 +1,4 @@
-﻿namespace LocalFetch.Shared.Settings.Builds.Aes;
+﻿namespace LocalFetch.Shared.Settings.Builds.Containers.Aes;
 
 /// <summary>
 /// Represents a dynamic AES key.

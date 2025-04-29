@@ -20,10 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Extensions\" />
-    </ItemGroup>
-
-    <ItemGroup>
+      <ProjectReference Include="..\Dependencies\CUE4Parse\CUE4Parse-Conversion\CUE4Parse-Conversion.csproj" />
       <ProjectReference Include="..\Dependencies\CUE4Parse\CUE4Parse\CUE4Parse.csproj" />
     </ItemGroup>
 </Project>

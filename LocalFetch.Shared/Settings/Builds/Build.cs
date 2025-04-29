@@ -8,8 +8,9 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
 using CUE4Parse.UE4.Versions;
-using LocalFetch.Shared.Settings.Builds.Aes;
-
+using CUE4Parse.UE4.VirtualFileSystem;
+using LocalFetch.Shared.Models;
+using LocalFetch.Shared.Settings.Builds.Containers.Aes;
 using SystemPath = System.IO.Path;
 
 namespace LocalFetch.Shared.Settings.Builds;
@@ -17,7 +18,7 @@ namespace LocalFetch.Shared.Settings.Builds;
 /// <summary>
 /// Individual Build Settings Class saved at Roaming/LocalFetch/Builds
 /// </summary>
-public sealed class BuildSettings
+public sealed class Build
 {
     public string Name { get; set; } = "Build";
 
@@ -73,9 +74,9 @@ public sealed class BuildSettings
         }
     }
     
-    public static IEnumerable<BuildSettings> LoadAll()
+    public static IEnumerable<Build> LoadAll()
     {
-        var settingsList = new List<BuildSettings>();
+        var settingsList = new List<Build>();
 
         Directory.CreateDirectory(SaveFolder);
 
@@ -85,7 +86,7 @@ public sealed class BuildSettings
             try
             {
                 var json = File.ReadAllText(file);
-                var buildSetting = JsonSerializer.Deserialize<BuildSettings>(json);
+                var buildSetting = JsonSerializer.Deserialize<Build>(json);
                 if (buildSetting != null)
                 {
                     settingsList.Add(buildSetting);
@@ -137,20 +138,17 @@ public sealed class BuildSettings
 
         var contentFolder = Path[..(index + "Content".Length)];
         var splashPath = SystemPath.Combine(contentFolder, "Splash", "Splash.bmp");
-        
-        if (File.Exists(splashPath))
+
+        if (!File.Exists(splashPath)) return null;
+        try
         {
-            try
-            {
-                return new Bitmap(splashPath);
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
+            return new Bitmap(splashPath);
         }
         
-        return null;
+        catch (Exception)
+        {
+            return null;
+        }
     }
     
     [JsonIgnore]
@@ -158,4 +156,24 @@ public sealed class BuildSettings
     
     [JsonIgnore]
     public bool SplashVisibility => SplashBitmap != null;
+    
+    [JsonIgnore]
+    public BuildProvider Provider;
+
+    public Build()
+    {
+        Provider = new BuildProvider(Path, new VersionContainer(Version));
+    }
+
+    public Task Initialize()
+    {
+        Provider.VfsMounted += (sender, _) =>
+        {
+            if (sender is not IAesVfsReader reader) return;
+
+            HomeVM.UpdateStatus($"Loading {reader.Name}");
+        };
+        
+        return Task.CompletedTask;
+    }
 }

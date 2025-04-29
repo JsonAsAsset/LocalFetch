@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LocalFetch.Shared.Settings.Builds.Aes;
+namespace LocalFetch.Shared.Settings.Builds.Containers.Aes;
 
 /// <summary>
 /// This container can hold a primary key as well as a collection of dynamic keys.
