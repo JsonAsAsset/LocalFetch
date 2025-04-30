@@ -15,7 +15,7 @@ Running the API requires ASP.NET 8.0 to be installed; please install this [here]
 git clone https://github.com/JsonAsAsset/LocalFetch --recursive
 ```
 
-## Update Submodules
+### Update Submodules
 ```
 git submodule update --init --recursive
 ```
