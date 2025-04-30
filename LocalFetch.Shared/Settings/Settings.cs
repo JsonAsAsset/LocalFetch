@@ -7,13 +7,11 @@ namespace LocalFetch.Shared.Settings;
 public sealed class UserSettings
 {
 #if DEBUG
-    /* File path to debug settings */
     public static readonly string FilePath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
         "LocalFetch",
         "Settings_Debug.json");
 #else
-    /* File path to settings */
     public static readonly string FilePath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
         "LocalFetch",
