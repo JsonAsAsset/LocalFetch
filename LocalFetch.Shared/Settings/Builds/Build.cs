@@ -7,9 +7,10 @@ using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
+using CUE4Parse.MappingsProvider;
 using CUE4Parse.UE4.Versions;
-using CUE4Parse.UE4.VirtualFileSystem;
 using LocalFetch.Shared.Models;
+using LocalFetch.Shared.Settings.Builds.Containers;
 using LocalFetch.Shared.Settings.Builds.Containers.Aes;
 using SystemPath = System.IO.Path;
 
@@ -21,24 +22,21 @@ namespace LocalFetch.Shared.Settings.Builds;
 public sealed class Build
 {
     public string Name { get; set; } = "Build";
-
     public string Path { get; set; } = string.Empty;
-
+    public string MappingsFilePath { get; set; } = string.Empty;
     public EGame Version { get; set; } = EGame.GAME_UE5_LATEST;
-    
     public AesContainer Aes { get; set; } = new();
-    
     public BuildDisplayContainer Display { get; set; } = new();
-
+    
+    /* If used as a secondary build, always grab these asset types from this build only */
+    public List<string> SecondaryAssetTypes { get; set; } = [];
+    
+    [JsonIgnore] public string FilePath => SystemPath.Combine(Globals.BuildsFolder.ToString(), $"{SanitizeFileName(Name)}.json");
+    [JsonIgnore] public string VersionDisplay => Version.ToString();
+    
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-    
-    [JsonIgnore]
-    public string FilePath => SystemPath.Combine(SaveFolder, $"{SanitizeFileName(Name)}.json");
-    
-    [JsonIgnore]
-    public string VersionDisplay => Version.ToString();
 
-    // Helper method to sanitize file names
+    /* Helper method to sanitize file names */
     private static string SanitizeFileName(string fileName)
     {
         var invalidChars = new string(SystemPath.GetInvalidFileNameChars());
@@ -46,15 +44,10 @@ public sealed class Build
         return Regex.Replace(fileName, regexSearch, "_").Replace(" ", "_");
     }
     
-    public static readonly string SaveFolder = SystemPath.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-        "LocalFetch",
-        "Builds");
-    
     /* Asynchronous save method */
     public async Task Save()
     {
-        Directory.CreateDirectory(SaveFolder);
+        Directory.CreateDirectory(Globals.BuildsFolder.ToString());
         var json = JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
         
         await File.WriteAllTextAsync(FilePath, json);
@@ -70,7 +63,7 @@ public sealed class Build
         }
         else
         {
-            Console.Error.WriteLine($"File not found: {FilePath}");
+            Console.Error.WriteLine($"Build settings file not found: {FilePath}");
         }
     }
     
@@ -78,9 +71,9 @@ public sealed class Build
     {
         var settingsList = new List<Build>();
 
-        Directory.CreateDirectory(SaveFolder);
+        Directory.CreateDirectory(Globals.BuildsFolder.ToString());
 
-        var buildFiles = Directory.GetFiles(SaveFolder, "*.json");
+        var buildFiles = Directory.GetFiles(Globals.BuildsFolder.ToString(), "*.json");
         foreach (var file in buildFiles)
         {
             try
@@ -103,25 +96,30 @@ public sealed class Build
     
     private string GetAbbreviation()
     {
-        var words = Name.Split(' ', StringSplitOptions.RemoveEmptyEntries)
-            .Where(word => word.Any(char.IsLetter))
-            .ToArray();
+        var words = Name.Split(' ', StringSplitOptions.RemoveEmptyEntries).Where(word => word.Any(char.IsLetter)).ToArray();
 
         switch (words.Length)
         {
             case >= 2:
+            {
                 return $"{char.ToUpper(words[0][0])}{char.ToUpper(words[1][0])}";
+            }
+
             case 1:
             {
                 var word = words[0];
                 if (word.Length < 2)
+                {
                     return char.ToUpper(word[0]).ToString();
-                
+                }
+
                 var mid = word.Length / 2;
                 return $"{char.ToUpper(word[0])}{char.ToUpper(word[mid])}";
             }
-            default:
+            
+            default: {
                 return string.Empty;
+            }
         }
     }
     
@@ -144,36 +142,85 @@ public sealed class Build
         {
             return new Bitmap(splashPath);
         }
-        
         catch (Exception)
         {
             return null;
         }
     }
     
-    [JsonIgnore]
-    public Bitmap? SplashBitmap => LoadSplashBitmap();
+    /* CUE4Parse behavior ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+    [JsonIgnore] public Bitmap? SplashBitmap => LoadSplashBitmap();
+    [JsonIgnore] public bool SplashVisibility => SplashBitmap != null;
+    [JsonIgnore] public bool IsInitialized;
+    [JsonIgnore] public required BuildProvider Provider;
     
-    [JsonIgnore]
-    public bool SplashVisibility => SplashBitmap != null;
-    
-    [JsonIgnore]
-    public BuildProvider Provider;
-
-    public Build()
+    private Task InitializeProvider()
     {
-        Provider = new BuildProvider(Path, new VersionContainer(Version));
-    }
-
-    public Task Initialize()
-    {
-        Provider.VfsMounted += (sender, _) =>
+        if (Path.Length != 0)
         {
-            if (sender is not IAesVfsReader reader) return;
-
-            HomeVM.UpdateStatus($"Loading {reader.Name}");
-        };
+            Provider = new BuildProvider(Path, new VersionContainer(Version));
+        }
+        
+        if (!Aes.IsValid) Aes.Key = Globals.EMPTY_CHAR;
+        Provider.Initialize();
         
         return Task.CompletedTask;
+    }
+
+    private Task InitializeTextureStreaming()
+    {
+        return Task.CompletedTask;
+    }
+    
+    private async Task LoadKeys()
+    {
+        await Provider.SubmitKeyAsync(Globals.EMPTY_GUID, Aes.EncryptionKey);
+        Logger.Log($"Submitted AES Key: {Aes.EncryptionKey}", LogType.CUE4, Name);
+
+        if (Aes.HasDynamicKeys)
+        {
+            foreach (var vfs in Provider.UnloadedVfs.ToArray())
+            {
+                foreach (var extraKey in Aes.DynamicKeys.Where(extraKey => !extraKey.IsInvalid).Where(extraKey => vfs.TestAesKey(extraKey.EncryptionKey)))
+                {
+                    await Provider.SubmitKeyAsync(vfs.EncryptionKeyGuid, extraKey.EncryptionKey);
+                    Logger.Log($"Submitted Dynamic AES Key: {extraKey.EncryptionKey}", LogType.CUE4, Name);
+                }
+            }
+        }
+    }
+    
+    private Task LoadMappings()
+    {
+        if (string.IsNullOrEmpty(MappingsFilePath)) return Task.CompletedTask;
+        
+        Provider.MappingsContainer = new FileUsmapTypeMappingsProvider(MappingsFilePath);
+        Logger.Log($"Loaded Mappings: {MappingsFilePath}", LogType.CUE4, Name);
+        
+        return Task.CompletedTask;
+    }
+    
+    private Task LoadAssetRegistries()
+    {
+        return Task.CompletedTask;
+    }
+
+    public async Task Initialize()
+    {
+        Logger.Log($"Initializing build {Name}..", LogType.Info);
+        
+        await InitializeProvider();
+        await InitializeTextureStreaming();
+        
+        await LoadKeys();
+        Provider.LoadVirtualPaths();
+        Provider.PostMount();
+
+        await LoadMappings();
+        await LoadAssetRegistries();
+        
+        IsInitialized = true;
+        
+        Logger.Log($"Initialized build {Name}", LogType.Info);
     }
 }

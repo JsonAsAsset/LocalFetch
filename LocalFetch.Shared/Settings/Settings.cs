@@ -56,7 +56,7 @@ public sealed class UserSettings
         {
             Directory.CreateDirectory(Path.GetDirectoryName(FilePath)!);
 
-            var json = JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
+            var json = JsonSerializer.Serialize(this, options: new JsonSerializerOptions { WriteIndented = true });
             
             File.WriteAllText(FilePath, json);
         }

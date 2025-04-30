@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using CUE4Parse.Utils;
 using CUE4Parse.UE4.Assets.Exports;
@@ -6,59 +8,71 @@ using CUE4Parse.UE4.Assets.Exports.Texture;
 using CUE4Parse.UE4.Assets.Exports.Sound;
 using CUE4Parse_Conversion.Textures;
 using CUE4Parse_Conversion.Sounds;
+using CUE4Parse.UE4.Objects.Meshes;
 using Newtonsoft.Json;
 
-using CUE4Parse.FileProvider.Vfs;
-using SkiaSharp;
+using LocalFetch.Shared.Models;
+using LocalFetch.Shared.Settings.Builds;
+using LocalFetch.Shared.Convertors;
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Local Fetch API Controller */
-/* fileProvider is from the Local Fetch Web Application, as we don't want to start two different CUE4Parses */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 namespace LocalFetch.API.Controllers;
 
 [Route("api")]
 [ApiController]
-public class LocalFetchApiController(DbContext context) : ControllerBase
+public class LocalFetchApiController : ControllerBase
 {
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-    private readonly DbContext _context = context;
-    private readonly AbstractVfsFileProvider? fileProvider = LocalFetchApi.Provider; /* Set from LocalFetch
+    public static IEnumerable<Build> builds = [];
+    public static Build? mainBuild => builds.Any() ? builds.First() : null;
+    public static bool IsBuildInitialized => builds.Any() && mainBuild is { IsInitialized: true };
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-        
+    
+    /* Metadata request to retrieve information about this process */
+    [HttpGet("metadata")]
+    public ActionResult Get()
+    {
+        if (!IsBuildInitialized) return new BadRequestObjectResult(JsonConvert.SerializeObject(new
+        {
+            reason = "Not initialized yet"
+        }, Formatting.Indented));
+
+        return new OkObjectResult(JsonConvert.SerializeObject(new
+        {
+            name = mainBuild?.Provider.ProjectName
+        }, Formatting.Indented));
+    }
+    
     /* Normal Export */
     [HttpGet("export")]
-    public ActionResult Get(bool raw, string path)
+    public ActionResult Get(bool raw, string? path)
     {
+        if (!IsBuildInitialized) return BadRequest();
+        if (path == null) return BadRequest();
+        
         var contentType = Request.Headers.ContentType;
         path = path.SubstringBefore('.');
         
-        try
-        {
-            fileProvider!.TryLoadPackageObject(path, export: out var localObject);
+        /* Find the build that'll have this asset */
+        var build = FindBuildForPath(path, found: out var found);
+        if (!found) return new NotFoundResult();
+        
+        var provider = build.Provider;
+        provider.TryLoadPackageObject(path, export: out var localObject);
 
-            /* Return a raw export */
-            if (raw) return HandleRawExport(path);
+        /* Return a raw export */
+        if (raw) return HandleRawExport(path, provider);
 
-            /* Switch on Class Type */
-            return localObject switch
-            {
-                UTexture texture => ProcessTexture(texture, contentType!),
-                USoundWave wave => ProcessSoundWave(wave),
-                _ => HandleRawExport(path)
-            };
-        }
-        catch (Exception exception)
+        /* Switch on Class Type */
+        return localObject switch
         {
-            return new ConflictObjectResult(JsonConvert.SerializeObject(new
-            {
-                errored = true,
-                note = exception.Message.StartsWith("One or more errors occurred. (There is no game file with the path ")
-                    ? "Unable to find package"
-                    : exception.Message
-            }, Formatting.Indented));
-        }
+            UTexture texture => ProcessTexture(texture, contentType!),
+            USoundWave wave => ProcessSoundWave(wave),
+            _ => HandleRawExport(path, provider)
+        };
     }
 
     /* Return a texture as a file / encoding */
@@ -80,7 +94,7 @@ public class LocalFetchApiController(DbContext context) : ControllerBase
             });
         }
 
-        return File(textureData.Encode(SKEncodedImageFormat.Png, quality: 100).AsStream(), contentType);
+        return StatusCode(500);
     }
 
     /* Return a sound wave file format */
@@ -111,25 +125,20 @@ public class LocalFetchApiController(DbContext context) : ControllerBase
     }
 
     /* Handle raw exports */
-    private ActionResult HandleRawExport(string path)
+    public ActionResult HandleRawExport(string path, BuildProvider provider)
     {
-        if (fileProvider == null)
-        {
-            return StatusCode(500);
-        }
-        
-        var objectPath = path.SubstringBefore('.') + ".o.uasset";
+        var objectPath = $"{path.SubstringBefore('.')}.o.uasset";
             
-        var pkg = fileProvider.LoadPackage(path);
+        var pkg = provider.LoadPackage(path);
         var exports = pkg.GetExports().ToArray();
         var finalExports = new List<UObject>(exports);
 
         var mergedExports = new List<UObject>();
-        if (fileProvider.TryLoadPackage(objectPath, out var editorAsset))
+        if (provider.TryLoadPackage(objectPath, out var editorAsset))
         {
             foreach (var export in exports)
             {
-                var editorData = editorAsset.GetExportOrNull(export.Name + "EditorOnlyData");
+                var editorData = editorAsset.GetExportOrNull($"{export.Name}EditorOnlyData");
                 if (editorData == null)
                 {
                     continue;
@@ -143,10 +152,54 @@ public class LocalFetchApiController(DbContext context) : ControllerBase
         }
         mergedExports.Clear();
 
-        // Serialize object, and return it indented
+        var converters = new Dictionary<Type, JsonConverter> {{ typeof(FColorVertexBuffer), new FColorVertexBufferCustomConverter() }};
+        var settings = new JsonSerializerSettings { ContractResolver = new FColorVertexBufferCustomResolver(converters!) };
+
+        /* Serialize object, and return it indented */
         return new OkObjectResult(JsonConvert.SerializeObject(new
         {
             jsonOutput = finalExports
-        }, Formatting.Indented));
+        }, Formatting.Indented, settings));
+    }
+    
+    /*
+     * If the path exists on the main build, it'll check if other builds specifically override the main build, if so it'll pick that, else it'll give the one found initially
+     * If the path doesn't exist on a main build, it'll cycle through each build to find one that has the asset existing
+     */
+    public Build FindBuildForPath(string rawPath, out bool found)
+    {
+        var path = rawPath.SubstringBefore('.');
+        found = false;
+        
+        if (mainBuild!.Provider.TryLoadPackage(path, package: out _))
+        {
+            found = true;
+
+            foreach (var build in builds)
+            {
+                if (!build.IsInitialized) continue;
+                if (!build.Provider.TryLoadPackage(path, package: out var package)) continue;
+                var assetType = package.GetExports().FirstOrDefault()?.ExportType;
+
+                if (assetType != null && build.SecondaryAssetTypes.Contains(assetType, StringComparer.OrdinalIgnoreCase))
+                {
+                    return build;
+                }
+            }
+        }
+        else
+        {
+            foreach (var build in builds)
+            {
+                if (!build.IsInitialized) continue;
+                if (!build.Provider.TryLoadPackage(path, package: out _)) continue;
+            
+                found = true;
+                
+                return build;
+            }
+        }
+
+        return mainBuild;
     }
 }

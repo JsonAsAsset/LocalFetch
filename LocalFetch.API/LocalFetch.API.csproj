@@ -4,25 +4,23 @@
     </Target>
 
     <PropertyGroup>
-		<OutputType>WinExe</OutputType>
-		<TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net8.0-windows7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <AssemblyName>LocalFetch.API</AssemblyName>
-        <PackageProjectUrl>https:/*github.com/JsonAsAsset/JsonAsAsset</PackageProjectUrl>
-        <RepositoryUrl>https:/*github.com/JsonAsAsset/JsonAsAsset</RepositoryUrl>
+        <OutputType>Exe</OutputType>
+        <Description>Local Fetch API</Description>
+        <PackageProjectUrl>https://github.com/JsonAsAsset/JsonAsAsset</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/JsonAsAsset/JsonAsAsset</RepositoryUrl>
         <SignAssembly>False</SignAssembly>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-		<OutputType>Library</OutputType>
-		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<SelfContained>true</SelfContained>
-        <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
-	</PropertyGroup>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\Dependencies\CUE4Parse\CUE4Parse-Conversion\CUE4Parse-Conversion.csproj"/>
         <ProjectReference Include="..\Dependencies\CUE4Parse\CUE4Parse\CUE4Parse.csproj"/>
-        <ProjectReference Include="..\LocalFetch.Shared\LocalFetch.Shared.csproj"/>
     </ItemGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -44,5 +42,11 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.5"/>
         <PackageReference Include="RestSharp.Newtonsoft.Json" Version="1.5.1"/>
         <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="110.2.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Dependencies\CUE4Parse\CUE4Parse-Conversion\CUE4Parse-Conversion.csproj"/>
+        <ProjectReference Include="..\Dependencies\CUE4Parse\CUE4Parse\CUE4Parse.csproj"/>
+        <ProjectReference Include="..\LocalFetch.Shared\LocalFetch.Shared.csproj"/>
     </ItemGroup>
 </Project>

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 using Avalonia;
 using Avalonia.Media;
 
-namespace LocalFetch.Shared.Settings.Builds;
+namespace LocalFetch.Shared.Settings.Builds.Containers;
 
 /// <summary>
 /// Visual colors displayed in menu settings
