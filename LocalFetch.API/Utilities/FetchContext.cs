@@ -113,5 +113,6 @@ public class FetchContext
 
         if (MappingFilePath != null) Provider.MappingsContainer = new FileUsmapTypeMappingsProvider(MappingFilePath);
         Provider.LoadVirtualPaths();
+        Provider.Mount();
     }
 }
