@@ -131,7 +131,12 @@ namespace LocalFetch.Controllers
                 });
             }
 
-            return File(textureData.Encode(SKEncodedImageFormat.Png, quality: 100).AsStream(), contentType);
+            return StatusCode(500, new
+            {
+                errored = true,
+                exceptionstring = "Invalid request, exported as json",
+                jsonOutput = new { texture }
+            });
         }
 
         private ActionResult ProcessSoundWave(USoundWave wave)
