@@ -56,9 +56,9 @@ public class FetchContext
     // Find config folder & UpdateData
     public static ConfigIni GetEditorConfig()
     {
-        var config_folder = AppDomain.CurrentDomain.BaseDirectory.SubstringBeforeLast(@"\Plugins\") + @"\Config\";
+        var config_folder = AppDomain.CurrentDomain.BaseDirectory.SubstringBeforeLast(@"\Plugins\") + @"\Saved\Config\WindowsEditor\";
         var config = new ConfigIni("DefaultEditorPerProjectUserSettings");
-        config.Read(File.OpenText(config_folder + "DefaultEditorPerProjectUserSettings.ini"));
+        config.Read(File.OpenText(config_folder + "EditorPerProjectUserSettings.ini"));
 
         // Set Config Data to class
         MappingFilePath = GetPathProperty(config, "MappingFilePath");

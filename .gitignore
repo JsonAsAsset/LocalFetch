@@ -84,3 +84,4 @@ _[Ss]cripts
 appsettings*
 *.bin
 Release/Win64/LocalFetch.staticwebassets.endpoints.json
+/LocalFetch.API/.vs
